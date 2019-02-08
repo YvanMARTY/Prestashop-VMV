@@ -22,7 +22,7 @@ Le projet a été réalisé par l'ensemble de la classe. Mais, j'ai a ma chargé
 
 ## Versioning
 
-Nous utilisons le système de [releases](https://github.com/YvanMARTY/Visite-ma-ville/releases) de GitHub pour le "versioning". 
+Nous utilisons le système de [releases](https://github.com/YvanMARTY/Prestashop-VMV/releases) de GitHub pour le "versioning". 
 
 ## Historique des releases
 
