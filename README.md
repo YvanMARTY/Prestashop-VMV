@@ -6,14 +6,7 @@ L'achat de parcours peut être achetée via  le site WEB : http://visite-ma-vill
 
 ## Introduction
 
-Le projet a été réalisé par l'ensemble de la classe. Mais, j'ai a ma chargé :
-- L'installation du CMS & de sa configuration :
-   - Installation des modules (paiements, SEO)
-   - Balises meta
-   - Google Analytics
-   - Google Search Console
-   - Etude de mots-clefs pour une campagne Adwords
-   - Intégration d'une maquette pour le thème du site
+Le projet a été réalisé par l'ensemble de la classe.
 
 ## Développé avec
 
