@@ -2,7 +2,7 @@
 
 <br /><br />
 <blockquote style="text-align:justify;"> Dans le cadre de nos études, nous devons réaliser un site web afin de proposer des parcours permettant la visite de Toulouse selon les différents lieux clefs.
-L'achat de parcours peut être achetée via  le site WEB : https://visite-ma-ville.fr/. Nous sommes étudiants à l'<a href="http://www.limayrac.fr/">Institut Limayrac</a> en seconde année du Master "Chef de Projets Informatiques".</blockquote>
+L'achat de parcours peut être effectué via  le site WEB : https://visite-ma-ville.fr/. Nous sommes étudiants à l'<a href="http://www.limayrac.fr/">Institut Limayrac</a> en seconde année du Master "Chef de Projets Informatiques".</blockquote>
 
 ## Introduction
 
