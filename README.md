@@ -27,8 +27,3 @@ Nous utilisons le système de [releases](https://github.com/YvanMARTY/Visite-ma-
     * Incoming ...
 * 0.8 | 20/05/2019
     * Incoming ...
-
-## Auteur
-
-* **Yvan MARTY**
-    * *Développeur & Intégrateur WEB* - [LinkedIn](https://www.linkedin.com/in/martyyvan/)
