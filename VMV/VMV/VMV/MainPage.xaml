@@ -2,13 +2,90 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:VMV"
-             x:Class="VMV.MainPage">
+             x:Class="VMV.MainPage"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="Green">
 
-    <StackLayout>
-        <!-- Place new controls here -->
-        <Label Text="Welcome to Xamarin.Forms!" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
+    
+    <StackLayout Orientation="Vertical"
+                 HorizontalOptions="FillAndExpand"
+                 VerticalOptions="FillAndExpand">
+
+        <StackLayout Orientation="Horizontal"  
+                     VerticalOptions="Start"
+                     BackgroundColor="Red">
+
+            <Button Text="Menu">
+                
+            </Button>
+            
+        </StackLayout>
+
+
+        <StackLayout VerticalOptions="CenterAndExpand"
+                     BackgroundColor="Turquoise"
+                     Margin="50,50,50,50">
+
+            <Label Text="Se connecter à une partie"
+                   FontSize="Large"
+                   HorizontalTextAlignment="Center">
+            </Label>
+            
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="FillAndExpand">
+                <Label Text="Numéro de partie :"
+                       VerticalTextAlignment="Center">
+                </Label>
+                <Entry TextColor="White"
+                       WidthRequest="100">
+                </Entry>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="FillAndExpand">
+                <Label Text="Mot de passe :"
+                       VerticalTextAlignment="Center">
+                </Label>
+
+                <Entry TextColor="White"
+                       WidthRequest="100">
+                </Entry>
+            </StackLayout>
+
+            <Button x:Name="Connexion"
+                    Text="Se connecter"
+                   Clicked="Connexion_Clicked">
+                
+            </Button>
+
+
+
+
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal"
+                     HorizontalOptions="CenterAndExpand"
+                     VerticalOptions="End"
+                     BackgroundColor="Red">
+
+            <Button Text="1">
+
+            </Button>
+            <Button Text="2">
+
+            </Button>
+            <Button Text="3">
+
+            </Button>
+            <Button Text="4">
+
+            </Button>
+            <Button Text="5">
+
+            </Button>
+        </StackLayout>
+
     </StackLayout>
+
 
 </ContentPage>
