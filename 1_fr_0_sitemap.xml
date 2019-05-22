@@ -211,212 +211,70 @@
 <priority>0.1</priority>
 </url>
 <url>
-<loc><![CDATA[https://visite-ma-ville.fr/hommes/1-hummingbird-printed-t-shirt.html]]></loc>
-<lastmod>2019-02-03T15:52:44+01:00</lastmod>
+<loc><![CDATA[https://visite-ma-ville.fr/index.php?controller=module-paypal-payment]]></loc>
+
+<changefreq>daily</changefreq>
+<priority>0.1</priority>
+</url>
+<url>
+<loc><![CDATA[https://visite-ma-ville.fr/index.php?controller=module-paypal-validation]]></loc>
+
+<changefreq>daily</changefreq>
+<priority>0.1</priority>
+</url>
+<url>
+<loc><![CDATA[https://visite-ma-ville.fr/lhistoire-de-toulouse/1-lhistoire-de-toulouse.html]]></loc>
+<lastmod>2019-04-24T19:55:53+02:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.9</priority>
 <image:image>
-<image:loc><![CDATA[https://visite-ma-ville.fr/1-large_default/hummingbird-printed-t-shirt.jpg]]></image:loc>
+<image:loc><![CDATA[https://visite-ma-ville.fr/24-large_default/lhistoire-de-toulouse.jpg]]></image:loc>
 <image:caption><![CDATA[Coupe classique, col rond, manches courtes. T-shirt en coton pima extra-fin à fibres longues. ]]></image:caption>
-<image:title><![CDATA[T-shirt imprimé colibri]]></image:title>
+<image:title><![CDATA[L’histoire de Toulouse]]></image:title>
 </image:image>
 </url>
 <url>
-<loc><![CDATA[https://visite-ma-ville.fr/accueil/2-brown-bear-printed-sweater.html]]></loc>
-<lastmod>2019-02-02T22:30:14+01:00</lastmod>
+<loc><![CDATA[https://visite-ma-ville.fr/visite-sportive/2-visite-sportive.html]]></loc>
+<lastmod>2019-04-24T19:57:00+02:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.9</priority>
 <image:image>
-<image:loc><![CDATA[https://visite-ma-ville.fr/21-large_default/brown-bear-printed-sweater.jpg]]></image:loc>
+<image:loc><![CDATA[https://visite-ma-ville.fr/25-large_default/visite-sportive.jpg]]></image:loc>
 <image:caption><![CDATA[Coupe classique, col rond, manches longues. Pull 100% coton avec intérieur brossé pour plus de confort. ]]></image:caption>
-<image:title><![CDATA[Pull imprimé colibri]]></image:title>
+<image:title><![CDATA[Visite sportive]]></image:title>
 </image:image>
 </url>
 <url>
-<loc><![CDATA[https://visite-ma-ville.fr/art/3-affiche-encadree-the-best-is-yet-to-come.html]]></loc>
-<lastmod>2019-02-02T22:30:14+01:00</lastmod>
+<loc><![CDATA[https://visite-ma-ville.fr/toulouse-et-lart/3-toulouse-et-lart.html]]></loc>
+<lastmod>2019-04-24T19:57:17+02:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.9</priority>
 <image:image>
-<image:loc><![CDATA[https://visite-ma-ville.fr/3-large_default/affiche-encadree-the-best-is-yet-to-come.jpg]]></image:loc>
+<image:loc><![CDATA[https://visite-ma-ville.fr/26-large_default/toulouse-et-lart.jpg]]></image:loc>
 <image:caption><![CDATA[Affiche imprimée sur papier rigide, finition mate et surface lisse.]]></image:caption>
-<image:title><![CDATA[Affiche encadrée The best is yet to come]]></image:title>
+<image:title><![CDATA[Toulouse et l’Art]]></image:title>
 </image:image>
 </url>
 <url>
-<loc><![CDATA[https://visite-ma-ville.fr/accueil/4-affiche-encadree-the-adventure-begins.html]]></loc>
-<lastmod>2019-02-02T22:30:14+01:00</lastmod>
+<loc><![CDATA[https://visite-ma-ville.fr/parcours-spirituel/4-parcours-spirituel.html]]></loc>
+<lastmod>2019-04-24T19:57:19+02:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.9</priority>
 <image:image>
-<image:loc><![CDATA[https://visite-ma-ville.fr/4-large_default/affiche-encadree-the-adventure-begins.jpg]]></image:loc>
+<image:loc><![CDATA[https://visite-ma-ville.fr/27-large_default/parcours-spirituel.jpg]]></image:loc>
 <image:caption><![CDATA[Affiche imprimée sur papier rigide, finition mate et surface lisse.]]></image:caption>
-<image:title><![CDATA[Affiche encadrée The adventure begins]]></image:title>
+<image:title><![CDATA[Parcours spirituel]]></image:title>
 </image:image>
 </url>
 <url>
-<loc><![CDATA[https://visite-ma-ville.fr/art/5-affiche-encadree-today-is-a-good-day.html]]></loc>
-<lastmod>2019-02-02T22:30:14+01:00</lastmod>
+<loc><![CDATA[https://visite-ma-ville.fr/toulouse-by-night/5-toulouse-by-night.html]]></loc>
+<lastmod>2019-04-24T19:57:22+02:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.9</priority>
 <image:image>
-<image:loc><![CDATA[https://visite-ma-ville.fr/5-large_default/affiche-encadree-today-is-a-good-day.jpg]]></image:loc>
+<image:loc><![CDATA[https://visite-ma-ville.fr/28-large_default/toulouse-by-night.jpg]]></image:loc>
 <image:caption><![CDATA[Affiche imprimée sur papier rigide, finition mate et surface lisse.]]></image:caption>
-<image:title><![CDATA[Affiche encadrée Today is a good day]]></image:title>
-</image:image>
-</url>
-<url>
-<loc><![CDATA[https://visite-ma-ville.fr/accessoires-de-maison/6-mug-the-best-is-yet-to-come.html]]></loc>
-<lastmod>2019-02-02T22:30:14+01:00</lastmod>
-<changefreq>daily</changefreq>
-<priority>0.9</priority>
-<image:image>
-<image:loc><![CDATA[https://visite-ma-ville.fr/6-large_default/mug-the-best-is-yet-to-come.jpg]]></image:loc>
-<image:caption><![CDATA[Mug en céramique blanche, 325ml.]]></image:caption>
-<image:title><![CDATA[Mug The best is yet to come]]></image:title>
-</image:image>
-</url>
-<url>
-<loc><![CDATA[https://visite-ma-ville.fr/accessoires-de-maison/7-mug-the-adventure-begins.html]]></loc>
-<lastmod>2019-02-02T22:30:14+01:00</lastmod>
-<changefreq>daily</changefreq>
-<priority>0.9</priority>
-<image:image>
-<image:loc><![CDATA[https://visite-ma-ville.fr/7-large_default/mug-the-adventure-begins.jpg]]></image:loc>
-<image:caption><![CDATA[Mug en céramique blanche. 325ml]]></image:caption>
-<image:title><![CDATA[Mug The adventure begins]]></image:title>
-</image:image>
-</url>
-<url>
-<loc><![CDATA[https://visite-ma-ville.fr/accueil/8-mug-today-is-a-good-day.html]]></loc>
-<lastmod>2019-02-02T22:30:14+01:00</lastmod>
-<changefreq>daily</changefreq>
-<priority>0.9</priority>
-<image:image>
-<image:loc><![CDATA[https://visite-ma-ville.fr/8-large_default/mug-today-is-a-good-day.jpg]]></image:loc>
-<image:caption><![CDATA[Mug en céramique blanche. 325ml]]></image:caption>
-<image:title><![CDATA[Mug Today is a good day]]></image:title>
-</image:image>
-</url>
-<url>
-<loc><![CDATA[https://visite-ma-ville.fr/accessoires-de-maison/9-coussin-renard.html]]></loc>
-<lastmod>2019-02-02T22:30:14+01:00</lastmod>
-<changefreq>daily</changefreq>
-<priority>0.9</priority>
-<image:image>
-<image:loc><![CDATA[https://visite-ma-ville.fr/9-large_default/coussin-renard.jpg]]></image:loc>
-<image:caption><![CDATA[Coussin déhoussable avec zip invisible au dos. 32x32cm]]></image:caption>
-<image:title><![CDATA[Coussin renard]]></image:title>
-</image:image>
-</url>
-<url>
-<loc><![CDATA[https://visite-ma-ville.fr/accessoires-de-maison/10-coussin-ours-brun.html]]></loc>
-<lastmod>2019-02-02T22:30:14+01:00</lastmod>
-<changefreq>daily</changefreq>
-<priority>0.9</priority>
-<image:image>
-<image:loc><![CDATA[https://visite-ma-ville.fr/11-large_default/coussin-ours-brun.jpg]]></image:loc>
-<image:caption><![CDATA[Coussin déhoussable avec zip invisible au dos. 32x32cm]]></image:caption>
-<image:title><![CDATA[Coussin ours brun]]></image:title>
-</image:image>
-</url>
-<url>
-<loc><![CDATA[https://visite-ma-ville.fr/accessoires-de-maison/11-coussin-colibri.html]]></loc>
-<lastmod>2019-02-02T22:30:14+01:00</lastmod>
-<changefreq>daily</changefreq>
-<priority>0.9</priority>
-<image:image>
-<image:loc><![CDATA[https://visite-ma-ville.fr/13-large_default/coussin-colibri.jpg]]></image:loc>
-<image:caption><![CDATA[Coussin déhoussable avec zip invisible au dos. 32x32cm]]></image:caption>
-<image:title><![CDATA[Coussin colibri]]></image:title>
-</image:image>
-</url>
-<url>
-<loc><![CDATA[https://visite-ma-ville.fr/art/12-illustration-vectorielle-renard.html]]></loc>
-<lastmod>2019-02-02T22:30:14+01:00</lastmod>
-<changefreq>daily</changefreq>
-<priority>0.9</priority>
-<image:image>
-<image:loc><![CDATA[https://visite-ma-ville.fr/15-large_default/illustration-vectorielle-renard.jpg]]></image:loc>
-<image:caption><![CDATA[Image vectorielle au format .svg. Téléchargement en vue d'une utilisation privée, personnelle et non commerciale. ]]></image:caption>
-<image:title><![CDATA[Illustration vectorielle Renard]]></image:title>
-</image:image>
-</url>
-<url>
-<loc><![CDATA[https://visite-ma-ville.fr/art/13-illustration-vectorielle-ours-brun.html]]></loc>
-<lastmod>2019-02-02T22:30:14+01:00</lastmod>
-<changefreq>daily</changefreq>
-<priority>0.9</priority>
-<image:image>
-<image:loc><![CDATA[https://visite-ma-ville.fr/16-large_default/illustration-vectorielle-ours-brun.jpg]]></image:loc>
-<image:caption><![CDATA[Image vectorielle au format .svg. Téléchargement en vue d'une utilisation privée, personnelle et non commerciale. ]]></image:caption>
-<image:title><![CDATA[Illustration vectorielle Ours brun]]></image:title>
-</image:image>
-</url>
-<url>
-<loc><![CDATA[https://visite-ma-ville.fr/art/14-illustration-vectorielle-colibri.html]]></loc>
-<lastmod>2019-02-02T22:30:14+01:00</lastmod>
-<changefreq>daily</changefreq>
-<priority>0.9</priority>
-<image:image>
-<image:loc><![CDATA[https://visite-ma-ville.fr/17-large_default/illustration-vectorielle-colibri.jpg]]></image:loc>
-<image:caption><![CDATA[Image vectorielle au format .svg. Téléchargement en vue d'une utilisation privée, personnelle et non commerciale. ]]></image:caption>
-<image:title><![CDATA[Illustration vectorielle Colibri]]></image:title>
-</image:image>
-</url>
-<url>
-<loc><![CDATA[https://visite-ma-ville.fr/accessoires-de-maison/15-pack-mug-affiche-encadree.html]]></loc>
-<lastmod>2019-02-02T22:30:14+01:00</lastmod>
-<changefreq>daily</changefreq>
-<priority>0.9</priority>
-<image:image>
-<image:loc><![CDATA[https://visite-ma-ville.fr/23-large_default/pack-mug-affiche-encadree.jpg]]></image:loc>
-<image:caption><![CDATA[Mug The Adventure Begins + Affiche encadrée Today is a good day 40x60cm ]]></image:caption>
-<image:title><![CDATA[Pack Mug + Affiche encadrée]]></image:title>
-</image:image>
-</url>
-<url>
-<loc><![CDATA[https://visite-ma-ville.fr/papeterie/16-carnet-de-notes-renard.html]]></loc>
-<lastmod>2019-02-02T22:30:14+01:00</lastmod>
-<changefreq>daily</changefreq>
-<priority>0.9</priority>
-<image:image>
-<image:loc><![CDATA[https://visite-ma-ville.fr/18-large_default/carnet-de-notes-renard.jpg]]></image:loc>
-<image:caption><![CDATA[Carnet 120 pages avec couverture rigide en carton recyclé. 16x22cm]]></image:caption>
-<image:title><![CDATA[Carnet de notes Renard]]></image:title>
-</image:image>
-</url>
-<url>
-<loc><![CDATA[https://visite-ma-ville.fr/papeterie/17-carnet-de-notes-renard.html]]></loc>
-<lastmod>2019-02-02T22:30:14+01:00</lastmod>
-<changefreq>daily</changefreq>
-<priority>0.9</priority>
-<image:image>
-<image:loc><![CDATA[https://visite-ma-ville.fr/19-large_default/carnet-de-notes-renard.jpg]]></image:loc>
-<image:caption><![CDATA[Carnet 120 pages avec couverture rigide en carton recyclé. 16x22cm]]></image:caption>
-<image:title><![CDATA[Carnet de notes Ours brun]]></image:title>
-</image:image>
-</url>
-<url>
-<loc><![CDATA[https://visite-ma-ville.fr/papeterie/18-carnet-de-notes-renard.html]]></loc>
-<lastmod>2019-02-02T22:30:14+01:00</lastmod>
-<changefreq>daily</changefreq>
-<priority>0.9</priority>
-<image:image>
-<image:loc><![CDATA[https://visite-ma-ville.fr/20-large_default/carnet-de-notes-renard.jpg]]></image:loc>
-<image:caption><![CDATA[Carnet 120 pages avec couverture rigide en carton recyclé. 16x22cm]]></image:caption>
-<image:title><![CDATA[Carnet de notes Colibri]]></image:title>
-</image:image>
-</url>
-<url>
-<loc><![CDATA[https://visite-ma-ville.fr/accessoires-de-maison/19-customizable-mug.html]]></loc>
-<lastmod>2019-02-02T22:30:14+01:00</lastmod>
-<changefreq>daily</changefreq>
-<priority>0.9</priority>
-<image:image>
-<image:loc><![CDATA[https://visite-ma-ville.fr/22-large_default/customizable-mug.jpg]]></image:loc>
-<image:caption><![CDATA[Mug en céramique blanche. 325ml]]></image:caption>
-<image:title><![CDATA[Mug personnalisable]]></image:title>
+<image:title><![CDATA[Toulouse by Night]]></image:title>
 </image:image>
 </url>
 <url>
