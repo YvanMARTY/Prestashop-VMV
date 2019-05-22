@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file original="/var/www/visite-ma-ville.fr/www/themes/vmv/modules/posbestsellers/posbestsellers.tpl" source-language="fr-FR" target-language="fr-FR" datatype="plaintext">
+    <body>
+      <trans-unit id="265ad5cf3e811048df18f0dd30ecc452">
+        <source>bestseller products</source>
+        <target>bestseller products</target>
+        <note>Context:
+File: /var/www/visite-ma-ville.fr/www/themes/vmv/modules/posbestsellers/posbestsellers.tpl:6</note>
+      </trans-unit>
+      <trans-unit id="f7be84d6809317a6eb0ff3823a936800">
+        <source>No best sellers at this time</source>
+        <target>No best sellers at this time</target>
+        <note>Context:
+File: /var/www/visite-ma-ville.fr/www/themes/vmv/modules/posbestsellers/posbestsellers.tpl:24</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="/var/www/visite-ma-ville.fr/www/themes/vmv/modules/poslistcategories/views/templates/hook/poslistcategories.tpl" source-language="fr-FR" target-language="fr-FR" datatype="plaintext">
+    <body>
+      <trans-unit id="36d2f4f17bd7344e33c8ff459454f199">
+        <source>Our Categories</source>
+        <target>Our Categories</target>
+        <note>Context:
+File: /var/www/visite-ma-ville.fr/www/themes/vmv/modules/poslistcategories/views/templates/hook/poslistcategories.tpl:29</note>
+      </trans-unit>
+      <trans-unit id="0fde22393bf67f2c18bff664da992b8f">
+        <source>Typi non habent claritatem insitam est usus legentis in iis qui facit eorum claritatem.</source>
+        <target>Typi non habent claritatem insitam est usus legentis in iis qui facit eorum claritatem.</target>
+        <note>Context:
+File: /var/www/visite-ma-ville.fr/www/themes/vmv/modules/poslistcategories/views/templates/hook/poslistcategories.tpl:30</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
