@@ -1,11 +1,13 @@
 <div id="user_info_top" class="localiz_block">
 	<span class="expand-more">
-		{l s='my account' d='Shop.Theme.CustomerAccount'}
+		{l s='Mon compte' d='Shop.Theme.CustomerAccount'}
 	 </span>
-	 <ul> 
+	 <ul>
+	 {if $logged}
 	 	<li>
-			<a href="{$my_account_url}" rel="nofollow" class="dropdown-item">{l s='my account' d='Shop.Theme.CustomerAccount'}</a>
+			<a href="{$my_account_url}" rel="nofollow" class="dropdown-item">{l s='Mon compte' d='Shop.Theme.CustomerAccount'}</a>
 		</li>
+	 {/if}
 		<li>
 			<a href="{$link->getPageLink("cart", true)|escape:"html":"UTF-8"}" class="dropdown-item">{l s='Checkout' d='Shop.Theme.Actions'}</a>
 		</li>
