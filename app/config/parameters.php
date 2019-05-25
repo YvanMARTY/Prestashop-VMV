@@ -3,9 +3,12 @@
   array (
     'database_host' => 'localhost',
     'database_port' => '',
-    'database_name' => 'db329628_vmv',
+    /* 'database_name' => 'db329628_vmv',
     'database_user' => 'db107659',
-    'database_password' => 'Limayrac2019!',
+    'database_password' => 'Limayrac2019!', */
+    'database_name' => 'db329628_vmv',
+    'database_user' => 'root',
+    'database_password' => '',
     'database_prefix' => 'ps_',
     'database_engine' => 'InnoDB',
     'mailer_transport' => 'smtp',

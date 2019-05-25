@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="97826085-d1b8-49d2-98b8-7fd1b381a745" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/cache/prod/appParameters.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/cache/prod/appParameters.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/cache/prod/doctrine/ee/5b66725f6c6f63616c5f6d6f64756c65735d5b315d.doctrinecache.data" beforeDir="false" afterPath="$PROJECT_DIR$/app/cache/prod/doctrine/ee/5b66725f6c6f63616c5f6d6f64756c65735d5b315d.doctrinecache.data" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/cache/prod/smarty/compile/0a/2a/6b/0a2a6bb6d618b276b7017321b160ac2b6dd790de.module.post-gallery.tpl.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/cache/prod/smarty/compile/0a/2a/6b/0a2a6bb6d618b276b7017321b160ac2b6dd790de.module.post-gallery.tpl.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/cache/prod/smarty/compile/11/0e/c7/110ec72aa9921d2c382ad628bdb2f0bc5105a617.module.ps_searchbar.tpl.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/cache/prod/smarty/compile/11/0e/c7/110ec72aa9921d2c382ad628bdb2f0bc5105a617.module.ps_searchbar.tpl.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/cache/prod/smarty/compile/30/7d/c6/307dc6bd4724d29d1572cc301dd7148e962604ef.module.ps_emailsubscription.tpl.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/cache/prod/smarty/compile/30/7d/c6/307dc6bd4724d29d1572cc301dd7148e962604ef.module.ps_emailsubscription.tpl.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/cache/prod/smarty/compile/35/65/5e/35655e6409b6198f29dd6e732ef9598dec599880.module.ps_shoppingcart.tpl.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/cache/prod/smarty/compile/35/65/5e/35655e6409b6198f29dd6e732ef9598dec599880.module.ps_shoppingcart.tpl.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/cache/prod/smarty/compile/6c/2f/2d/6c2f2d3bd3d465d318590dc26b493ef7c3e0a62c.module.post-video.tpl.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/cache/prod/smarty/compile/6c/2f/2d/6c2f2d3bd3d465d318590dc26b493ef7c3e0a62c.module.post-video.tpl.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/cache/prod/smarty/compile/80/ac/9d/80ac9ddb06fe7b43ffdd2f5cd1185536480d2577.module.ps_socialfollow.tpl.cache.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/cache/prod/smarty/compile/80/ac/9d/80ac9ddb06fe7b43ffdd2f5cd1185536480d2577.module.ps_socialfollow.tpl.cache.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/cache/prod/smarty/compile/90/65/48/906548e89c8c6025457ddaeffb1980a0c743b872.module.linkblock.tpl.cache.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/cache/prod/smarty/compile/90/65/48/906548e89c8c6025457ddaeffb1980a0c743b872.module.linkblock.tpl.cache.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/cache/prod/smarty/compile/b4/06/bd/b406bda4217a646cba89bbc02e37a6d3c8189cae.module.xipblogdisplayposts.tpl.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/cache/prod/smarty/compile/b4/06/bd/b406bda4217a646cba89bbc02e37a6d3c8189cae.module.xipblogdisplayposts.tpl.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/cache/prod/smarty/compile/d5/f8/f5/d5f8f570180f74d1dbdd1a1d2af0445e90a6650c.module.ps_customersignin.tpl.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/cache/prod/smarty/compile/d5/f8/f5/d5f8f570180f74d1dbdd1a1d2af0445e90a6650c.module.ps_customersignin.tpl.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/config/parameters.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/config/parameters.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/ps_linklist/Readme.md" beforeDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/config/parameters.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="115">
+              <caret line="5" column="39" selection-start-line="5" selection-start-column="27" selection-end-line="5" selection-end-column="39" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/app/config/parameters.php" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1620" />
+    <option name="height" value="920" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="VMV" type="b2602c69:ProjectViewProjectNode" />
+              <item name="VMV" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="VMV" type="b2602c69:ProjectViewProjectNode" />
+              <item name="VMV" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="VMV" type="b2602c69:ProjectViewProjectNode" />
+              <item name="VMV" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="97826085-d1b8-49d2-98b8-7fd1b381a745" name="Default Changelist" comment="" />
+      <created>1558555376442</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1558555376442</updated>
+      <workItem from="1558555379302" duration="480000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="480000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <layout>
+      <window_info id="Favorites" side_tool="true" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="Database" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/app/config/parameters.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="5" column="39" selection-start-line="5" selection-start-column="27" selection-end-line="5" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

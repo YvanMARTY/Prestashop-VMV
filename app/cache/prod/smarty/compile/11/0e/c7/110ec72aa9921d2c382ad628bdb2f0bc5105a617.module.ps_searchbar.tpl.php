@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.19, created on 2019-04-24 20:01:25
+<?php /* Smarty version Smarty-3.1.19, created on 2019-05-22 22:07:38
          compiled from "module:ps_searchbar/ps_searchbar.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:11897959655cc0a475648e98-17720274%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '110ec72aa9921d2c382ad628bdb2f0bc5105a617' => 
     array (
       0 => 'module:ps_searchbar/ps_searchbar.tpl',
-      1 => 1549187826,
+      1 => 1558516405,
       2 => 'module',
     ),
   ),
@@ -15,14 +15,14 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
+  'version' => 'Smarty-3.1.19',
+  'unifunc' => 'content_5cc0a47565fbb9_53346506',
   'variables' => 
   array (
     'search_controller_url' => 0,
     'search_string' => 0,
   ),
   'has_nocache_code' => false,
-  'version' => 'Smarty-3.1.19',
-  'unifunc' => 'content_5cc0a47565fbb9_53346506',
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_5cc0a47565fbb9_53346506')) {function content_5cc0a47565fbb9_53346506($_smarty_tpl) {?><!-- Block search module TOP -->
 <div class="block-search  dropdown js-dropdown">

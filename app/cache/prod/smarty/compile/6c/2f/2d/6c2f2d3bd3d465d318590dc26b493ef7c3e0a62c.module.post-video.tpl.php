@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.19, created on 2019-04-24 20:01:40
+<?php /* Smarty version Smarty-3.1.19, created on 2019-05-22 22:07:39
          compiled from "module:xipblogdisplayposts/views/templates/front/post-video.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:14105025535cc0a4845606d2-26428136%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '6c2f2d3bd3d465d318590dc26b493ef7c3e0a62c' => 
     array (
       0 => 'module:xipblogdisplayposts/views/templates/front/post-video.tpl',
-      1 => 1549187826,
+      1 => 1558516249,
       2 => 'module',
     ),
   ),
@@ -15,6 +15,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
+  'version' => 'Smarty-3.1.19',
+  'unifunc' => 'content_5cc0a4845c5553_98918392',
   'variables' => 
   array (
     'class' => 0,
@@ -24,8 +26,6 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'height' => 0,
   ),
   'has_nocache_code' => false,
-  'version' => 'Smarty-3.1.19',
-  'unifunc' => 'content_5cc0a4845c5553_98918392',
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_5cc0a4845c5553_98918392')) {function content_5cc0a4845c5553_98918392($_smarty_tpl) {?><div class="post_format_items <?php if (isset($_smarty_tpl->tpl_vars['class']->value)&&$_smarty_tpl->tpl_vars['class']->value) {?><?php echo htmlspecialchars($_smarty_tpl->tpl_vars['class']->value, ENT_QUOTES, 'UTF-8');?>
 <?php }?>">

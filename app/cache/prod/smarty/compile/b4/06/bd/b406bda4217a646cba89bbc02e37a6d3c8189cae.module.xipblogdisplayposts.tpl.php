@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.19, created on 2019-04-24 20:01:40
+<?php /* Smarty version Smarty-3.1.19, created on 2019-05-22 22:07:39
          compiled from "module:xipblogdisplayposts/views/templates/front/xipblogdisplayposts.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:16812016945cc0a4843de262-71534685%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'b406bda4217a646cba89bbc02e37a6d3c8189cae' => 
     array (
       0 => 'module:xipblogdisplayposts/views/templates/front/xipblogdisplayposts.tpl',
-      1 => 1549474563,
+      1 => 1558516248,
       2 => 'module',
     ),
   ),
@@ -15,6 +15,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
+  'version' => 'Smarty-3.1.19',
+  'unifunc' => 'content_5cc0a4845566b4_85648961',
   'variables' => 
   array (
     'xipbdp_designlayout' => 0,
@@ -26,10 +28,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'postaudio' => 0,
   ),
   'has_nocache_code' => false,
-  'version' => 'Smarty-3.1.19',
-  'unifunc' => 'content_5cc0a4845566b4_85648961',
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_5cc0a4845566b4_85648961')) {function content_5cc0a4845566b4_85648961($_smarty_tpl) {?><?php if (!is_callable('smarty_modifier_date_format')) include '/var/www/visite-ma-ville.fr/www/vendor/prestashop/smarty/plugins/modifier.date_format.php';
+<?php if ($_valid && !is_callable('content_5cc0a4845566b4_85648961')) {function content_5cc0a4845566b4_85648961($_smarty_tpl) {?><?php if (!is_callable('smarty_modifier_date_format')) include 'D:\\wamp\\www\\VMV\\vendor\\prestashop\\smarty\\plugins\\modifier.date_format.php';
 ?><div class="home_blog_post_area <?php echo htmlspecialchars($_smarty_tpl->tpl_vars['xipbdp_designlayout']->value, ENT_QUOTES, 'UTF-8');?>
  product_block_container">
 
