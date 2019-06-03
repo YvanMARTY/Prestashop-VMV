@@ -1,29 +1,31 @@
-## Visite ma ville - Rally urbain dans Toulouse <img src="http://www.limayrac.fr/sites/limayrac.fr/files/logo_limayrac.jpg" alt="INSTITUT LIMAYRAC" align="right" />
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-<br /><br />
-<blockquote style="text-align:justify;"> Dans le cadre de nos études, nous devons réaliser un site web afin de proposer des parcours permettant la visite de Toulouse selon les différents lieux clefs.
-L'achat de parcours peut être effectué via  le site WEB : http://visite-ma-ville.fr/. Nous sommes étudiants à l'<a href="http://www.limayrac.fr/">Institut Limayrac</a> en seconde année du Master "Chef de Projets Informatiques".</blockquote>
+# RealTimeLocationSample
+Get Real Time User Location And Update Map Marker Accordingly
 
-## Introduction
+## Screenshots
+![group 25](https://user-images.githubusercontent.com/29060271/43504919-88420276-957e-11e8-9a05-1b68d414b0b5.png)
 
-Le projet a été réalisé par l'ensemble de la classe.
+## Build With
+* [Butter Knife](https://github.com/JakeWharton/butterknife)
+* [CircleImageView](https://github.com/hdodenhof/CircleImageView)
+* [Google Maps](https://developers.google.com/android/guides/setup)
+* [Google Location and Activity Recognition](https://developers.google.com/android/guides/setup)
 
-## Développé avec
+## Authors
+* [Mian Sarim Hameed](https://github.com/MianSarimHameed)
 
-* [PRESTASHOP](https://www.prestashop.com/fr) - CMS
-* [PAYPAL](https://www.paypal.com/fr/home) - Module
+## License
+<pre><code>Copyright 2018 Mian Sarim Hameed
 
-## Versioning
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-Nous utilisons le système de [releases](https://github.com/YvanMARTY/Visite-ma-ville/releases) de GitHub pour le "versioning". 
+   http://www.apache.org/licenses/LICENSE-2.0
 
-## Historique des releases
-
-* 1.0 | 08/07/2019
-    * Incoming ...
-* 0.9 | 01/07/2019
-    * Incoming ...
-* 0.9 | 03/06/2019
-    * Incoming ...
-* 0.8 | 20/05/2019
-    * Incoming ...
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.</code></pre>
