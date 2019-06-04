@@ -490,6 +490,9 @@ abstract class PaymentModuleCore extends Module
                     $products_list = '';
                     $virtual_product = true;
 
+                    // Product list - VMV
+                    $product_list_vmv = $order->product_list;
+
                     $product_var_tpl_list = array();
                     foreach ($order->product_list as $product) {
                         $price = Product::getPriceStatic((int)$product['id_product'], false, ($product['id_product_attribute'] ? (int)$product['id_product_attribute'] : null), 6, null, false, true, $product['cart_quantity'], false, (int)$order->id_customer, (int)$order->id_cart, (int)$order->{Configuration::get('PS_TAX_ADDRESS_TYPE')}, $specific_price, true, true, null, true, $product['id_customization']);
@@ -750,6 +753,18 @@ abstract class PaymentModuleCore extends Module
                     // Order is reloaded because the status just changed
                     $order = new Order((int)$order->id);
 
+                    $arr_mdp_parties = array();
+                    // Pour chaque produit de la commande
+                    foreach ($product_list_vmv as $product) {
+                        // Génère un mot de passe de partie et l'enregistre en base de données
+                        array_push($arr_mdp_parties, $this->generateMotDePasseBdd((int)6, (int)$product['id_product']));
+                    }
+
+                    $message_partie = "";
+                    foreach($arr_mdp_parties as $m){
+                        $message_partie .= "<li>Nom du parcours : <b style='font:size:18px;'>{$m[0]}</b> | Mot de passe : <b style='font:size:18px;'>{$m[1]}</b></li>";
+                    }
+
                     // Send an e-mail to customer (one order = one email)
                     if ($id_order_state != Configuration::get('PS_OS_ERROR') && $id_order_state != Configuration::get('PS_OS_CANCELED') && $this->context->customer->id) {
                         $invoice = new Address((int)$order->id_address_invoice);
@@ -807,7 +822,8 @@ abstract class PaymentModuleCore extends Module
                         '{total_discounts}' => Tools::displayPrice($order->total_discounts, $this->context->currency, false),
                         '{total_shipping}' => Tools::displayPrice($order->total_shipping, $this->context->currency, false),
                         '{total_wrapping}' => Tools::displayPrice($order->total_wrapping, $this->context->currency, false),
-                        '{total_tax_paid}' => Tools::displayPrice(($order->total_products_wt - $order->total_products) + ($order->total_shipping_tax_incl - $order->total_shipping_tax_excl), $this->context->currency, false));
+                        '{total_tax_paid}' => Tools::displayPrice(($order->total_products_wt - $order->total_products) + ($order->total_shipping_tax_incl - $order->total_shipping_tax_excl), $this->context->currency, false),
+                        '{message_partie}' => $message_partie);
 
                         if (is_array($extra_vars)) {
                             $data = array_merge($data, $extra_vars);
@@ -874,11 +890,13 @@ abstract class PaymentModuleCore extends Module
                         null,
                         (int)$order->id
                     );
+
                 } else {
                     $error = $this->trans('Order creation failed', array(), 'Admin.Payment.Notification');
                     PrestaShopLogger::addLog($error, 4, '0000002', 'Cart', intval($order->id_cart));
                     die($error);
                 }
+
             } // End foreach $order_detail_list
 
             // Use the last order as currentOrder
@@ -1083,5 +1101,44 @@ abstract class PaymentModuleCore extends Module
         }
 
         return '';
+    }
+
+    /**
+     * Generate random string and save it on database
+     *
+     * @param int  $length  length of password
+     *
+     * @return boolean
+     */
+    function generateMotDePasseBdd($length = 6, $ach_prc_id) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+
+        $nom_pdt = "";
+        /* NAME OF PRODUCT */
+        $req_nom_pdt = "SELECT name FROM `"._DB_PREFIX_."product_lang` WHERE ".$ach_prc_id;
+
+        if ($results = Db::getInstance()->ExecuteS($req_nom_pdt)) {
+            foreach ($results as $row) {
+                $nom_pdt = $row['name'];
+            }
+        }
+        else {
+            return false;
+        }
+
+        /* SAVE IT IN DATABASE */        
+        if(Db::getInstance()->execute("
+        INSERT INTO `"._DB_PREFIX_."achat` (`ach_id`, `ach_cod`, `ach_active`, `ach_prc_id`)
+        VALUES (DEFAULT,'".$randomString."','1',".$ach_prc_id.")")) {
+            return array($nom_pdt, $randomString);
+        }
+        else {
+            return false;
+        }
     }
 }
