@@ -44,7 +44,7 @@
 					<div class="content-listcategoreis">
 						<div class="name_categories">
 							<a href="{$link->getCategoryLink($category['id_category'])}" target="_blank">{$category.category_name}</a>
-							<span class="number_product">({$category.nbProducts})</span>
+							<!--<span class="number_product">({$category.nbProducts})</span>!-->
 						</div>
 						{if $category.description}
 						<div class="description-list">
