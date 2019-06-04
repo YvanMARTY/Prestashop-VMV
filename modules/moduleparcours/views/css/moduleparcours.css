@@ -1,0 +1,162 @@
+/*****************************************************************
+                       MODULE DEVIS GRATUIT
+*****************************************************************/
+/* 22/03/2018 */
+/* BOUTON DE DEVIS */
+#devis_block_top {
+    border-left: none;
+    z-index: 1001;
+    padding: 0;
+    top: 250px;
+    right: -50px;
+    width: auto;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 0;
+    display: block;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    transition: all .5s ease;
+    margin-top: -30px;
+    margin-bottom: 1px;
+}
+
+/* SI LMEN VEUT JUSTE UN LIEN AU LIEU D'UN BOUTON =>
+#devis_block_top a {
+    color: #434343;
+    font-size: 12px;
+    text-transform: none;
+}
+#devis_block_top a:hover {
+    color: #94c356;
+    cursor: pointer;
+} */
+
+/* BOUTON POUR ACCEDER AU FORMULAIRE DEVIS */
+#redirectDevis {
+    margin: auto;
+    display: block;
+    height: 32px;
+    line-height: 0;
+}
+#redirectDevis a {
+    color: white;
+    text-decoration: none;
+}
+
+/* BOUTON POUR ANNULER SON DEVIS */
+#annuler_devis:hover {
+    color: #94c356;
+    border-color: #94c356;
+    background-color: transparent;
+}
+#annuler_devis a {
+    color: white;
+    text-decoration: none;
+}
+#annuler_devis:hover a {
+    color: #94c356;
+    border-color: #94c356;
+    background-color: transparent;
+}
+
+/* FORMULAIRE */
+.etoile_rouge {
+    color: red;
+}
+
+/* TABLEAU DES PRODUITS */
+.table_produits {
+    width: 100%;
+}
+#moduledevisgratuit_block_home table, th, td {
+    border: 1px solid #999999;
+}
+
+/* POUR LES CAMIONS */
+
+
+/* TABLEAU DES PRODUITS */
+.table_produits thead {
+    background-color: #EBEBEB;
+}
+.table_produits thead th {
+    text-align: center;
+}
+.produit_input_nom {
+    width: 84%;
+}
+.div_edit_buttons_produits_devis {
+    float: right;
+    margin-left: 12px;
+}
+.qte_produit {
+    width: 100%;
+}
+.list_acces_chantier {
+    margin-bottom: 0;
+}
+
+/* ADMINISTRATION */
+#table_admin_moduledevis th,
+#table_admin_moduledevis td {
+    border: 1px solid black;
+}
+#table_admin_moduledevis th {
+    font-weight: bold !important;
+}
+
+/* MESSAGES INFORMATIFS */
+.isa_info, .isa_success, .isa_warning, .isa_error {
+    margin: 10px 0px;
+    padding:12px;
+}
+.isa_info {
+    color: #00529B;
+    background-color: #BDE5F8;
+}
+.isa_success {
+    color: #4F8A10;
+    background-color: #DFF2BF;
+}
+.isa_warning {
+    color: #9F6000;
+    background-color: #FEEFB3;
+}
+.isa_error {
+    color: #D8000C;
+    background-color: #FFD2D2;
+}
+.isa_info i, .isa_success i, .isa_warning i, .isa_error i {
+    margin:10px 22px;
+    font-size:2em;
+    vertical-align:middle;
+}
+
+/* EXTRAS */
+input {
+    color: black !important;
+}
+label {
+    color: black;
+    font-weight: bold;
+}
+#moduledevisgratuit_block_home,
+#descript_travaux {
+    color: black !important;
+}
+.form-control:focus {
+    border-color: #94C356;
+}
+#moduledevisgratuit_block_home * {
+    outline-color: #94C356 !important;
+}
+#moduledevisgratuit_block_home input[type="radio"] {
+    max-width: 2%;
+    outline: none;
+}
+#descript_travaux {
+    color: black !important;
+}

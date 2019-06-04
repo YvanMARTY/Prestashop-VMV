@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  lun. 04 mars 2019 à 11:54
+-- Généré le :  mar. 04 juin 2019 à 10:39
 -- Version du serveur :  5.7.23
--- Version de PHP :  7.0.32
+-- Version de PHP :  7.1.22
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -508,6 +508,30 @@ INSERT INTO `ps_access` (`id_profile`, `id_authorization_role`) VALUES
 (1, 682),
 (1, 683),
 (1, 684),
+(1, 697),
+(1, 698),
+(1, 699),
+(1, 700),
+(1, 701),
+(1, 702),
+(1, 703),
+(1, 704),
+(1, 705),
+(1, 706),
+(1, 707),
+(1, 708),
+(1, 709),
+(1, 710),
+(1, 711),
+(1, 712),
+(1, 718),
+(1, 719),
+(1, 720),
+(1, 721),
+(1, 722),
+(1, 723),
+(1, 724),
+(1, 725),
 (2, 9),
 (2, 10),
 (2, 11),
@@ -1397,7 +1421,7 @@ CREATE TABLE IF NOT EXISTS `ps_authorization_role` (
   `slug` varchar(255) NOT NULL,
   PRIMARY KEY (`id_authorization_role`),
   UNIQUE KEY `slug` (`slug`)
-) ENGINE=InnoDB AUTO_INCREMENT=693 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=726 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `ps_authorization_role`
@@ -1440,6 +1464,10 @@ INSERT INTO `ps_authorization_role` (`id_authorization_role`, `slug`) VALUES
 (484, 'ROLE_MOD_MODULE_GRIDHTML_DELETE'),
 (482, 'ROLE_MOD_MODULE_GRIDHTML_READ'),
 (483, 'ROLE_MOD_MODULE_GRIDHTML_UPDATE'),
+(714, 'ROLE_MOD_MODULE_MODULEPARCOURS_CREATE'),
+(717, 'ROLE_MOD_MODULE_MODULEPARCOURS_DELETE'),
+(715, 'ROLE_MOD_MODULE_MODULEPARCOURS_READ'),
+(716, 'ROLE_MOD_MODULE_MODULEPARCOURS_UPDATE'),
 (569, 'ROLE_MOD_MODULE_PAGESNOTFOUND_CREATE'),
 (572, 'ROLE_MOD_MODULE_PAGESNOTFOUND_DELETE'),
 (570, 'ROLE_MOD_MODULE_PAGESNOTFOUND_READ'),
@@ -1768,6 +1796,10 @@ INSERT INTO `ps_authorization_role` (`id_authorization_role`, `slug`) VALUES
 (140, 'ROLE_MOD_TAB_ADMINLINKWIDGET_DELETE'),
 (138, 'ROLE_MOD_TAB_ADMINLINKWIDGET_READ'),
 (139, 'ROLE_MOD_TAB_ADMINLINKWIDGET_UPDATE'),
+(722, 'ROLE_MOD_TAB_ADMINLISTE_CREATE'),
+(725, 'ROLE_MOD_TAB_ADMINLISTE_DELETE'),
+(723, 'ROLE_MOD_TAB_ADMINLISTE_READ'),
+(724, 'ROLE_MOD_TAB_ADMINLISTE_UPDATE'),
 (141, 'ROLE_MOD_TAB_ADMINLOCALIZATION_CREATE'),
 (144, 'ROLE_MOD_TAB_ADMINLOCALIZATION_DELETE'),
 (142, 'ROLE_MOD_TAB_ADMINLOCALIZATION_READ'),
@@ -2076,6 +2108,10 @@ INSERT INTO `ps_authorization_role` (`id_authorization_role`, `slug`) VALUES
 (444, 'ROLE_MOD_TAB_IMPROVE_DELETE'),
 (442, 'ROLE_MOD_TAB_IMPROVE_READ'),
 (443, 'ROLE_MOD_TAB_IMPROVE_UPDATE'),
+(718, 'ROLE_MOD_TAB_MODULEPARCOURSTITRE_CREATE'),
+(721, 'ROLE_MOD_TAB_MODULEPARCOURSTITRE_DELETE'),
+(719, 'ROLE_MOD_TAB_MODULEPARCOURSTITRE_READ'),
+(720, 'ROLE_MOD_TAB_MODULEPARCOURSTITRE_UPDATE'),
 (445, 'ROLE_MOD_TAB_SELL_CREATE'),
 (448, 'ROLE_MOD_TAB_SELL_DELETE'),
 (446, 'ROLE_MOD_TAB_SELL_READ'),
@@ -2954,7 +2990,7 @@ CREATE TABLE IF NOT EXISTS `ps_configuration` (
   KEY `name` (`name`),
   KEY `id_shop` (`id_shop`),
   KEY `id_shop_group` (`id_shop_group`)
-) ENGINE=InnoDB AUTO_INCREMENT=343 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=346 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `ps_configuration`
@@ -3288,7 +3324,7 @@ INSERT INTO `ps_configuration` (`id_configuration`, `id_shop_group`, `id_shop`, 
 (325, NULL, NULL, 'GF_CURRENT_LEVEL', '1', '2019-02-23 23:07:28', '2019-02-23 23:07:28'),
 (326, NULL, NULL, 'GF_CURRENT_LEVEL_PERCENT', '0', '2019-02-23 23:07:28', '2019-02-23 23:07:28'),
 (327, NULL, NULL, 'GF_NOTIFICATION', '0', '2019-02-23 23:07:28', '2019-02-23 23:07:28'),
-(328, NULL, NULL, 'CRONJOBS_ADMIN_DIR', '36b4655f48d0154c5cfd7dd6900c051a', '2019-02-23 23:07:37', '2019-03-04 11:56:45'),
+(328, NULL, NULL, 'CRONJOBS_ADMIN_DIR', '16b81fd91780628997a66f872f23b775', '2019-02-23 23:07:37', '2019-05-22 16:41:47'),
 (329, NULL, NULL, 'CRONJOBS_MODE', 'webservice', '2019-02-23 23:07:37', '2019-02-23 23:07:37'),
 (330, NULL, NULL, 'CRONJOBS_MODULE_VERSION', '1.4.0', '2019-02-23 23:07:37', '2019-02-23 23:07:37'),
 (331, NULL, NULL, 'CRONJOBS_WEBSERVICE_ID', '0', '2019-02-23 23:07:37', '2019-02-23 23:07:37'),
@@ -3302,7 +3338,8 @@ INSERT INTO `ps_configuration` (`id_configuration`, `id_shop_group`, `id_shop`, 
 (339, NULL, NULL, 'PS_MEDIA_SERVER_1', NULL, '2019-02-23 23:31:42', '2019-02-23 23:31:42'),
 (340, NULL, NULL, 'PS_MEDIA_SERVER_2', NULL, '2019-02-23 23:31:42', '2019-02-23 23:31:42'),
 (341, NULL, NULL, 'PS_MEDIA_SERVER_3', NULL, '2019-02-23 23:31:42', '2019-02-23 23:31:42'),
-(342, NULL, NULL, 'PS_MEDIA_SERVERS', '0', '2019-02-23 23:31:42', '2019-02-23 23:31:42');
+(342, NULL, NULL, 'PS_MEDIA_SERVERS', '0', '2019-02-23 23:31:42', '2019-02-23 23:31:42'),
+(345, NULL, NULL, 'MODULEPARCOURS_NAME', 'LIMAYRAC', '2019-06-04 12:24:44', '2019-06-04 12:24:44');
 
 -- --------------------------------------------------------
 
@@ -3436,7 +3473,7 @@ CREATE TABLE IF NOT EXISTS `ps_connections` (
   KEY `id_guest` (`id_guest`),
   KEY `date_add` (`date_add`),
   KEY `id_page` (`id_page`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `ps_connections`
@@ -3460,7 +3497,10 @@ INSERT INTO `ps_connections` (`id_connections`, `id_shop_group`, `id_shop`, `id_
 (15, 1, 1, 13, 2, 0, '2019-03-04 11:53:00', ''),
 (16, 1, 1, 14, 2, 0, '2019-03-04 11:53:52', ''),
 (17, 1, 1, 15, 2, 0, '2019-03-04 11:54:54', ''),
-(18, 1, 1, 16, 2, 0, '2019-03-04 11:56:30', '');
+(18, 1, 1, 16, 2, 0, '2019-03-04 11:56:30', ''),
+(19, 1, 1, 17, 1, 0, '2019-05-22 16:40:58', ''),
+(20, 1, 1, 18, 1, 0, '2019-06-04 08:59:49', ''),
+(21, 1, 1, 19, 1, 0, '2019-06-04 11:24:14', '');
 
 -- --------------------------------------------------------
 
@@ -4776,14 +4816,15 @@ CREATE TABLE IF NOT EXISTS `ps_employee` (
   KEY `employee_login` (`email`,`passwd`),
   KEY `id_employee_passwd` (`id_employee`,`passwd`),
   KEY `id_profile` (`id_profile`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `ps_employee`
 --
 
 INSERT INTO `ps_employee` (`id_employee`, `id_profile`, `id_lang`, `lastname`, `firstname`, `email`, `passwd`, `last_passwd_gen`, `stats_date_from`, `stats_date_to`, `stats_compare_from`, `stats_compare_to`, `stats_compare_option`, `preselect_date_range`, `bo_color`, `bo_theme`, `bo_css`, `default_tab`, `bo_width`, `bo_menu`, `active`, `optin`, `id_last_order`, `id_last_customer_message`, `id_last_customer`, `last_connection_date`, `reset_password_token`, `reset_password_validity`) VALUES
-(1, 1, 1, 'Vmv', 'Vmv', 'tcssimpson@live.fr', '$2y$10$cbiqD3EvLntPPBKntPKzP.ysASxuRG4NfIzP6b8YsBvZDM9IHFZMa', '2019-02-23 15:51:35', '2019-01-23', '2019-02-23', '0000-00-00', '0000-00-00', 1, NULL, NULL, 'default', 'admin-theme.css', 1, 0, 1, 1, 1, 0, 0, 0, NULL, NULL, '0000-00-00 00:00:00');
+(1, 1, 1, 'Vmv', 'Vmv', 'tcssimpson@live.fr', '$2y$10$cbiqD3EvLntPPBKntPKzP.ysASxuRG4NfIzP6b8YsBvZDM9IHFZMa', '2019-02-23 15:51:35', '2019-01-23', '2019-02-23', '0000-00-00', '0000-00-00', 1, NULL, NULL, 'default', 'admin-theme.css', 1, 0, 1, 1, 1, 0, 0, 0, NULL, NULL, '0000-00-00 00:00:00'),
+(2, 1, 1, 'Carré', 'Adrien', 'adrien.tigram@hotmail.fr', '$2y$10$paPzK2g5QaZR.478QQMEreZ7c0dS7nelusFqpE6GMvueS6KSv0Ol2', '2019-05-22 08:46:39', '2019-04-22', '2019-05-22', '0000-00-00', '0000-00-00', 1, '', '', 'default', 'admin-theme.css', 1, 0, 1, 1, 1, 5, 0, 1, NULL, '', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -4804,7 +4845,8 @@ CREATE TABLE IF NOT EXISTS `ps_employee_shop` (
 --
 
 INSERT INTO `ps_employee_shop` (`id_employee`, `id_shop`) VALUES
-(1, 1);
+(1, 1),
+(2, 1);
 
 -- --------------------------------------------------------
 
@@ -5144,7 +5186,7 @@ CREATE TABLE IF NOT EXISTS `ps_guest` (
   KEY `id_customer` (`id_customer`),
   KEY `id_operating_system` (`id_operating_system`),
   KEY `id_web_browser` (`id_web_browser`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `ps_guest`
@@ -5166,7 +5208,10 @@ INSERT INTO `ps_guest` (`id_guest`, `id_operating_system`, `id_web_browser`, `id
 (13, 6, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'fr', 0),
 (14, 6, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'fr', 0),
 (15, 6, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'fr', 0),
-(16, 6, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'fr', 0);
+(16, 6, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'fr', 0),
+(17, 6, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'fr', 0),
+(18, 6, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'fr', 0),
+(19, 6, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'fr', 0);
 
 -- --------------------------------------------------------
 
@@ -5668,6 +5713,7 @@ INSERT INTO `ps_hook_module` (`id_module`, `id_shop`, `id_hook`, `position`) VAL
 (51, 1, 197, 1),
 (54, 1, 154, 1),
 (55, 1, 199, 1),
+(58, 1, 104, 1),
 (2, 1, 154, 2),
 (3, 1, 155, 2),
 (3, 1, 161, 2),
@@ -6495,7 +6541,7 @@ CREATE TABLE IF NOT EXISTS `ps_log` (
   `date_add` datetime NOT NULL,
   `date_upd` datetime NOT NULL,
   PRIMARY KEY (`id_log`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `ps_log`
@@ -6503,7 +6549,14 @@ CREATE TABLE IF NOT EXISTS `ps_log` (
 
 INSERT INTO `ps_log` (`id_log`, `severity`, `error_code`, `message`, `object_type`, `object_id`, `id_employee`, `date_add`, `date_upd`) VALUES
 (1, 1, 0, 'Connexion au back-office depuis ::1', '', 0, 1, '2019-02-23 23:25:05', '2019-02-23 23:25:05'),
-(2, 1, 0, 'Connexion au back-office depuis ::1', '', 0, 1, '2019-03-04 11:55:17', '2019-03-04 11:55:17');
+(2, 1, 0, 'Connexion au back-office depuis ::1', '', 0, 1, '2019-03-04 11:55:17', '2019-03-04 11:55:17'),
+(3, 1, 0, 'Connexion au back-office depuis ::1', '', 0, 1, '2019-05-22 16:41:46', '2019-05-22 16:41:46'),
+(4, 1, 0, 'Création : Employee', 'Employee', 2, 1, '2019-05-22 16:46:40', '2019-05-22 16:46:40'),
+(5, 1, 0, 'Connexion au back-office depuis ::1', '', 0, 2, '2019-06-04 09:01:32', '2019-06-04 09:01:32'),
+(6, 1, 0, 'Connexion au back-office depuis ::1', '', 0, 2, '2019-06-04 10:28:40', '2019-06-04 10:28:40'),
+(7, 1, 0, 'Connexion au back-office depuis ::1', '', 0, 2, '2019-06-04 10:47:00', '2019-06-04 10:47:00'),
+(8, 1, 0, 'Connexion au back-office depuis ::1', '', 0, 2, '2019-06-04 11:14:10', '2019-06-04 11:14:10'),
+(9, 1, 0, 'Connexion au back-office depuis ::1', '', 0, 2, '2019-06-04 11:40:38', '2019-06-04 11:40:38');
 
 -- --------------------------------------------------------
 
@@ -6783,7 +6836,7 @@ CREATE TABLE IF NOT EXISTS `ps_module` (
   PRIMARY KEY (`id_module`),
   UNIQUE KEY `name_UNIQUE` (`name`),
   KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `ps_module`
@@ -6843,7 +6896,8 @@ INSERT INTO `ps_module` (`id_module`, `name`, `active`, `version`) VALUES
 (51, 'welcome', 1, '4.0.2'),
 (53, 'cronjobs', 1, '1.4.0'),
 (54, 'psaddonsconnect', 1, '1.0.1'),
-(55, 'blockreassurance', 1, '3.0.1');
+(55, 'blockreassurance', 1, '3.0.1'),
+(58, 'moduleparcours', 1, '0.1');
 
 -- --------------------------------------------------------
 
@@ -7078,7 +7132,15 @@ INSERT INTO `ps_module_access` (`id_profile`, `id_authorization_role`) VALUES
 (1, 689),
 (1, 690),
 (1, 691),
-(1, 692);
+(1, 692),
+(1, 705),
+(1, 706),
+(1, 707),
+(1, 708),
+(1, 714),
+(1, 715),
+(1, 716),
+(1, 717);
 
 -- --------------------------------------------------------
 
@@ -7329,7 +7391,10 @@ INSERT INTO `ps_module_group` (`id_module`, `id_shop`, `id_group`) VALUES
 (54, 1, 3),
 (55, 1, 1),
 (55, 1, 2),
-(55, 1, 3);
+(55, 1, 3),
+(58, 1, 1),
+(58, 1, 2),
+(58, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -7437,7 +7502,8 @@ INSERT INTO `ps_module_shop` (`id_module`, `id_shop`, `enable_device`) VALUES
 (51, 1, 7),
 (53, 1, 7),
 (54, 1, 7),
-(55, 1, 7);
+(55, 1, 7),
+(58, 1, 7);
 
 -- --------------------------------------------------------
 
@@ -11385,15 +11451,15 @@ CREATE TABLE IF NOT EXISTS `ps_tab` (
   `hide_host_mode` tinyint(1) NOT NULL,
   `icon` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id_tab`)
-) ENGINE=InnoDB AUTO_INCREMENT=121 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=127 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Déchargement des données de la table `ps_tab`
 --
 
 INSERT INTO `ps_tab` (`id_tab`, `id_parent`, `position`, `module`, `class_name`, `active`, `hide_host_mode`, `icon`) VALUES
-(1, 0, 0, NULL, 'AdminDashboard', 1, 0, 'trending_up'),
-(2, 0, 1, NULL, 'SELL', 1, 0, ''),
+(1, 0, 1, NULL, 'AdminDashboard', 1, 0, 'trending_up'),
+(2, 0, 2, NULL, 'SELL', 1, 0, ''),
 (3, 2, 0, NULL, 'AdminParentOrders', 1, 0, 'shopping_basket'),
 (4, 3, 0, NULL, 'AdminOrders', 1, 0, ''),
 (5, 3, 1, NULL, 'AdminInvoices', 1, 0, ''),
@@ -11433,7 +11499,7 @@ INSERT INTO `ps_tab` (`id_tab`, `id_parent`, `position`, `module`, `class_name`,
 (39, 36, 2, NULL, 'AdminStockCover', 1, 0, ''),
 (40, 33, 2, NULL, 'AdminSupplyOrders', 1, 0, ''),
 (41, 33, 3, NULL, 'AdminStockConfiguration', 1, 0, ''),
-(42, 0, 2, NULL, 'IMPROVE', 1, 0, ''),
+(42, 0, 3, NULL, 'IMPROVE', 1, 0, ''),
 (43, 42, 0, NULL, 'AdminParentModulesSf', 1, 0, 'extension'),
 (44, 43, 0, NULL, 'AdminModulesSf', 1, 0, ''),
 (45, 43, 1, NULL, 'AdminModules', 0, 0, ''),
@@ -11464,7 +11530,7 @@ INSERT INTO `ps_tab` (`id_tab`, `id_parent`, `position`, `module`, `class_name`,
 (70, 69, 0, NULL, 'AdminTaxes', 1, 0, ''),
 (71, 69, 1, NULL, 'AdminTaxRulesGroup', 1, 0, ''),
 (72, 59, 3, NULL, 'AdminTranslations', 1, 0, ''),
-(73, 0, 3, NULL, 'CONFIGURE', 1, 0, ''),
+(73, 0, 4, NULL, 'CONFIGURE', 1, 0, ''),
 (74, 73, 0, NULL, 'ShopParameters', 1, 0, 'settings'),
 (75, 74, 1, NULL, 'AdminParentPreferences', 1, 0, ''),
 (76, 75, 0, NULL, 'AdminPreferences', 1, 0, ''),
@@ -11505,12 +11571,14 @@ INSERT INTO `ps_tab` (`id_tab`, `id_parent`, `position`, `module`, `class_name`,
 (111, 96, 9, NULL, 'AdminShopGroup', 0, 0, ''),
 (112, 96, 10, NULL, 'AdminShopUrl', 0, 0, ''),
 (113, -1, 0, NULL, 'AdminQuickAccesses', 1, 0, ''),
-(114, 0, 4, NULL, 'DEFAULT', 1, 0, ''),
+(114, 0, 5, NULL, 'DEFAULT', 1, 0, ''),
 (115, -1, 1, NULL, 'AdminPatterns', 1, 0, ''),
 (116, -1, 2, 'dashgoals', 'AdminDashgoals', 1, 0, ''),
 (117, 47, 5, 'ps_linklist', 'AdminLinkWidget', 1, 0, ''),
-(118, 0, 5, 'welcome', 'AdminWelcome', 1, 0, ''),
-(120, -1, 3, 'cronjobs', 'AdminCronJobs', 1, 0, '');
+(118, 0, 6, 'welcome', 'AdminWelcome', 1, 0, ''),
+(120, -1, 3, 'cronjobs', 'AdminCronJobs', 1, 0, ''),
+(125, 0, 7, 'moduleparcours', 'moduleparcourstitre', 1, 0, ''),
+(126, 125, 1, 'moduleparcours', 'AdminListe', 1, 0, '');
 
 -- --------------------------------------------------------
 
@@ -11647,7 +11715,9 @@ INSERT INTO `ps_tab_lang` (`id_tab`, `id_lang`, `name`) VALUES
 (116, 1, 'Dashgoals'),
 (117, 1, 'Link Widget'),
 (118, 1, 'Welcome'),
-(120, 1, 'Cron Jobs');
+(120, 1, 'Cron Jobs'),
+(125, 1, 'Parcours'),
+(126, 1, 'Liste des parcours');
 
 -- --------------------------------------------------------
 
