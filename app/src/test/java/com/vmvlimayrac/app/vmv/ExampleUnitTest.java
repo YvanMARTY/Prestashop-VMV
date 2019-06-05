@@ -1,4 +1,4 @@
-package com.limayrac.vmv;
+package com.vmvlimayrac.app.vmv;
 
 import org.junit.Test;
 
