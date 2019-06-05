@@ -190,11 +190,21 @@ class ModuleParcours extends Module
         $tab = new Tab();
         $tab->active = 1;
         // Need a foreach for the language
-        $tab->name[$this->context->language->id] = $this->l('Liste des parcours');
-        $tab->class_name = 'AdminListe';
+        $tab->name[$this->context->language->id] = $this->l('Creation Parcours');
+        $tab->class_name = 'AdminCreation';
         $tab->id_parent = $parent_tab->id;
         $tab->module = $this->name;
         $tab->add();
+
+             /** @var TabCore $tab */
+             $tab = new Tab();
+             $tab->active = 1;
+             // Need a foreach for the language
+             $tab->name[$this->context->language->id] = $this->l('Parcours - Stats');
+             $tab->class_name = 'AdminListe';
+             $tab->id_parent = $parent_tab->id;
+             $tab->module = $this->name;
+             $tab->add();
     }
 
         /**

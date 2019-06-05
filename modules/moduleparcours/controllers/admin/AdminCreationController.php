@@ -2,7 +2,7 @@
 if (!defined('_PS_VERSION_'))
     exit;
 
-class AdminListeController extends ModuleAdminController
+class AdminCreationController extends ModuleAdminController
 {
     /**
      * Permet l'affichage du tpl du module
@@ -18,7 +18,8 @@ class AdminListeController extends ModuleAdminController
 
         parent::__construct();
 
-        $this->setTemplate('parcours.tpl');
+        //$this->setTemplate('module:moduleparcours/views/templates/admin/creation.tpl');
+        $this->setTemplate('creation.tpl');
     }
 
 }
