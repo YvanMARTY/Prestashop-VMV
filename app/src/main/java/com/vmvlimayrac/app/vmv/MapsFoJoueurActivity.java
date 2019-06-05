@@ -4,12 +4,14 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 
+import android.content.res.Resources;
 import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -21,6 +23,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -30,7 +33,7 @@ import java.util.ArrayList;
 
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
-public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReadyCallback {
 
             private Location currentLocation;
             private FusedLocationProviderClient fusedLocationProviderClient;
@@ -72,7 +75,22 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                 });
             }
             @Override
-            public void onMapReady(GoogleMap googleMap) {
+            public void onMapReady(final GoogleMap googleMap) {
+
+                try {
+                    // Customise the styling of the base map using a JSON object defined
+                    // in a raw resource file.
+                    boolean success = googleMap.setMapStyle(
+                            MapStyleOptions.loadRawResourceStyle(
+                                    this, R.raw.map_toulouse_color));
+
+                    if (!success) {
+
+                    }
+                } catch (Resources.NotFoundException e) {
+
+                }
+
                 LatLng latLng = new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude());
                 //MarkerOptions markerOptions = new MarkerOptions().position(latLng).title("You are Here");
                 googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
@@ -87,22 +105,21 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                     options.position(point);
                     //changer l'id avec l'id base de donnée
                     options.snippet("1");
+                    options.icon(BitmapDescriptorFactory
+                            .defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
                     googleMap.addMarker(options);
+
                 }
 
                 googleMap.setMyLocationEnabled(true);
-
                 googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                    View v;
+
                     @Override
                     public boolean onMarkerClick(Marker marker) {
-                        Intent myIntent = new Intent(v.getContext(),QuestionActivity.class);
+                        Intent myIntent = new Intent(MapsFoJoueurActivity.this,questionActivity.class);
                         startActivity(myIntent);
-                        if (previousMarker != null) {
-                            previousMarker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-                        }
-                        marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-                        previousMarker = marker;
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
 
                         return true;
                     }
@@ -124,13 +141,6 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
 
 
 
-
-    @Override
-    public boolean onMarkerClick(final Marker marker) {
-
-           Toast.makeText(MapsFoJoueurActivity.this,marker.getSnippet(),Toast.LENGTH_SHORT).show();
-           return true;
-    }
 
 
 
