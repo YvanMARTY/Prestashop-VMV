@@ -22,7 +22,7 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  * International Registered Trademark & Property of PrestaShop SA
  *}
-<span class="col-sm-3 col-md-3 hidden-sm-down sort-by">{l s='Sort by:' d='Shop.Theme'}</span>
+<span class="col-sm-3 col-md-3 hidden-sm-down sort-by">{l s='Trier par : ' d='Shop.Theme.Actions'}</span>
 <div class="{if !empty($listing.rendered_facets)}col-sm-5 col-xs-5{else}col-sm-12 col-xs-12{/if} col-md-9 products-sort-order dropdown">
   <a class="select-title" rel="nofollow" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     {l s='Select' d='Shop.Theme.Actions'}

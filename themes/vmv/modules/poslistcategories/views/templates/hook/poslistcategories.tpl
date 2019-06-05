@@ -36,14 +36,14 @@
 			<div class="list-categories">
 				{if $category.image}
 				<div class="thumb-category">
-					<a href="{$link->getCategoryLink($category['id_category'])}" target="_blank"><img src="{$link->getMediaLink("`$smarty.const._MODULE_DIR_`poslistcategories/images/`$category.image|escape:'htmlall':'UTF-8'`")}" alt="" /></a>
+					<a href="{$link->getCategoryLink($category['id_category'])}"><img src="{$link->getMediaLink("`$smarty.const._MODULE_DIR_`poslistcategories/images/`$category.image|escape:'htmlall':'UTF-8'`")}" alt="" /></a>
 			
 				</div>
 				{/if}
 				<div class="desc-listcategoreis">
 					<div class="content-listcategoreis">
 						<div class="name_categories">
-							<a href="{$link->getCategoryLink($category['id_category'])}" target="_blank">{$category.category_name}</a>
+							<a href="{$link->getCategoryLink($category['id_category'])}">{$category.category_name}</a>
 							<!--<span class="number_product">({$category.nbProducts})</span>!-->
 						</div>
 						{if $category.description}
