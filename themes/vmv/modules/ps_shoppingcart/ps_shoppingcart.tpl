@@ -26,7 +26,7 @@
 		</div>
     </div>
 	<div class="checkout">
-		<a href="{$cart_url}" class="btn btn-primary">{l s='checkout' d='Shop.Theme.Actions'}</a>
+		<a href="{$cart_url}" class="btn btn-primary">Commander</a>
 	</div>
   </div>
 </div>
