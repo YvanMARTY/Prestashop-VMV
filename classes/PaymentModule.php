@@ -1111,7 +1111,7 @@ abstract class PaymentModuleCore extends Module
      *
      * @return boolean
      */
-    function generateMotDePasseBdd($length = 6, $ach_prc_id, $id_order) {
+    function generateMotDePasseBdd($length = 6, $id_product, $id_order) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
         $randomString = '';
@@ -1121,22 +1121,33 @@ abstract class PaymentModuleCore extends Module
 
         $nom_pdt = "";
         /* NAME OF PRODUCT */
-        $req_nom_pdt = "SELECT name FROM `"._DB_PREFIX_."product_lang` WHERE ".$ach_prc_id;
+        $req_nom_pdt = "SELECT `name` FROM `"._DB_PREFIX_."product_lang` WHERE `id_product` = ".$id_product;
 
-        if ($results = Db::getInstance()->ExecuteS($req_nom_pdt)) {
-            foreach ($results as $row) {
-                $nom_pdt = $row['name'];
+        if ($results_nom_pdt = Db::getInstance()->ExecuteS($req_nom_pdt)) {
+            foreach ($results_nom_pdt as $row_nom_pdt) {
+                $nom_pdt = $row_nom_pdt['name'];
             }
         }
-        else {
-            return false;
+
+        $id_parcours = 0;
+        /* ID OF PARCOURS */        
+        $req_id_parcours = "SELECT `prc_id` FROM `"._DB_PREFIX_."mapping` WHERE `id_product` = ".$id_product;
+
+        if ($results_id_parcours = Db::getInstance()->ExecuteS($req_id_parcours)) {
+            foreach ($results_id_parcours as $row_id_parcours) {
+                $id_parcours = $row_id_parcours['prc_id'];
+            }
         }
 
         /* SAVE IT IN DATABASE */        
         if(Db::getInstance()->execute("
         INSERT INTO `"._DB_PREFIX_."achat` (`ach_id`, `ach_cod`, `ach_active`, `ach_prc_id`, `ach_prc_fin`, `ach_mdp`)
-        VALUES (DEFAULT,'".$id_order."','1',".$ach_prc_id.",NULL,'".$randomString."')")) {
-            return array($nom_pdt, $randomString);
+        VALUES (DEFAULT,'".$id_order."','1',".$id_parcours.",NULL,'".$randomString."')")) {
+            if(Db::getInstance()->execute("
+            INSERT INTO `"._DB_PREFIX_."partie` (`part_id`, `part_ach_id`, `eqp_active`)
+            VALUES (DEFAULT,'".$id_order."',NULL)")) {
+                return array($nom_pdt, $randomString);
+            }
         }
         else {
             return false;
