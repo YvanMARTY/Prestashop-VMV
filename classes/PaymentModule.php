@@ -756,10 +756,11 @@ abstract class PaymentModuleCore extends Module
                     $arr_mdp_parties = array();
                     // Pour chaque produit de la commande
                     foreach ($product_list_vmv as $product) {
-                        // Génère un mot de passe de partie et l'enregistre en base de données
-                        array_push($arr_mdp_parties, $this->generateMotDePasseBdd((int)6, (int)$product['id_product']));
+                        // Récupère le nom du produit
+                        array_push($arr_mdp_parties, $this->generateMotDePasseBdd((int)6, (int)$product['id_product'], (int)$order->id));
                     }
 
+                    // MESSAGE A PASSER AU TEMPLATE DU MAIL DE CONFIRMATION DE COMMANDE
                     $message_partie = "";
                     foreach($arr_mdp_parties as $m){
                         $message_partie .= "<li>Nom du parcours : <b style='font:size:18px;'>{$m[0]}</b> | Mot de passe : <b style='font:size:18px;'>{$m[1]}</b></li>";
@@ -1110,7 +1111,7 @@ abstract class PaymentModuleCore extends Module
      *
      * @return boolean
      */
-    function generateMotDePasseBdd($length = 6, $ach_prc_id) {
+    function generateMotDePasseBdd($length = 6, $ach_prc_id, $id_order) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
         $randomString = '';
@@ -1133,8 +1134,8 @@ abstract class PaymentModuleCore extends Module
 
         /* SAVE IT IN DATABASE */        
         if(Db::getInstance()->execute("
-        INSERT INTO `"._DB_PREFIX_."achat` (`ach_id`, `ach_cod`, `ach_active`, `ach_prc_id`)
-        VALUES (DEFAULT,'".$randomString."','1',".$ach_prc_id.")")) {
+        INSERT INTO `"._DB_PREFIX_."achat` (`ach_id`, `ach_cod`, `ach_active`, `ach_prc_id`, `ach_prc_fin`, `ach_mdp`)
+        VALUES (DEFAULT,'".$id_order."','1',".$ach_prc_id.",NULL,'".$randomString."')")) {
             return array($nom_pdt, $randomString);
         }
         else {
