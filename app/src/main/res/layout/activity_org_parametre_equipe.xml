@@ -27,7 +27,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Next"
-            android:layout_alignParentRight="true" />
+            android:layout_alignParentRight="true"
+            android:enabled="false"/>
     </RelativeLayout>
 
     <LinearLayout
@@ -71,6 +72,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
+                <!--
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
@@ -86,7 +88,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:layout_weight="1"
-                        android:text="999999" />
+                        android:text="PIN: 999999" />
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -94,12 +96,7 @@
                         android:text="Edit" />
 
                 </LinearLayout>
-
-
-
-
-
-
+                -->
 
             </LinearLayout>
 

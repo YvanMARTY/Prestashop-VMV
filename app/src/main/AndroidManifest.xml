@@ -68,6 +68,12 @@
             android:screenOrientation="portrait"/>
 
         <activity
+            android:name=".OrgParametreEquipeCommentaireActivity"
+            android:label="Commentaire"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+
+        <activity
             android:name=".OrgParametrePartieActivity"
             android:label="Paramètre"
             android:configChanges="orientation"
