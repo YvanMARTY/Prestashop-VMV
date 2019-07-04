@@ -18,10 +18,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,7 +32,7 @@
              Note that the API key is linked to the encryption key used to sign the APK.
              You need a different API key for each encryption key, including the release key that is used to
              sign the APK for publishing.
-             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -48,11 +45,6 @@
             android:name=".MapsFoJoueurActivity"
             android:label="@string/title_activity_maps_fo_joueur" />
         <activity
-<<<<<<< Updated upstream
-            android:name=".QuestionActivity"
-            android:label="@string/title_activity_question"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-=======
             android:name=".questionActivity"
             android:label="Question" />
 
@@ -79,9 +71,6 @@
                 android:label="Paramètre"
                 android:configChanges="orientation"
                 android:screenOrientation="portrait"/>
-
-
->>>>>>> Stashed changes
     </application>
 
 </manifest>
