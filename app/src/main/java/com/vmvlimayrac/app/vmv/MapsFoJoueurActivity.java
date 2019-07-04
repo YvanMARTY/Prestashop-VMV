@@ -1,16 +1,14 @@
 package com.vmvlimayrac.app.vmv;
 
-import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-
+import android.content.res.Resources;
 import android.location.Location;
-import android.support.annotation.NonNull;
+import android.os.AsyncTask;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -21,16 +19,23 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
-import static android.content.pm.PackageManager.PERMISSION_GRANTED;
-
-public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+public class MapsFoJoueurActivity extends FragmentActivity implements GetResultQuery, OnMapReadyCallback {
 
             private Location currentLocation;
             private FusedLocationProviderClient fusedLocationProviderClient;
@@ -39,6 +44,10 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
             private ArrayList<LatLng> latlngs = new ArrayList<>();
             private GoogleMap googleMap;
             private Marker previousMarker = null;
+
+            private JSONArray AllMarker;
+
+
             @Override
             protected void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
@@ -50,8 +59,94 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                 }else{
 
                 }
+
+
                 fetchLastLocation();
 
+            }
+
+    public void downloadJSON(final String urlWebService, Context context,final GoogleMap map) {
+
+        class DownloadJSON extends AsyncTask<Void, Void, String> {
+            public String result;
+            public JSONArray objetJsonFinal;
+            private Context mContext;
+            private GetResultQuery mCallback;
+
+            public DownloadJSON(Context context){
+                this.mContext = context;
+                this.mCallback = (GetResultQuery) context;
+            }
+
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                try {
+                    objetJsonFinal = loadJson(s);
+                    mCallback.onTaskComplete(objetJsonFinal,map);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            protected String doInBackground(Void... voids) {
+                try {
+                    URL url = new URL(urlWebService);
+                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                    StringBuilder sb = new StringBuilder();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                    String json;
+                    while ((json = bufferedReader.readLine()) != null) {
+                        sb.append(json + "\n");
+                    }
+                    return sb.toString().trim();
+                } catch (Exception e) {
+                    return null;
+                }
+            }
+        }
+
+        DownloadJSON getJSON = new DownloadJSON(context);
+        getJSON.execute();
+
+    }
+
+    public JSONArray loadJson(String json) throws JSONException {
+        JSONArray jsonArray = new JSONArray(json);
+
+
+
+            return jsonArray;
+        }
+
+            @Override
+            public void onTaskComplete(JSONArray result,final GoogleMap googleMap ){
+                try {
+                    for (int i = 0; i < result.length(); i++) {
+                        JSONObject marker = result.getJSONObject(i);
+                        String id = marker.getString("pts_id");
+                        String nom = marker.getString("pts_nom");
+                        String longi = marker.getString("pts_long");
+                        String lati = marker.getString("pts_lat");
+                        LatLng point = new LatLng(Double.parseDouble(lati), Double.parseDouble(longi));
+                        latlngs.add(point);
+                        options.position(point);
+                        options.snippet(id);
+                        options.icon(BitmapDescriptorFactory
+                                .defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
+                        options.title(nom);
+                        googleMap.addMarker(options);
+
+                    }
+                }catch (Exception e){}
             }
 
             private void fetchLastLocation(){
@@ -72,43 +167,62 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                 });
             }
             @Override
-            public void onMapReady(GoogleMap googleMap) {
+            public void onMapReady(final GoogleMap googleMap) {
+
+                try {
+                    // Customise the styling of the base map using a JSON object defined
+                    // in a raw resource file.
+                    boolean success = googleMap.setMapStyle(
+                            MapStyleOptions.loadRawResourceStyle(
+                                    this, R.raw.map_toulouse_color));
+
+                    if (!success) {
+
+                    }
+                } catch (Resources.NotFoundException e) {
+
+                }
+
                 LatLng latLng = new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude());
                 //MarkerOptions markerOptions = new MarkerOptions().position(latLng).title("You are Here");
                 googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+                new MapsFoJoueurActivity().downloadJSON("https://visite-ma-ville.fr/external/external_app.php",this,googleMap);
+
+                //get all marker
+
+
 
                 //googleMap.addMarker(markerOptions);
                 //Creation des marker a changé avec une boucle pour récupe tous ce de la bdd
-                latlngs.add(new LatLng(43.6044622, 1.4442469));
-                latlngs.add(new LatLng(43.60366, 1.435973));
-                latlngs.add(new LatLng(43.6045 , 1.432749));
+                //latlngs.add(new LatLng(43.6044622, 1.4442469));
+                //latlngs.add(new LatLng(43.60366, 1.435973));
+                //latlngs.add(new LatLng(43.6045 , 1.432749));
 
-                for (LatLng point : latlngs) {
-                    options.position(point);
+                //for (LatLng point : latlngs) {
+                  //  options.position(point);
                     //changer l'id avec l'id base de donnée
-                    options.snippet("1");
-                    googleMap.addMarker(options);
-                }
+
+                  //  googleMap.addMarker(options);
+
+               // }
 
                 googleMap.setMyLocationEnabled(true);
-
                 googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                    View v;
+
                     @Override
                     public boolean onMarkerClick(Marker marker) {
-                        Intent myIntent = new Intent(v.getContext(),QuestionActivity.class);
+                        Intent myIntent = new Intent(MapsFoJoueurActivity.this,questionActivity.class);
                         startActivity(myIntent);
-                        if (previousMarker != null) {
-                            previousMarker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-                        }
-                        marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-                        previousMarker = marker;
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
 
                         return true;
                     }
                 });
 
+
             }
+
             @Override
             public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResult) {
                 switch (requestCode) {
@@ -121,18 +235,6 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                         break;
                 }
             }
-
-
-
-
-    @Override
-    public boolean onMarkerClick(final Marker marker) {
-
-           Toast.makeText(MapsFoJoueurActivity.this,marker.getSnippet(),Toast.LENGTH_SHORT).show();
-           return true;
-    }
-
-
 
 
 }
