@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">VMV</string>
-    <string name="login">Rejoindre une partie</string>
-    <string name="title_activity_maps_fo_joueur">Map</string>
-    <string name="title_activity_question">Question</string>
-</resources>
