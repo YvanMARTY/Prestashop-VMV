@@ -2,8 +2,8 @@
 <module>
     <name>paypal</name>
     <displayName><![CDATA[PayPal]]></displayName>
-    <version><![CDATA[4.4.5]]></version>
-    <description><![CDATA[Profitez de notre plateforme de paiement compl&egrave;te pour d&eacute;velopper votre activit&eacute; en ligne, sur mobile et &agrave; l&#039;international. Vos acheteurs peuvent utiliser leur solde PayPal, leur compte bancaire et la plupart des cartes pour approvisionner leurs paiements. ]]></description>
+    <version><![CDATA[4.5.0]]></version>
+    <description><![CDATA[B&eacute;n&eacute;ficiez de la plateforme PayPal Complete Payments et d&eacute;veloppez votre activit&eacute; en ligne, sur mobile et &agrave; l&#039;international. Acceptez les paiements par carte bancaire et via paiements PayPal.]]></description>
     <author><![CDATA[PrestaShop]]></author>
     <tab><![CDATA[payments_gateways]]></tab>
 	<confirmUninstall><![CDATA[Êtes-vous sûr de vouloir supprimer vos informations ?]]></confirmUninstall>

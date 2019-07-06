@@ -1143,9 +1143,13 @@ abstract class PaymentModuleCore extends Module
         if(Db::getInstance()->execute("
         INSERT INTO `"._DB_PREFIX_."achat` (`ach_id`, `ach_cod`, `ach_active`, `ach_prc_id`, `ach_prc_fin`, `ach_mdp`)
         VALUES (DEFAULT,'".$id_order."','1',".$id_parcours.",NULL,'".$randomString."')")) {
+
+            /* 06/07/2019 */
+            $id_achat_inserted = (int)Db::getInstance()->Insert_ID();
+
             if(Db::getInstance()->execute("
             INSERT INTO `"._DB_PREFIX_."partie` (`part_id`, `part_ach_id`, `eqp_active`)
-            VALUES (DEFAULT,'".$id_order."',NULL)")) {
+            VALUES (DEFAULT,'".$id_achat_inserted."',NULL)")) {
                 return array($nom_pdt, $randomString);
             }
         }

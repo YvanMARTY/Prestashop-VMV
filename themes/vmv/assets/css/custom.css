@@ -14081,3 +14081,12 @@ body.lang-rtl .back-top {
 .poslistcategories .owl-carousel .owl-item:nth-child(2) .thumb-category {
   background: #C80205;
 }
+
+/* 06/07/2019 */
+.texte_defilant {
+  height: 40px;
+  background-color: #ED1B24;
+  font-family: 'Oswald', sans-serif;
+  font-size: 22pt;
+  color: #ffffff;
+}
