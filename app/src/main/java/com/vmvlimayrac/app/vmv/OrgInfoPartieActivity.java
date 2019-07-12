@@ -50,5 +50,7 @@ public class OrgInfoPartieActivity extends AppCompatActivity {
                 startActivity(new Intent(OrgInfoPartieActivity.this, OrgParametreEquipeActivity.class));
             }
         });
+
+        //e
     }
 }
