@@ -42,7 +42,9 @@ public class questionActivity extends AppCompatActivity {
         r2 = (RadioButton) findViewById(R.id.radioButton2);
         r3 = (RadioButton) findViewById(R.id.radioButton3);
         r4 = (RadioButton) findViewById(R.id.radioButton4);
+
         bValidation = (Button) findViewById(R.id.buttonValidationChoix);
+
         questionTextView = findViewById(R.id.textViewQuestion);
 
         Bundle b = getIntent().getExtras();
