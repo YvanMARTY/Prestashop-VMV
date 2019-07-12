@@ -6,11 +6,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="com.vmvlimayrac.app.vmv.LauncherActivity"
-android:background="@drawable/bg">
+        android:background="@drawable/ic_launcher_background">
 
 
     <ImageView android:layout_width="400dp" android:layout_height="260dp"
-               android:background="@drawable/logotexte"
+
                android:layout_marginBottom="8dp"
                app:layout_constraintBottom_toBottomOf="parent" android:layout_marginTop="8dp"
                app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"

@@ -14,7 +14,7 @@ public class OrgParametreEquipeCommentaireActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_org_parametre_equipe_commentaire);
 
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
 
         Bundle b = getIntent().getExtras();
         int value = -1; // or other values

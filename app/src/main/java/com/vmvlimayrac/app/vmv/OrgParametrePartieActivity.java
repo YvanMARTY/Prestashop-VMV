@@ -12,7 +12,7 @@ public class OrgParametrePartieActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_org_parametre_partie);
 
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
 
         Button btn_back = (Button) findViewById(R.id.back);
         btn_back.setOnClickListener(new View.OnClickListener() {

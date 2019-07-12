@@ -33,7 +33,7 @@ public class OrgInfoPartieActivity extends AppCompatActivity {
             Toast.makeText(this, "ERROR: cannot get request from API", Toast.LENGTH_LONG).show();
         }
 
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
 
         Button btn_back = (Button) findViewById(R.id.back);
         btn_back.setOnClickListener(new View.OnClickListener() {

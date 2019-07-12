@@ -21,7 +21,7 @@ public class OrgParametreEquipeActivity extends AppCompatActivity implements Num
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_org_parametre_equipe);
 
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
 
         btn_back = (Button) findViewById(R.id.back);
         btn_back.setOnClickListener(new View.OnClickListener() {
