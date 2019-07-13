@@ -1149,7 +1149,7 @@ abstract class PaymentModuleCore extends Module
 
             if(Db::getInstance()->execute("
             INSERT INTO `"._DB_PREFIX_."partie` (`part_id`, `part_ach_id`, `eqp_active`)
-            VALUES (DEFAULT,'".$id_achat_inserted."',NULL)")) {
+            VALUES (DEFAULT,'".$id_achat_inserted."',1)")) {
                 return array($nom_pdt, $randomString);
             }
         }

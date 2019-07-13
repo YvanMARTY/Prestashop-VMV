@@ -2,7 +2,7 @@
 <module>
     <name>boadmin</name>
     <displayName><![CDATA[BO Admin]]></displayName>
-    <version><![CDATA[0.0.1]]></version>
+    <version><![CDATA[0.1]]></version>
     <description><![CDATA[Module de gestion du back office du site VMV]]></description>
     <author><![CDATA[VMV]]></author>
     <tab><![CDATA[front_office_features]]></tab>
