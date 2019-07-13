@@ -21,6 +21,10 @@ public class OrgParametreEquipeActivity extends AppCompatActivity implements Num
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_org_parametre_equipe);
 
+        // On récupère le nombre d'équipes max
+        Intent myIntent = getIntent();
+        String sizeMax = myIntent.getStringExtra("prc_grpMax");
+
         //getSupportActionBar().hide();
 
         btn_back = (Button) findViewById(R.id.back);
@@ -40,7 +44,7 @@ public class OrgParametreEquipeActivity extends AppCompatActivity implements Num
         });
 
         NumberPicker numberPicker = (NumberPicker) findViewById(R.id.numberpicker);
-        numberPicker.setMaxValue(30);
+        numberPicker.setMaxValue(Integer.valueOf(sizeMax));
         numberPicker.setMinValue(0);
         numberPicker.setWrapSelectorWheel(true);
         numberPicker.setOnValueChangedListener(this);

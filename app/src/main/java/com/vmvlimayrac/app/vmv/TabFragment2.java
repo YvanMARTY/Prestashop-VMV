@@ -29,9 +29,9 @@ public class TabFragment2 extends Fragment {
             public void onClick(View v) {
                 // on check si le mdp admin entré correspond à une partie
                 String password = name.getText().toString();
-                if (checkAdminPassword(password)) {
+                Intent intent = new Intent(getActivity(), OrgInfoPartieActivity.class);
+                if (checkAdminPassword(password, intent)) {
                     // Si oui on accède à la vue correspondante
-                    Intent intent = new Intent(getActivity(), OrgInfoPartieActivity.class);
                     ((MainActivity) getActivity()).startActivity(intent);
                 }
             }
@@ -40,7 +40,7 @@ public class TabFragment2 extends Fragment {
     }
 
     // Methode permetant d'authentifier l'admin
-    public Boolean checkAdminPassword(String password) {
+    public Boolean checkAdminPassword(String password, Intent intent) {
         // API instantiation
         StrictMode.ThreadPolicy policy = new StrictMode.
                 ThreadPolicy.Builder().permitAll().build();
@@ -51,6 +51,14 @@ public class TabFragment2 extends Fragment {
             JSONArray result = JSONParser.makeHttpRequest(link, "GET");
             JSONObject jsonObject = result.getJSONObject(0);
             if (jsonObject.getString("prc_id") != "null") {
+                // On ajoute a l'intent les paramètre de la requêtes utiles pour la suite...
+                intent.putExtra("ach_id", jsonObject.getString("ach_id"));
+                intent.putExtra("part_id",jsonObject.getString("part_id"));
+                intent.putExtra("prc_id",jsonObject.getString("prc_id"));
+                intent.putExtra("prc_nom",jsonObject.getString("prc_nom"));
+                intent.putExtra("part_active",jsonObject.getString("part_active"));
+                intent.putExtra("prc_grpMax",jsonObject.getString("prc_grpMax"));
+                intent.putExtra("nb_pts",jsonObject.getString("nb_pts"));
                 isOk = true;
             }
             else {

@@ -8,7 +8,6 @@ import android.content.res.Resources;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -59,46 +58,24 @@ public class OrgInfoPartieActivity extends AppCompatActivity implements OnMapRea
 
         }
 
-
         fetchLastLocation();
 
-        // API instantiation
-        StrictMode.ThreadPolicy policy = new StrictMode.
-                ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+        // On récupère les paramètres passé dans l'intent à la connexion
+        Intent myIntent = getIntent();
 
-        // On rempli les caractéristiques de la partie après authentification
-        String link = "https://visite-ma-ville.fr/external/external_app.php?action=ConnectionAdmin&mdpAdmin=0PPUXM";
-        JSONArray result = JSONParser.makeHttpRequest(link, "GET");
         TextView name = (TextView) findViewById(R.id.name);
         TextView type = (TextView) findViewById(R.id.type);
         TextView time = (TextView) findViewById(R.id.time);
         TextView sizeMax = (TextView) findViewById(R.id.sizeMax);
         TextView nbrStep = (TextView) findViewById(R.id.nbrStep);
         TextView desc = (TextView) findViewById(R.id.desc);
-        JSONObject jsonObject = null;
-        try {
-            jsonObject = result.getJSONObject(0);
-            String nameString = jsonObject.getString("prc_nom");
-            // String typeString = jsonObject.getString("prc_nom");
-            //String timeString = jsonObject.getString("prc_nom");
-            String sizeMaxString = jsonObject.getString("prc_grpMax");
-            String nbrStepString = jsonObject.getString("nb_pts");
-            //String descString = jsonObject.getString("prc_nom");
-            name.setText(nameString);
-            type.setText("not implemented");
-            time.setText("not implemented");
-            sizeMax.setText(sizeMaxString);
-            nbrStep.setText(nbrStepString);
-            desc.setText("not implemented");
-            Toast.makeText(this, "Connecté avec succès !", Toast.LENGTH_LONG).show();
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "ERROR: cannot get request from API", Toast.LENGTH_LONG).show();
-        }
-
-        // On affiche les points du parcours
-
+        name.setText(myIntent.getStringExtra("prc_nom"));
+        type.setText("not implemented");
+        time.setText("not implemented");
+        sizeMax.setText(myIntent.getStringExtra("prc_grpMax"));
+        nbrStep.setText(myIntent.getStringExtra("nb_pts"));
+        desc.setText("not implemented");
+        Toast.makeText(this, "Connecté avec succès !", Toast.LENGTH_LONG).show();
 
         //getSupportActionBar().hide();
 
@@ -115,7 +92,10 @@ public class OrgInfoPartieActivity extends AppCompatActivity implements OnMapRea
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View vue) {
-                startActivity(new Intent(OrgInfoPartieActivity.this, OrgParametreEquipeActivity.class));
+                Intent myIntent = getIntent();
+                Intent intent = new Intent(OrgInfoPartieActivity.this, OrgParametreEquipeActivity.class);
+                intent.putExtra("prc_grpMax", myIntent.getStringExtra("prc_grpMax"));
+                startActivity(intent);
             }
         });
 
@@ -228,7 +208,7 @@ public class OrgInfoPartieActivity extends AppCompatActivity implements OnMapRea
                     SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
                     supportMapFragment.getMapAsync(OrgInfoPartieActivity.this);
                 } else {
-                    Toast.makeText(OrgInfoPartieActivity.this, "No Location recorded", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OrgInfoPartieActivity.this, "Activer votre GPS !", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -276,7 +256,7 @@ public class OrgInfoPartieActivity extends AppCompatActivity implements OnMapRea
                 Intent myIntent = new Intent(OrgInfoPartieActivity.this,questionActivity.class);
                 int idquestion = Integer.parseInt(marker.getSnippet());
                 myIntent.putExtra("Idquestion", idquestion);
-                startActivity(myIntent);
+                startActivityForResult(myIntent,1);
 
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
