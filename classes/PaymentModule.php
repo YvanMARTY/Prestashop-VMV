@@ -1147,6 +1147,7 @@ abstract class PaymentModuleCore extends Module
             /* 06/07/2019 */
             $id_achat_inserted = (int)Db::getInstance()->Insert_ID();
 
+            /* 13/07/2019 - UPD état par défaut - eqp_active */
             if(Db::getInstance()->execute("
             INSERT INTO `"._DB_PREFIX_."partie` (`part_id`, `part_ach_id`, `eqp_active`)
             VALUES (DEFAULT,'".$id_achat_inserted."',1)")) {
