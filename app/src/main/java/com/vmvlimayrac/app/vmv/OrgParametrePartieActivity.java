@@ -14,6 +14,17 @@ public class OrgParametrePartieActivity extends AppCompatActivity {
 
         //getSupportActionBar().hide();
 
+        Button btn_start = (Button) findViewById(R.id.start);
+        btn_start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View vue) {
+                startActivity(new Intent(OrgParametrePartieActivity.this, OrgParametreActivity.class));
+
+
+
+            }
+        });
+
         Button btn_back = (Button) findViewById(R.id.back);
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
