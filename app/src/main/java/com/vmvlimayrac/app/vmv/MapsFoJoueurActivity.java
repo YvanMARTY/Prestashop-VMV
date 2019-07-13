@@ -165,7 +165,7 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                             SupportMapFragment supportMapFragment= (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
                             supportMapFragment.getMapAsync(MapsFoJoueurActivity.this);
                         }else{
-                            Toast.makeText(MapsFoJoueurActivity.this,"No Location recorded",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MapsFoJoueurActivity.this,"Activer votre GPS !",Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -203,7 +203,7 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                         Intent myIntent = new Intent(MapsFoJoueurActivity.this,questionActivity.class);
                         int idquestion = Integer.parseInt(marker.getSnippet());
                         myIntent.putExtra("Idquestion", idquestion);
-                        startActivity(myIntent);
+                        startActivityForResult(myIntent,1);
 
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 

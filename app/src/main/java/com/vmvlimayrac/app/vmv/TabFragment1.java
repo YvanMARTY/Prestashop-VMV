@@ -21,7 +21,7 @@ public class TabFragment1 extends Fragment {
         View view = inflater.inflate(R.layout.tab_fragment_1, container, false);
 
         Button button = (Button) view.findViewById(R.id.btn_joueur_connexion);
-        //TEST GIT
+       
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
