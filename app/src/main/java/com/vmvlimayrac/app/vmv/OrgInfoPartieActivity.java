@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class OrgInfoPartieActivity extends AppCompatActivity {
@@ -17,19 +19,38 @@ public class OrgInfoPartieActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_org_info_partie);
 
+        // API instantiation
         StrictMode.ThreadPolicy policy = new StrictMode.
                 ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        // API instantiation
-        String link = "https://visite-ma-ville.fr/external/external_app.php?action=GetParcPointByGameId&gameId=2";
+        // On rempli les caractéristiques de la partie après authentification
+        String link = "https://visite-ma-ville.fr/external/external_app.php?action=ConnectionAdmin&mdpAdmin=0PPUXM";
         JSONArray result = JSONParser.makeHttpRequest(link, "GET");
-        // on detecte si la réponse de la requête est nulle
-        TextView text = (TextView)findViewById(R.id.name);
-        text.setText("Some text....");
-        if (result != null) {
-            Toast.makeText(this, result.toString(), Toast.LENGTH_LONG).show();
-        } else {
+        TextView name = (TextView)findViewById(R.id.name);
+        TextView type = (TextView)findViewById(R.id.type);
+        TextView time = (TextView)findViewById(R.id.time);
+        TextView sizeMax = (TextView)findViewById(R.id.sizeMax);
+        TextView nbrStep = (TextView)findViewById(R.id.nbrStep);
+        TextView desc = (TextView)findViewById(R.id.desc);
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = result.getJSONObject(0);
+            String nameString = jsonObject.getString("prc_nom");
+            // String typeString = jsonObject.getString("prc_nom");
+            //String timeString = jsonObject.getString("prc_nom");
+            String sizeMaxString = jsonObject.getString("prc_grpMax");
+            String nbrStepString = jsonObject.getString("nb_pts");
+            //String descString = jsonObject.getString("prc_nom");
+            name.setText(nameString);
+            type.setText("not implemented");
+            time.setText("not implemented");
+            sizeMax.setText(sizeMaxString);
+            nbrStep.setText(nbrStepString);
+            desc.setText("not implemented");
+            Toast.makeText(this, "Connecté avec succès !", Toast.LENGTH_LONG).show();
+        } catch (JSONException e) {
+            e.printStackTrace();
             Toast.makeText(this, "ERROR: cannot get request from API", Toast.LENGTH_LONG).show();
         }
 
