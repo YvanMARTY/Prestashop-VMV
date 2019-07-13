@@ -18,7 +18,7 @@ public class OrgParametrePartieActivity extends AppCompatActivity {
         btn_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View vue) {
-                startActivity(new Intent(OrgParametrePartieActivity.this, OrgParametreActivity.class));
+                startActivity(new Intent(OrgParametrePartieActivity.this, OrgActivity.class));
 
 
 
