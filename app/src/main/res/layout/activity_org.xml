@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:id="@+id/title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back"
+            android:layout_alignParentLeft="true" />
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Organisateur"
+            android:textSize="25dp"
+            android:layout_marginTop="5dp"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/title"
+        android:layout_margin="20dp"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/parcours"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:text="Visualiser le parcours et les points"
+            android:layout_margin="20dp"/>
+
+        <Button
+            android:id="@+id/position"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:text="Visualiser la position des équipes"
+            android:layout_margin="20dp"/>
+
+        <Button
+            android:id="@+id/score"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:text="Visualiser le score des equipes"
+            android:layout_margin="20dp"/>
+
+        <Button
+            android:id="@+id/parametre"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:text="Paramètres"
+            android:layout_margin="20dp"/>
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

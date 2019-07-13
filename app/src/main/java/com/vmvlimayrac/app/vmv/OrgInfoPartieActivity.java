@@ -72,6 +72,5 @@ public class OrgInfoPartieActivity extends AppCompatActivity {
             }
         });
 
-        //e
     }
 }
