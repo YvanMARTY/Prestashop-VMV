@@ -1,29 +1,18 @@
 package com.vmvlimayrac.app.vmv;
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.AsyncTask;
+
 import android.os.StrictMode;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.*;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
+import android.support.v4.app.Fragment;
+import android.widget.Button;
 import java.util.*;
+import android.widget.Toast;
 
 public class questionActivity extends AppCompatActivity {
 
@@ -104,7 +93,7 @@ public class questionActivity extends AppCompatActivity {
 
 
 
-        questionTextView.setOnClickListener(new View.OnClickListener() {
+        bValidation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -117,36 +106,32 @@ public class questionActivity extends AppCompatActivity {
                 }
                 else if (r2.isChecked())
                 {
-                    reponse = r1.getText().toString();
+                    reponse = r2.getText().toString();
                     ButtonCheck = 1;
                 }
                 else if (r3.isChecked())
                 {
-                    reponse = r1.getText().toString();
+                    reponse = r3.getText().toString();
                     ButtonCheck = 1;
                 }
                 else if (r4.isChecked()){
-                    reponse = r1.getText().toString();
+                    reponse = r4.getText().toString();
                     ButtonCheck = 1;
                 }
 
                 if ( ButtonCheck == 1){
-
-                Intent intent = new Intent(getApplicationContext(), MapsFoJoueurActivity.class);
-                (getApplicationContext()).startActivity(intent);
+                    if(textBonReponse.equals(reponse)){
+                        //Toast.makeText(questionActivity.this,"TRUE",Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        //Toast.makeText(questionActivity.this,"False",Toast.LENGTH_SHORT).show();
+                    }
                 }
 
             }
         });
 
     }
-
-
-
-
-
-
-
 
     @Override
     public void finish() {
