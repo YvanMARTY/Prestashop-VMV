@@ -6,14 +6,11 @@
          Google Maps Android API v2, but you must specify either coarse or fine
          location permissions for the 'MyLocation' functionality. 
     -->
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
-
-
 
     <application
             android:allowBackup="true"
@@ -22,15 +19,22 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme.NoActionBar">
-        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
-        <activity android:name="com.vmvlimayrac.app.vmv.LauncherActivity">
+        <activity android:name=".InfoFoJoueurActivity" android:screenOrientation="portrait">
+        </activity>
+
+        <uses-library
+                android:name="org.apache.http.legacy"
+                android:required="false"/>
+
+        <activity android:name=".LauncherActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
-                android:name="com.vmvlimayrac.app.vmv.MainActivity"
+                android:name=".MainActivity"
                 android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -48,45 +52,43 @@
 
         <activity
                 android:name=".MapsFoJoueurActivity"
-                android:label="@string/title_activity_maps_fo_joueur">
+                android:label="@string/title_activity_maps_fo_joueur"
+                android:screenOrientation="portrait">
         </activity>
+
         <activity
                 android:name=".questionActivity"
-                android:label="Question"/>
+                android:label="Question"
+                android:screenOrientation="portrait"/>
         <activity
                 android:name=".OrgInfoPartieActivity"
-                android:label="Info partie"
                 android:configChanges="orientation"
-                android:screenOrientation="portrait" />
-
+                android:label="Info partie"
+                android:screenOrientation="portrait"/>
         <activity
                 android:name=".OrgParametreEquipeActivity"
-                android:label="Equipe"
                 android:configChanges="orientation"
+                android:label="Equipe"
                 android:screenOrientation="portrait"/>
-
         <activity
                 android:name=".OrgParametreEquipeCommentaireActivity"
-                android:label="Commentaire"
                 android:configChanges="orientation"
+                android:label="Commentaire"
                 android:screenOrientation="portrait"/>
-
         <activity
                 android:name=".OrgParametrePartieActivity"
-                android:label="Paramètre"
                 android:configChanges="orientation"
+                android:label="Paramètre"
                 android:screenOrientation="portrait"/>
-
         <activity
                 android:name=".OrgActivity"
-                android:label="Organisateur"
                 android:configChanges="orientation"
+                android:label="Organisateur"
                 android:screenOrientation="portrait"/>
-
         <activity
                 android:name=".OrgParametreActivity"
-                android:label="Paramètre"
                 android:configChanges="orientation"
+                android:label="Paramètre"
                 android:screenOrientation="portrait"/>
     </application>
 

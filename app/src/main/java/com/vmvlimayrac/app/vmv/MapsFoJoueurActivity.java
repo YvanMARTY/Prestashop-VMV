@@ -6,9 +6,11 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.location.Location;
 import android.os.AsyncTask;
+import android.os.StrictMode;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -49,11 +51,28 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
             private ArrayList<Marker> listMarker = new ArrayList<>();
             private JSONArray AllMarker;
             private int markerID;
+            private String pinEquipe;
+            private String idPartie;
+            private String nomEquipe;
+            private String scoreEquipe;
+            private String pointDepart;
+            private String nompointDepart;
 
             @Override
             protected void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.activity_maps_fo_joueur);
+
+                Bundle extras = getIntent().getExtras();
+                idPartie =  extras.getString("idPartie");
+                nomEquipe = extras.getString("nomEquipe");
+                scoreEquipe = extras.getString("scoreEquipe");
+                pointDepart = extras.getString("pointDepart");
+                pinEquipe = extras.getString("pinEquipe");
+
+
+
+
                 fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
                 if (ActivityCompat.checkSelfPermission(MapsFoJoueurActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MapsFoJoueurActivity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(this, new String[] {android.Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST_CODE);
@@ -143,8 +162,14 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                         latlngs.add(point);
                         options.position(point);
                         options.snippet(id);
-                        options.icon(BitmapDescriptorFactory
-                                .defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
+                        if(id.equals(pointDepart)){
+                            options.icon(BitmapDescriptorFactory
+                                    .defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+                        }else{
+                            options.icon(BitmapDescriptorFactory
+                                    .defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
+                        }
+
                         options.title(nom);
                         Marker aMarker = googleMap.addMarker(options);
                         listMarker.add(aMarker);
@@ -194,7 +219,7 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                 googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,14));
 
 
-                new MapsFoJoueurActivity().downloadJSON("https://visite-ma-ville.fr/external/external_app.php?action=GetParcPointByGameId&gameId=2",this,googleMap);
+                new MapsFoJoueurActivity().downloadJSON("https://visite-ma-ville.fr/external/external_app.php?action=GetParcPointByGameId&gameId="+idPartie,this,googleMap);
 
                 googleMap.setMyLocationEnabled(true);
                 googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
@@ -243,6 +268,15 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                                   .defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
                       }
                   }
+                  int score = Integer.parseInt(scoreEquipe) + 5;
+
+                  StrictMode.ThreadPolicy policy = new StrictMode.
+                          ThreadPolicy.Builder().permitAll().build();
+                  StrictMode.setThreadPolicy(policy);
+                  String test = "https://visite-ma-ville.fr/external/external_app.php?action=InsertNewTeamScore&teamScore="+score +"&pinTeam="+ pinEquipe;
+                  JSONArray result = JSONParser.makeHttpRequest(test,"POST");
+
+
               }
               else if (res.equals("nok")){
                   for(Marker m : listMarker){
