@@ -1,6 +1,7 @@
 package com.vmvlimayrac.app.vmv;
 
 
+import android.content.Intent;
 import android.os.StrictMode;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -118,14 +119,21 @@ public class questionActivity extends AppCompatActivity {
                     reponse = r4.getText().toString();
                     ButtonCheck = 1;
                 }
-
+                String result = "";
                 if ( ButtonCheck == 1){
                     if(textBonReponse.equals(reponse)){
                         //Toast.makeText(questionActivity.this,"TRUE",Toast.LENGTH_SHORT).show();
+                        result = "ok";
                     }
                     else {
                         //Toast.makeText(questionActivity.this,"False",Toast.LENGTH_SHORT).show();
+                        result = "nok";
                     }
+
+                    Intent returnIntent = new Intent();
+                    returnIntent.putExtra("result",result);
+                    setResult(1,returnIntent);
+                    finish();
                 }
 
             }

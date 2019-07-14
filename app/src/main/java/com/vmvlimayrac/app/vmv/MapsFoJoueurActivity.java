@@ -46,9 +46,9 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
             private ArrayList<LatLng> latlngs = new ArrayList<>();
             private GoogleMap googleMap;
             private Marker previousMarker = null;
-
+            private ArrayList<Marker> listMarker = new ArrayList<>();
             private JSONArray AllMarker;
-
+            private int markerID;
 
             @Override
             protected void onCreate(Bundle savedInstanceState) {
@@ -139,14 +139,15 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                         String longi = marker.getString("pts_long");
                         String lati = marker.getString("pts_lat");
                         LatLng point = new LatLng(Double.parseDouble(lati), Double.parseDouble(longi));
+
                         latlngs.add(point);
                         options.position(point);
                         options.snippet(id);
                         options.icon(BitmapDescriptorFactory
                                 .defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
                         options.title(nom);
-                        googleMap.addMarker(options);
-
+                        Marker aMarker = googleMap.addMarker(options);
+                        listMarker.add(aMarker);
                     }
                 }catch (Exception e){}
 
@@ -202,6 +203,7 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                     public boolean onMarkerClick(Marker marker) {
                         Intent myIntent = new Intent(MapsFoJoueurActivity.this,questionActivity.class);
                         int idquestion = Integer.parseInt(marker.getSnippet());
+                        markerID = idquestion;
                         myIntent.putExtra("Idquestion", idquestion);
                         startActivityForResult(myIntent,1);
 
@@ -227,6 +229,32 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                         break;
                 }
             }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == 1){
+              String res =  data.getStringExtra("result");
+
+              if (res.equals("ok")){
+
+                  for(Marker m : listMarker){
+                      if(Integer.parseInt(m.getSnippet()) == markerID){
+                          m.setIcon(BitmapDescriptorFactory
+                                  .defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                      }
+                  }
+              }
+              else if (res.equals("nok")){
+                  for(Marker m : listMarker){
+                      if(Integer.parseInt(m.getSnippet()) == markerID){
+                          m.setIcon(BitmapDescriptorFactory
+                                  .defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                      }
+                  }
+              }
+        }
+
+    }
 
 
 }
