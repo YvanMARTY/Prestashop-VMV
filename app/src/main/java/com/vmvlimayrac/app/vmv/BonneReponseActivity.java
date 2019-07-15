@@ -36,13 +36,10 @@ public class BonneReponseActivity extends AppCompatActivity {
         Bundle b = getIntent().getExtras();
         idPartie = b.getString("idPartie");
 
-            // Initialize contacts
+
             score = Score.createScoresList(idPartie);
-
             ScoreAdapter adapter = new ScoreAdapter(score);
-
             listScore.setAdapter(adapter);
-
             listScore.setLayoutManager(new LinearLayoutManager(this));
 
 
