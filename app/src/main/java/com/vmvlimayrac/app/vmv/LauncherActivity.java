@@ -18,22 +18,17 @@ public class LauncherActivity extends AppCompatActivity {
         AsyncTask task = new AsyncTask() {
             @Override
             protected Object doInBackground(Object[] objects) {
-                p1 = (ProgressBar) findViewById(R.id.progressBar);
 
-                publishProgress(0);
-                SystemClock.sleep(500);
-                publishProgress(70);
-                SystemClock.sleep(500);
-                publishProgress(100);
+
+                SystemClock.sleep(1500);
+
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
+                finish();
                 return null;
             }
 
 
-            protected void onProgressUpdate(Integer... progress) {
-                p1.setProgress(progress[0]);
-            }
 
 
 

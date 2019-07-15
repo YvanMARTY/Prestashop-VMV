@@ -230,6 +230,7 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                         int idquestion = Integer.parseInt(marker.getSnippet());
                         markerID = idquestion;
                         myIntent.putExtra("Idquestion", idquestion);
+                        myIntent.putExtra("idPartie",idPartie);
                         startActivityForResult(myIntent,1);
 
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

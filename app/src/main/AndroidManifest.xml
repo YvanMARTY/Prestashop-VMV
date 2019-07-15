@@ -19,14 +19,22 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".InfoFoJoueurActivity" android:screenOrientation="portrait">
+        <activity android:name=".MauvaiseReponseActivity">
+        </activity>
+        <activity android:name=".BonneReponseActivity">
+        </activity>
+        <activity
+                android:name=".InfoFoJoueurActivity"
+                android:screenOrientation="portrait">
         </activity>
 
         <uses-library
                 android:name="org.apache.http.legacy"
                 android:required="false"/>
 
-        <activity android:name=".LauncherActivity" android:screenOrientation="portrait">
+        <activity
+                android:name=".LauncherActivity"
+                android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -55,7 +63,6 @@
                 android:label="@string/title_activity_maps_fo_joueur"
                 android:screenOrientation="portrait">
         </activity>
-
         <activity
                 android:name=".questionActivity"
                 android:label="Question"

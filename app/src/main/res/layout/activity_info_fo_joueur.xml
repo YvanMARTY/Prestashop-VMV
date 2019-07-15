@@ -10,7 +10,8 @@
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent" tools:layout_editor_absoluteY="640dp"
+            tools:layout_editor_absoluteX="48dp">
 
 
         <TextView
@@ -27,9 +28,13 @@
 
         <Button
                 android:text="GO"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/buttonGO"/>
+                android:layout_centerInParent="true"
+                android:id="@+id/buttonGO"
+                android:textColor="#FFFFFF"
+                android:textSize="30sp"
+                android:background="@drawable/custom_button_violet_arrondi"/>
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

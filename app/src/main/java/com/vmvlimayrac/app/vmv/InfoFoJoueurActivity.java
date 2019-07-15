@@ -66,7 +66,7 @@ public class InfoFoJoueurActivity extends AppCompatActivity {
        pointDepartText = (TextView) findViewById(R.id.textPointDepart);
        start = (Button)  findViewById(R.id.buttonGO);
        helloTeam.setText("Bonjour équipe " + nomEquipe );
-       pointDepartText.setText("Votre premiere question et point de depart est " + nompointDepart + "(Le point de couleur Jaune sur la carte)");
+       pointDepartText.setText("Votre premiere question et votre point de depart est " + nompointDepart + "(Le point de couleur Jaune sur la carte)");
 
         start.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.*;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Marker;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,6 +24,7 @@ public class questionActivity extends AppCompatActivity {
     RadioGroup rg;
     Button bValidation;
     String textBonReponse = "";
+    String idPartie = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,7 @@ public class questionActivity extends AppCompatActivity {
 
         Bundle b = getIntent().getExtras();
         int Idquestion = b.getInt("Idquestion");
+        idPartie = b.getString("idPartie");
 
          final List<QuestionReponse> listeQuestion = new ArrayList<>();
             StrictMode.ThreadPolicy policy = new StrictMode.
@@ -130,10 +134,21 @@ public class questionActivity extends AppCompatActivity {
                         result = "nok";
                     }
 
-                    Intent returnIntent = new Intent();
-                    returnIntent.putExtra("result",result);
-                    setResult(1,returnIntent);
-                    finish();
+
+                    if(result.equals("ok")){
+                    Intent myIntent = new Intent(questionActivity.this,BonneReponseActivity.class);
+                    myIntent.putExtra("result", result);
+                        myIntent.putExtra("idPartie", idPartie);
+                    startActivityForResult(myIntent,2); }
+                    else {
+
+                    Intent myIntent = new Intent(questionActivity.this,MauvaiseReponseActivity.class);
+                    myIntent.putExtra("result", result);
+                        myIntent.putExtra("idPartie", idPartie);
+                    startActivityForResult(myIntent,2);
+
+                    }
+
                 }
 
             }
@@ -148,7 +163,18 @@ public class questionActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == 2) {
+            String res =  data.getStringExtra("result");
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra("result",res);
+            setResult(1,returnIntent);
+            finish();
 
+
+        }
+    }
 }
 
 
