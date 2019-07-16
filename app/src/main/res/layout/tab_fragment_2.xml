@@ -38,8 +38,11 @@ android:orientation="vertical">
             android:id="@+id/btn_organisateur_connexion"
             android:layout_width="188dip"
             android:layout_height="50dip"
-            android:text="Se connecter"
-            android:textSize="16sp" />
+            android:text="Créer la partie"
+            android:textSize="16sp"
+            android:layout_marginTop="25sp"
+            android:textColor="#F8F8F8"
+            android:background="@drawable/custom_button_violet_arrondi"/>
 
     </LinearLayout>
 

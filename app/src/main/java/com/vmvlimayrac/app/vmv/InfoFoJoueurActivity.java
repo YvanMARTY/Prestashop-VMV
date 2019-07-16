@@ -65,8 +65,8 @@ public class InfoFoJoueurActivity extends AppCompatActivity {
        helloTeam = (TextView) findViewById(R.id.textNomEquipe);
        pointDepartText = (TextView) findViewById(R.id.textPointDepart);
        start = (Button)  findViewById(R.id.buttonGO);
-       helloTeam.setText("Bonjour équipe " + nomEquipe );
-       pointDepartText.setText("Votre premiere question et votre point de depart est " + nompointDepart + "(Le point de couleur Jaune sur la carte)");
+       helloTeam.setText( nomEquipe );
+       pointDepartText.setText(nompointDepart );
 
         start.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +78,7 @@ public class InfoFoJoueurActivity extends AppCompatActivity {
                     intent.putExtra("pointDepart",pointDepart);
                     intent.putExtra("scoreEquipe",scoreEquipe);
                     getApplicationContext().startActivity(intent);
+                    finish();
                 }
 
         });

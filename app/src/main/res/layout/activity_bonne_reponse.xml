@@ -9,29 +9,34 @@
         tools:context="com.vmvlimayrac.app.vmv.BonneReponseActivity">
 
     <TextView
-            android:text="BRAVO !"
+            android:text="BRAVO ! +5 Points"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/textViewbravo"
+            android:id="@+id/textView"
             android:textSize="50sp"
             android:textAlignment="center"
             android:textColor="@color/colorOk"
             android:layout_marginEnd="8dp"/>
 
 
-    <Button
-            android:text="Continuer !"
-            android:layout_width="437dp"
-            android:layout_height="46dp" android:id="@+id/buttonok"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp" android:layout_marginBottom="8dp"
-    />
     <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="4dp"
+            android:id="@+id/recyclerViewScore" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/buttonok" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView"/>
 
-            android:layout_width="395dp"
-            android:layout_height="594dp" tools:layout_editor_absoluteX="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/textViewbravo" android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/buttonok" android:id="@+id/recyclerViewScore"/>
+
+
+    <Button
+            android:text="Continuer ! "
+            android:layout_width="342dp"
+            android:layout_height="64dp" android:id="@+id/buttonok"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            android:textColor="#F8FF8F"
+            android:background="@drawable/custom_button_violet_arrondi"/>
 
 </android.support.constraint.ConstraintLayout>

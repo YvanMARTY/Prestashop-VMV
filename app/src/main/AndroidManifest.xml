@@ -19,6 +19,8 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".ConsignePremierPointActivity">
+        </activity>
         <activity android:name=".MauvaiseReponseActivity">
         </activity>
         <activity android:name=".BonneReponseActivity">

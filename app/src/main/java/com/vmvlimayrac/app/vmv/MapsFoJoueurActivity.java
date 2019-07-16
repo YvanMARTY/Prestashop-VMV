@@ -172,6 +172,9 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
 
                         options.title(nom);
                         Marker aMarker = googleMap.addMarker(options);
+                        if(!id.equals(pointDepart)){
+                            aMarker.setVisible(false);
+                        }
                         listMarker.add(aMarker);
                     }
                 }catch (Exception e){}
@@ -226,6 +229,21 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
 
                     @Override
                     public boolean onMarkerClick(Marker marker) {
+
+                        if(marker.getSnippet().equals(pointDepart)){
+
+                            Intent myIntent = new Intent(MapsFoJoueurActivity.this,questionActivity.class);
+                            int idquestion = Integer.parseInt(marker.getSnippet());
+                            markerID = idquestion;
+                            myIntent.putExtra("Idquestion", idquestion);
+                            myIntent.putExtra("idPartie",idPartie);
+                            startActivityForResult(myIntent,1);
+
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
+                            Intent consigne = new Intent(MapsFoJoueurActivity.this,ConsignePremierPointActivity.class);
+                            startActivity(consigne);
+                        }else{
                         Intent myIntent = new Intent(MapsFoJoueurActivity.this,questionActivity.class);
                         int idquestion = Integer.parseInt(marker.getSnippet());
                         markerID = idquestion;
@@ -233,7 +251,7 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                         myIntent.putExtra("idPartie",idPartie);
                         startActivityForResult(myIntent,1);
 
-                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);}
 
 
                         return true;
@@ -267,6 +285,11 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                       if(Integer.parseInt(m.getSnippet()) == markerID){
                           m.setIcon(BitmapDescriptorFactory
                                   .defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                      }
+                      if(Integer.parseInt(m.getSnippet()) == Integer.parseInt(pointDepart)){
+                          for(Marker ma : listMarker){
+                              ma.setVisible(true);
+                          }
                       }
                   }
                   int score = Integer.parseInt(scoreEquipe) + 5;
