@@ -19,11 +19,14 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".ConsignePremierPointActivity">
+        <activity android:name=".ConsignePremierPointActivity"
+                  android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".MauvaiseReponseActivity">
+        <activity android:name=".MauvaiseReponseActivity"
+                  android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".BonneReponseActivity">
+        <activity android:name=".BonneReponseActivity"
+                  android:screenOrientation="portrait">
         </activity>
         <activity
                 android:name=".InfoFoJoueurActivity"

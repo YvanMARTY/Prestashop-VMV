@@ -162,6 +162,7 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                         latlngs.add(point);
                         options.position(point);
                         options.snippet(id);
+                        options.zIndex(1);
                         if(id.equals(pointDepart)){
                             options.icon(BitmapDescriptorFactory
                                     .defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
@@ -229,31 +230,36 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
 
                     @Override
                     public boolean onMarkerClick(Marker marker) {
+                        float z = marker.getZIndex();
+                        if (z == 1) {
+                            if (marker.getSnippet().equals(pointDepart)) {
 
-                        if(marker.getSnippet().equals(pointDepart)){
+                                Intent myIntent = new Intent(MapsFoJoueurActivity.this, questionActivity.class);
+                                int idquestion = Integer.parseInt(marker.getSnippet());
+                                markerID = idquestion;
+                                myIntent.putExtra("Idquestion", idquestion);
+                                myIntent.putExtra("idPartie", idPartie);
+                                startActivityForResult(myIntent, 1);
 
-                            Intent myIntent = new Intent(MapsFoJoueurActivity.this,questionActivity.class);
-                            int idquestion = Integer.parseInt(marker.getSnippet());
-                            markerID = idquestion;
-                            myIntent.putExtra("Idquestion", idquestion);
-                            myIntent.putExtra("idPartie",idPartie);
-                            startActivityForResult(myIntent,1);
+                                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
-                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                                Intent consigne = new Intent(MapsFoJoueurActivity.this, ConsignePremierPointActivity.class);
+                                startActivity(consigne);
+                                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                            } else {
+                                Intent myIntent = new Intent(MapsFoJoueurActivity.this, questionActivity.class);
+                                int idquestion = Integer.parseInt(marker.getSnippet());
+                                markerID = idquestion;
+                                myIntent.putExtra("Idquestion", idquestion);
+                                myIntent.putExtra("idPartie", idPartie);
+                                startActivityForResult(myIntent, 1);
 
-                            Intent consigne = new Intent(MapsFoJoueurActivity.this,ConsignePremierPointActivity.class);
-                            startActivity(consigne);
-                        }else{
-                        Intent myIntent = new Intent(MapsFoJoueurActivity.this,questionActivity.class);
-                        int idquestion = Integer.parseInt(marker.getSnippet());
-                        markerID = idquestion;
-                        myIntent.putExtra("Idquestion", idquestion);
-                        myIntent.putExtra("idPartie",idPartie);
-                        startActivityForResult(myIntent,1);
+                                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                            }
 
-                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);}
+                            marker.setZIndex(0);
 
-
+                        }
                         return true;
                     }
                 });

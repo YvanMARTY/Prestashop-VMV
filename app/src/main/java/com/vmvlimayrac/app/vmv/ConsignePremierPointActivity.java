@@ -16,6 +16,7 @@ public class ConsignePremierPointActivity extends AppCompatActivity {
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                overridePendingTransition(R.anim.slide_out_right, R.anim.slide_in_right);
                 finish();
             }
 

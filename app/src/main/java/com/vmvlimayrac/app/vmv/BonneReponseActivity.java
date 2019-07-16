@@ -6,8 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -55,6 +57,23 @@ public class BonneReponseActivity extends AppCompatActivity {
 
         }
 
+    @Override
+    public void onBackPressed() {
+        // super.onBackPressed(); commented this line in order to disable back press
+        //Write your code here
+        Toast.makeText(getApplicationContext(), "C'est déjà la bonne réponse !", Toast.LENGTH_SHORT).show();
+    }
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            super.onKeyDown(keyCode, event);
+            return true;
+        }
+        return false;
+    }
 
     }
 

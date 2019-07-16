@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.StrictMode;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.*;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -139,13 +140,14 @@ public class questionActivity extends AppCompatActivity {
                     Intent myIntent = new Intent(questionActivity.this,BonneReponseActivity.class);
                     myIntent.putExtra("result", result);
                         myIntent.putExtra("idPartie", idPartie);
-                    startActivityForResult(myIntent,2); }
+                        startActivityForResult(myIntent,2);
+                        }
                     else {
 
                     Intent myIntent = new Intent(questionActivity.this,MauvaiseReponseActivity.class);
                     myIntent.putExtra("result", result);
                         myIntent.putExtra("idPartie", idPartie);
-                    startActivityForResult(myIntent,2);
+                        startActivityForResult(myIntent,2);
 
                     }
 
@@ -155,6 +157,8 @@ public class questionActivity extends AppCompatActivity {
         });
 
     }
+
+
 
     @Override
     public void finish() {
