@@ -7,58 +7,85 @@
                                              tools:context=".questionActivity">
 
 
-  <TextView
-          android:text="TextView"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent" android:id="@+id/textViewQuestion"
-          app:layout_constraintStart_toStartOf="parent"/>
-
-  <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:orientation="horizontal"
-          app:layout_constraintBottom_toBottomOf="parent"
-          tools:layout_editor_absoluteX="8dp">
 
 
-    <RadioGroup
+
+
+    <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" android:id="@+id/radioGroup">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/linearLayout2"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/buttonValidationChoix"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+    >
 
-      <RadioButton
-              android:id="@+id/radioButton"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_weight="1"
-              android:text="RadioButton"/>
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:id="@+id/imageViewPOI"
+                android:layout_gravity="center_vertical"
 
-      <RadioButton
-              android:id="@+id/radioButton2"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_weight="1"
-              android:text="RadioButton"/>
+        />
+        <TextView
+                android:text="TextView"
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/textViewQuestion"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+        />
 
-      <RadioButton
-              android:id="@+id/radioButton3"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_weight="1"
-              android:text="RadioButton"/>
+        <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/radioGroup">
 
-      <RadioButton
-              android:id="@+id/radioButton4"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_weight="1"
-              android:text="RadioButton"/>
+            <RadioButton
+                    android:id="@+id/radioButton3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="RadioButton"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"/>
 
-      <Button
-              android:id="@+id/buttonValidationChoix"
-              android:layout_width="match_parent"
-              android:layout_height="37dp"
-              android:layout_weight="1"
-              android:text="Valider"/>
-    </RadioGroup>
-  </LinearLayout>
+            <RadioButton
+                    android:id="@+id/radioButton2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="RadioButton" android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"/>
+            <RadioButton
+                    android:id="@+id/radioButton4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="RadioButton" android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"/>
+            <RadioButton
+                    android:id="@+id/radioButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="RadioButton"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"/>
+
+
+        </RadioGroup>
+
+    </LinearLayout>
+    <Button
+            android:id="@+id/buttonValidationChoix"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryDark"
+            android:background="@drawable/custom_button_violet_arrondi"
+            android:text="Valider"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"/>
 </android.support.constraint.ConstraintLayout>

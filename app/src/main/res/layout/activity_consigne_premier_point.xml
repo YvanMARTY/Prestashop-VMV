@@ -19,7 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:id="@+id/textView2"/>
         <TextView
-                android:text="Vous voilà maintenant à votre point de depart, à partir de maintenant vous allez pouvoir répondre aux différentes question !"
+                android:text="Vous voilà maintenant à votre point de depart, à partir de maintenant vous allez pouvoir répondre aux différentes questions !"
                 android:layout_marginTop="40dp"
                 android:layout_width="match_parent"
                 android:textSize="25dp"

@@ -257,7 +257,7 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                             }
 
-                            marker.setZIndex(0);
+
 
                         }
                         return true;
@@ -291,6 +291,7 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                       if(Integer.parseInt(m.getSnippet()) == markerID){
                           m.setIcon(BitmapDescriptorFactory
                                   .defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                          m.setZIndex(0);
                       }
                       if(Integer.parseInt(m.getSnippet()) == Integer.parseInt(pointDepart)){
                           for(Marker ma : listMarker){
@@ -313,7 +314,15 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                       if(Integer.parseInt(m.getSnippet()) == markerID){
                           m.setIcon(BitmapDescriptorFactory
                                   .defaultMarker(BitmapDescriptorFactory.HUE_RED));
+
+                          m.setZIndex(0);
                       }
+                      if(Integer.parseInt(m.getSnippet()) == Integer.parseInt(pointDepart)){
+                          for(Marker ma : listMarker){
+                              ma.setVisible(true);
+                          }
+                      }
+
                   }
               }
         }

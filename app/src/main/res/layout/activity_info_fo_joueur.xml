@@ -26,6 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textNomEquipe"
+                android:textStyle="bold"
                 android:textColor="@color/colorPrimary"
                 android:textAlignment="center"/>
         <TextView
@@ -41,6 +42,7 @@
                 android:text="TextView"
                 android:layout_marginTop="10dp"
                 android:textSize="30dp"
+                android:textStyle="bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textPointDepart"
@@ -49,7 +51,7 @@
         />
 
         <TextView
-                android:text="Rendez-vous au point jaune sur la carte, ce point est votre point de depart. Une fois arrivé au point cliquez dessus pour découvrir la question ! "
+                android:text="Rendez-vous au marker jaune sur la carte, c'est votre point de depart ! Une fois arrivé au point cliquez dessus pour découvrir votre premiere question ! "
                 android:layout_marginTop="80dp"
                 android:textSize="30dp"
                 android:layout_width="match_parent"
@@ -61,7 +63,7 @@
     </LinearLayout>
 
     <Button
-            android:text="GO"
+            android:text="J'y vais"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
