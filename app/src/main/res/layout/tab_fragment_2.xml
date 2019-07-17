@@ -32,7 +32,8 @@ android:orientation="vertical">
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:ems="10"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            android:text="0PPUXM"/>
 
         <Button
             android:id="@+id/btn_organisateur_connexion"

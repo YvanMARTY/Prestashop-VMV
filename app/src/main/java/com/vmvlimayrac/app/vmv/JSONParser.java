@@ -86,4 +86,57 @@ public class JSONParser {
         return jObj;
 
     }
+
+    // function get json string from url
+    // by making HTTP POST or GET mehtod
+    public static  String makeHttpRequestString(String stringUrl, String method) {
+
+        // Making HTTP request
+        try {
+            URL url = new URL(stringUrl);
+            // check for request method
+            if(method == "POST"){
+                // request method is POST
+                // defaultHttpClient
+                HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+
+                connection.setRequestProperty("User-Agent", "");
+                connection.setRequestMethod("POST");
+                connection.setDoInput(true);
+                connection.connect();
+
+                is = connection.getInputStream();
+            } else if(method == "GET"){
+                // request method is GET
+                HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+
+                connection.setRequestProperty("User-Agent", "");
+                connection.setRequestMethod("GET");
+                connection.setDoInput(true);
+                connection.connect();
+
+                is = connection.getInputStream();
+            }
+
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(
+                    is, "iso-8859-1"), 8);
+            String line = null;
+            line = reader.readLine();
+            is.close();
+            json = line.trim();
+        } catch (Exception e) {
+            Log.e("Buffer Error", "Error converting result " + e.toString());
+        }
+
+        // return JSON String
+        return json;
+
+    }
 }

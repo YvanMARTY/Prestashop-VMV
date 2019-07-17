@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class OrgParametreEquipeActivity extends AppCompatActivity implements NumberPicker.OnValueChangeListener {
 
@@ -21,9 +20,11 @@ public class OrgParametreEquipeActivity extends AppCompatActivity implements Num
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_org_parametre_equipe);
 
-        // On récupère le nombre d'équipes max
+        // On récupère les paramètres de la vue d'avant
         Intent myIntent = getIntent();
         String sizeMax = myIntent.getStringExtra("prc_grpMax");
+        String isGameClose = myIntent.getStringExtra("part_active");
+        String partId = myIntent.getStringExtra("part_id");
 
         //getSupportActionBar().hide();
 
@@ -39,7 +40,12 @@ public class OrgParametreEquipeActivity extends AppCompatActivity implements Num
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View vue) {
-                startActivity(new Intent(OrgParametreEquipeActivity.this, OrgParametrePartieActivity.class));
+                // Permet de faire suivre des variables entre les vues pour éviter des requêtes inutiles
+                Intent myIntent = getIntent();
+                Intent intent = new Intent(OrgParametreEquipeActivity.this, OrgParametrePartieActivity.class);
+                intent.putExtra("part_active", myIntent.getStringExtra("part_active"));
+                intent.putExtra("part_id", myIntent.getStringExtra("part_id"));
+                startActivity(intent);
             }
         });
 
@@ -48,6 +54,11 @@ public class OrgParametreEquipeActivity extends AppCompatActivity implements Num
         numberPicker.setMinValue(0);
         numberPicker.setWrapSelectorWheel(true);
         numberPicker.setOnValueChangedListener(this);
+        // Si la partie est close, on désactive certain bouttons
+        if (Boolean.valueOf(isGameClose)) {
+            numberPicker.setEnabled(false);
+            numberPicker.setFocusable(false);
+        }
     }
 
     public void onValueChange(NumberPicker picker, int oldVal, int newVal) {

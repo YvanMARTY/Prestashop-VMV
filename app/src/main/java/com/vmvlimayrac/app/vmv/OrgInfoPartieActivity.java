@@ -92,9 +92,12 @@ public class OrgInfoPartieActivity extends AppCompatActivity implements OnMapRea
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View vue) {
+                // Permet de faire suivre des variables entre les vues pour éviter des requêtes inutiles
                 Intent myIntent = getIntent();
                 Intent intent = new Intent(OrgInfoPartieActivity.this, OrgParametreEquipeActivity.class);
                 intent.putExtra("prc_grpMax", myIntent.getStringExtra("prc_grpMax"));
+                intent.putExtra("part_active", myIntent.getStringExtra("part_active"));
+                intent.putExtra("part_id", myIntent.getStringExtra("part_id"));
                 startActivity(intent);
             }
         });
