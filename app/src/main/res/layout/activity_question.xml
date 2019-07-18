@@ -18,14 +18,14 @@
             android:id="@+id/linearLayout2"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toTopOf="@+id/buttonValidationChoix"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent"
     >
 
         <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="200dp"
+                android:layout_width="match_parent"
+                android:layout_height="198dp"
                 android:id="@+id/imageViewPOI"
-                android:layout_gravity="center_vertical"
+
 
         />
         <TextView

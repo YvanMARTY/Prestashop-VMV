@@ -10,6 +10,8 @@ import android.os.StrictMode;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,7 +48,7 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
             private static final int LOCATION_REQUEST_CODE =101;
             private MarkerOptions options = new MarkerOptions();
             private ArrayList<LatLng> latlngs = new ArrayList<>();
-            private GoogleMap googleMap;
+            private GoogleMap googleMapGlobal;
             private Marker previousMarker = null;
             private ArrayList<Marker> listMarker = new ArrayList<>();
             private JSONArray AllMarker;
@@ -69,6 +71,66 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                 scoreEquipe = extras.getString("scoreEquipe");
                 pointDepart = extras.getString("pointDepart");
                 pinEquipe = extras.getString("pinEquipe");
+
+
+                Button mButton = (Button) findViewById(R.id.buttonGetScore);
+                mButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getApplicationContext(), ScoreActivity.class);
+                        intent.putExtra("idPartie" , idPartie);
+                        startActivity(intent);
+                    }
+                });
+
+
+                Button buttonViewTeam = (Button) findViewById(R.id.buttonPlayerPosition);
+                buttonViewTeam.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String test = "https://visite-ma-ville.fr/external/external_app.php?action=GetAllPositionByGameId&gameId="+idPartie;
+                        JSONArray result = JSONParser.makeHttpRequest(test,"GET");
+
+
+                        for (int i = 0; i < result.length(); i++) {
+
+                            JSONObject PositionEquipe = null;
+                            try {
+                                PositionEquipe = result.getJSONObject(i);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            String eqp_nom = null;
+                            try {
+                                eqp_nom = PositionEquipe.getString("eqp_nom");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            String loc_lat = null;
+                            try {
+                                loc_lat = PositionEquipe.getString("loc_lat");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            String loc_long = null ;
+                            try {
+                                loc_long = PositionEquipe.getString("loc_long");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                            LatLng point = new LatLng(Double.parseDouble(loc_lat), Double.parseDouble(loc_long));
+                            options.title(eqp_nom);
+                            options.zIndex(7);
+                            options.position(point);
+                            options.icon(BitmapDescriptorFactory
+                                    .defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+                            Marker marker = googleMapGlobal.addMarker(options);
+
+                        }
+
+                    }
+                });
 
 
 
@@ -151,6 +213,8 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
 
             public void onTaskComplete(JSONArray result,final GoogleMap googleMap ){
                 try {
+
+                    googleMapGlobal = googleMap;
                     for (int i = 0; i < result.length(); i++) {
                         JSONObject marker = result.getJSONObject(i);
                         String id = marker.getString("pts_id");
@@ -328,6 +392,5 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
         }
 
     }
-
 
 }
