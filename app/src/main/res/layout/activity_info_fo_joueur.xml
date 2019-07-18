@@ -53,7 +53,7 @@
         <TextView
                 android:text="Rendez-vous au marker jaune sur la carte, c'est votre point de depart ! Une fois arrivé au point cliquez dessus pour découvrir votre premiere question ! "
                 android:layout_marginTop="80dp"
-                android:textSize="25dp"
+                android:textSize="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textConsigne"

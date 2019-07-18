@@ -12,6 +12,8 @@
         android:layout_centerInParent="true">
 
 
+
+
         <TextView
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
@@ -19,13 +21,11 @@
             android:text="Joueur"
             android:textSize="20sp" />
 
-
-
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Code PIN :" />
+            android:text="Saisir le code PIN " />
 
         <EditText
             android:id="@+id/editText4"

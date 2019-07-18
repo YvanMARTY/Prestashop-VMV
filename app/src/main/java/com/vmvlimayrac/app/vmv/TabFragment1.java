@@ -74,6 +74,15 @@ public class TabFragment1 extends Fragment {
                 }
 
                 if(idPartie != null ){
+
+
+
+                String getExistingPoint = "https://visite-ma-ville.fr/external/external_app.php?action=GetQuestionDone&pinTeam="+pinEquipe.getText();
+                JSONArray resultT = JSONParser.makeHttpRequest(getExistingPoint,"GET");
+
+
+
+                if(resultT.length() == 0){
                 Intent intent = new Intent(getContext(), InfoFoJoueurActivity.class);
                 intent.putExtra("pinEquipe",pinEquipe.getText().toString());
                 intent.putExtra("idPartie",(idPartie).toString());
@@ -81,6 +90,8 @@ public class TabFragment1 extends Fragment {
                 intent.putExtra("scoreEquipe",scoreEquipe);
                 intent.putExtra("nomEquipe",nomEquipe);
                 getContext().startActivity(intent);
+                }
+                //Mettre les points
                 }
             }
         });

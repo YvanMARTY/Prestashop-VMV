@@ -47,11 +47,16 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
             private FusedLocationProviderClient fusedLocationProviderClient;
             private static final int LOCATION_REQUEST_CODE =101;
             private MarkerOptions options = new MarkerOptions();
-            private ArrayList<LatLng> latlngs = new ArrayList<>();
             private GoogleMap googleMapGlobal;
             private Marker previousMarker = null;
+
+            private ArrayList<LatLng> latlngs = new ArrayList<>();
             private ArrayList<Marker> listMarker = new ArrayList<>();
+            private ArrayList<Marker> listMarkerDo = new ArrayList<>();
+            private ArrayList<Marker> listMarkerEquipe = new ArrayList<>();
+
             private JSONArray AllMarker;
+
             private int markerID;
             private String pinEquipe;
             private String idPartie;
@@ -59,12 +64,12 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
             private String scoreEquipe;
             private String pointDepart;
             private String nompointDepart;
+            private boolean isEquipeAfficher = false;
 
             @Override
             protected void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.activity_maps_fo_joueur);
-
                 Bundle extras = getIntent().getExtras();
                 idPartie =  extras.getString("idPartie");
                 nomEquipe = extras.getString("nomEquipe");
@@ -88,47 +93,58 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                 buttonViewTeam.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String test = "https://visite-ma-ville.fr/external/external_app.php?action=GetAllPositionByGameId&gameId="+idPartie;
-                        JSONArray result = JSONParser.makeHttpRequest(test,"GET");
+
+                        if(isEquipeAfficher == false) {
+                            String test = "https://visite-ma-ville.fr/external/external_app.php?action=GetAllPositionByGameId&gameId=" + idPartie;
+                            JSONArray result = JSONParser.makeHttpRequest(test, "GET");
 
 
-                        for (int i = 0; i < result.length(); i++) {
+                            for (int i = 0; i < result.length(); i++) {
 
-                            JSONObject PositionEquipe = null;
-                            try {
-                                PositionEquipe = result.getJSONObject(i);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                                JSONObject PositionEquipe = null;
+                                try {
+                                    PositionEquipe = result.getJSONObject(i);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                String eqp_nom = null;
+                                try {
+                                    eqp_nom = PositionEquipe.getString("eqp_nom");
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                String loc_lat = null;
+                                try {
+                                    loc_lat = PositionEquipe.getString("loc_lat");
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                String loc_long = null;
+                                try {
+                                    loc_long = PositionEquipe.getString("loc_long");
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                                LatLng point = new LatLng(Double.parseDouble(loc_lat), Double.parseDouble(loc_long));
+                                options.title(eqp_nom);
+                                options.zIndex(7);
+                                options.position(point);
+                                options.icon(BitmapDescriptorFactory
+                                        .defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+                                Marker marker = googleMapGlobal.addMarker(options);
+                                listMarkerEquipe.add(marker);
+
                             }
-                            String eqp_nom = null;
-                            try {
-                                eqp_nom = PositionEquipe.getString("eqp_nom");
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            String loc_lat = null;
-                            try {
-                                loc_lat = PositionEquipe.getString("loc_lat");
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            String loc_long = null ;
-                            try {
-                                loc_long = PositionEquipe.getString("loc_long");
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
 
-                            LatLng point = new LatLng(Double.parseDouble(loc_lat), Double.parseDouble(loc_long));
-                            options.title(eqp_nom);
-                            options.zIndex(7);
-                            options.position(point);
-                            options.icon(BitmapDescriptorFactory
-                                    .defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
-                            Marker marker = googleMapGlobal.addMarker(options);
-
+                            isEquipeAfficher = true;
                         }
-
+                        else{
+                            for(Marker m : listMarkerEquipe){
+                                m.remove();
+                            }
+                            isEquipeAfficher = false;
+                        }
                     }
                 });
 
@@ -204,8 +220,6 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
 
             public JSONArray loadJson(String json) throws JSONException {
         JSONArray jsonArray = new JSONArray(json);
-
-
 
         return jsonArray;
         }
@@ -356,6 +370,8 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                           m.setIcon(BitmapDescriptorFactory
                                   .defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
                           m.setZIndex(0);
+                          String insertDone = "https://visite-ma-ville.fr/external/external_app.php?action=InsertResponseEquipe&pointId="+m.getSnippet()+"&pinTeam="+pinEquipe+"&statut=1";
+                          JSONArray resultok = JSONParser.makeHttpRequest(insertDone,"POST");
                       }
                       if(Integer.parseInt(m.getSnippet()) == Integer.parseInt(pointDepart)){
                           for(Marker ma : listMarker){
@@ -372,13 +388,15 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                   JSONArray result = JSONParser.makeHttpRequest(test,"POST");
 
 
+
               }
               else if (res.equals("nok")){
                   for(Marker m : listMarker){
                       if(Integer.parseInt(m.getSnippet()) == markerID){
                           m.setIcon(BitmapDescriptorFactory
                                   .defaultMarker(BitmapDescriptorFactory.HUE_RED));
-
+                          String insertDone = "https://visite-ma-ville.fr/external/external_app.php?action=InsertResponseEquipe&pointId="+m.getSnippet()+"&pinTeam="+pinEquipe+"&statut=0";
+                          JSONArray resultnok = JSONParser.makeHttpRequest(insertDone,"POST");
                           m.setZIndex(0);
                       }
                       if(Integer.parseInt(m.getSnippet()) == Integer.parseInt(pointDepart)){
