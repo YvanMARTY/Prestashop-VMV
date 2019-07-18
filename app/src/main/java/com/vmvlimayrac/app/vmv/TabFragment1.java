@@ -75,21 +75,47 @@ public class TabFragment1 extends Fragment {
 
                 if(idPartie != null ){
 
-
-
                 String getExistingPoint = "https://visite-ma-ville.fr/external/external_app.php?action=GetQuestionDone&pinTeam="+pinEquipe.getText();
                 JSONArray resultT = JSONParser.makeHttpRequest(getExistingPoint,"GET");
 
-
+                    Intent intent = new Intent(getContext(), InfoFoJoueurActivity.class);
+                    intent.putExtra("pinEquipe",pinEquipe.getText().toString());
+                    intent.putExtra("idPartie",(idPartie).toString());
+                    intent.putExtra("pointDepart",pointDepart);
+                    intent.putExtra("scoreEquipe",scoreEquipe);
+                    intent.putExtra("nomEquipe",nomEquipe);
 
                 if(resultT.length() == 0){
-                Intent intent = new Intent(getContext(), InfoFoJoueurActivity.class);
-                intent.putExtra("pinEquipe",pinEquipe.getText().toString());
-                intent.putExtra("idPartie",(idPartie).toString());
-                intent.putExtra("pointDepart",pointDepart);
-                intent.putExtra("scoreEquipe",scoreEquipe);
-                intent.putExtra("nomEquipe",nomEquipe);
-                getContext().startActivity(intent);
+                      getContext().startActivity(intent);
+                }else{
+                    ArrayList<String> listpointConcat = new ArrayList<>();
+                    for (int i = 0; i < resultT.length(); i++) {
+                        String concat = null;
+                        JSONObject PointFait = null;
+                        try {
+                            PointFait = resultT.getJSONObject(i);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        String rps_eqp_pnt_id = null;
+                        try {
+                            rps_eqp_pnt_id = PointFait.getString("rps_eqp_pnt_id");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        String rps_eqp_statut = null;
+                        try {
+                            rps_eqp_statut = PointFait.getString("rps_eqp_statut");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        concat = ""+ rps_eqp_pnt_id +"-" +rps_eqp_statut;
+                        listpointConcat.add(concat);
+
+                    }
+
+                     intent.putExtra("lesPoints",listpointConcat);
+                     getContext().startActivity(intent);
                 }
                 //Mettre les points
                 }
