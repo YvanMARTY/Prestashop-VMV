@@ -40,6 +40,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReadyCallback,GetResultQuery {
 
@@ -58,6 +61,10 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
     private JSONArray AllMarker;
 
     private int markerID;
+
+    private int CountAllQuestion = 0 ;
+    private int CountAllQuestionDone = 0;
+
     private String pinEquipe;
     private String idPartie;
     private String nomEquipe;
@@ -69,7 +76,12 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
     private String opt_visu_scor;
     private String opt_visu_loc;
     private ArrayList<String> lesPoints;
+    private String myCurrentLong;
+    private String myCurrentLat;
+
     private boolean isEquipeAfficher = false;
+
+    private ScheduledExecutorService scheduleTaskExecutor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,8 +97,6 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
         opt_visu_scor = extras.getString("opt_visu_scor");
         opt_visu_loc = extras.getString("opt_visu_loc");
         lesPoints = extras.getStringArrayList("lesPoints");
-
-
 
         Button mButton = (Button) findViewById(R.id.buttonGetScore);
         if(opt_visu_scor.equals("0")){
@@ -164,16 +174,11 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
             }
         });
 
-
-
-
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         if (ActivityCompat.checkSelfPermission(MapsFoJoueurActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MapsFoJoueurActivity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[] {android.Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST_CODE);
             return;
-        }else{
-
-        }
+        }else{}
 
 
         fetchLastLocation();
@@ -241,6 +246,7 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
         try {
 
             googleMapGlobal = googleMap;
+            CountAllQuestion = result.length();
             for (int i = 0; i < result.length(); i++) {
                 JSONObject marker = result.getJSONObject(i);
                 String id = marker.getString("pts_id");
@@ -292,10 +298,11 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
     }
 
     private boolean checkDonePoint(Marker clickedMarker){
-
+        CountAllQuestionDone = 0;
         String getExistingPoint = "https://visite-ma-ville.fr/external/external_app.php?action=GetQuestionDone&pinTeam="+pinEquipe;
         JSONArray resultT = JSONParser.makeHttpRequest(getExistingPoint,"GET");
         boolean isDone = false;
+        CountAllQuestionDone = resultT.length();
         for (int i = 0; i < resultT.length(); i++) {
             String concat = null;
             JSONObject PointFait = null;
@@ -345,6 +352,7 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
             public void onSuccess(Location location) {
                 if (location != null) {
                     currentLocation = location;
+
                     // Toast.makeText(MapsFoJoueurActivity.this,currentLocation.getLatitude()+" "+currentLocation.getLongitude(),Toast.LENGTH_SHORT).show();
                     SupportMapFragment supportMapFragment= (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
                     supportMapFragment.getMapAsync(MapsFoJoueurActivity.this);
@@ -420,7 +428,22 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
             }
         });
 
-
+        scheduleTaskExecutor = Executors.newScheduledThreadPool(3);
+        scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        myCurrentLong = Double.toString(currentLocation.getLongitude());
+                        myCurrentLat =  Double.toString(currentLocation.getLatitude());
+                        String insertNewPosition =  "https://visite-ma-ville.fr/external/external_app.php?action=InsertNewPosition&latitude="+myCurrentLat +"&longitude="+myCurrentLong + "&pinTeam="+pinEquipe+"";
+                        JSONArray InsertPosition = JSONParser.makeHttpRequest(insertNewPosition,"POST");
+                        Toast.makeText(getApplicationContext(),""+currentLocation.getLongitude()+"-"+currentLocation.getLatitude()+"",Toast.LENGTH_SHORT);
+                    }
+                });
+            }
+        }, 0, 5, TimeUnit.MINUTES);
     }
 
     @Override
@@ -440,7 +463,6 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode == 1){
             String res =  data.getStringExtra("result");
-
             if (res.equals("ok")){
 
                 for(Marker m : listMarker){
@@ -458,7 +480,7 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                     }
                 }
                 int score = Integer.parseInt(scoreEquipe) + 5;
-
+                CountAllQuestionDone = CountAllQuestionDone + 1 ;
                 StrictMode.ThreadPolicy policy = new StrictMode.
                         ThreadPolicy.Builder().permitAll().build();
                 StrictMode.setThreadPolicy(policy);
@@ -475,6 +497,7 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                                 .defaultMarker(BitmapDescriptorFactory.HUE_RED));
                         String insertDone = "https://visite-ma-ville.fr/external/external_app.php?action=InsertResponseEquipe&pointId="+m.getSnippet()+"&pinTeam="+pinEquipe+"&statut=0";
                         JSONArray resultnok = JSONParser.makeHttpRequest(insertDone,"POST");
+                        CountAllQuestionDone = CountAllQuestionDone + 1 ;
                         m.setZIndex(0);
                     }
                     if(Integer.parseInt(m.getSnippet()) == Integer.parseInt(pointDepart)){
@@ -482,11 +505,17 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                             ma.setVisible(true);
                         }
                     }
-
                 }
             }
+            if(CountAllQuestionDone == CountAllQuestion){
+                Intent myIntent = new Intent(MapsFoJoueurActivity.this, EndActivity.class);
+                startActivityForResult(myIntent, 9999);
+            }
         }
-
+        else if (resultCode == 9999){
+            //a faire quand j'aurais les retours bdd
+            Toast.makeText(this,"Go to last Point ",Toast.LENGTH_SHORT);
+        }
     }
 
 }

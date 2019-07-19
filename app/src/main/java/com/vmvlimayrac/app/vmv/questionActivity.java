@@ -2,6 +2,8 @@ package com.vmvlimayrac.app.vmv;
 
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.StrictMode;
 import android.os.Bundle;
@@ -16,6 +18,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import android.support.v4.app.Fragment;
 import android.widget.Button;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.util.*;
 import android.widget.Toast;
 
@@ -39,7 +45,7 @@ public class questionActivity extends AppCompatActivity {
         r3 = (RadioButton) findViewById(R.id.radioButton3);
         r4 = (RadioButton) findViewById(R.id.radioButton4);
         imagePOI = findViewById(R.id.imageViewPOI);
-
+        imagePOI.setImageBitmap(getBitmapFromURL("https://visite-ma-ville.fr/external/img/p1.png"));
         bValidation = (Button) findViewById(R.id.buttonValidationChoix);
 
         questionTextView = findViewById(R.id.textViewQuestion);
@@ -55,9 +61,9 @@ public class questionActivity extends AppCompatActivity {
          String test = "https://visite-ma-ville.fr/external/external_app.php?action=GetQuestionByPointId&pointId="+Idquestion;
          JSONArray result = JSONParser.makeHttpRequest(test,"GET");
         String name = "i"+ Idquestion ;
-        int id = getResources().getIdentifier(name, "drawable", getPackageName());
-        Drawable drawable = getResources().getDrawable(id);
-        imagePOI.setImageDrawable(drawable);
+        //int id = getResources().getIdentifier(name, "drawable", getPackageName());
+        //Drawable drawable = getResources().getDrawable(id);
+        //imagePOI.setImageDrawable(drawable);
         for (int i = 0; i < result.length(); i++) {
 
             JSONObject Question = null;
@@ -165,7 +171,6 @@ public class questionActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     public void finish() {
         super.finish();
@@ -185,6 +190,30 @@ public class questionActivity extends AppCompatActivity {
 
         }
     }
+
+
+    public Bitmap getBitmapFromURL(String src) {
+        try {
+            java.net.URL url = new java.net.URL(src);
+            HttpURLConnection connection = (HttpURLConnection) url
+                    .openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap myBitmap = BitmapFactory.decodeStream(input);
+            return myBitmap;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+
+
+
+
+
 }
 
 
