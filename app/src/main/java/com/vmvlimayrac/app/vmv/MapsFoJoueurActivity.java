@@ -241,7 +241,6 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
         return jsonArray;
     }
 
-
     public void onTaskComplete(JSONArray result,final GoogleMap googleMap ){
         try {
 
@@ -372,18 +371,12 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
             boolean success = googleMap.setMapStyle(
                     MapStyleOptions.loadRawResourceStyle(
                             this, R.raw.map_toulouse_color));
-
-            if (!success) {
-
-            }
-        } catch (Resources.NotFoundException e) {
-
-        }
+            if (!success) {}
+        } catch (Resources.NotFoundException e) {  }
 
         LatLng latLng = new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude());
         //MarkerOptions markerOptions = new MarkerOptions().position(latLng).title("You are Here");
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,14));
-
 
         new MapsFoJoueurActivity().downloadJSON("https://visite-ma-ville.fr/external/external_app.php?action=GetParcPointByGameId&gameId="+idPartie,this,googleMap);
 
