@@ -25,6 +25,8 @@ public class TabFragment1 extends Fragment {
     private String nomEquipe;
     private String scoreEquipe;
     private String pointDepart;
+    private String opt_visu_loc;
+    private String opt_visu_scor;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -71,53 +73,74 @@ public class TabFragment1 extends Fragment {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    try {
+                        opt_visu_loc = informations.getString("opt_visu_loc");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        opt_visu_scor = informations.getString("opt_visu_scor");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 if(idPartie != null ){
 
-                String getExistingPoint = "https://visite-ma-ville.fr/external/external_app.php?action=GetQuestionDone&pinTeam="+pinEquipe.getText();
-                JSONArray resultT = JSONParser.makeHttpRequest(getExistingPoint,"GET");
+                    String getExistingPoint = "https://visite-ma-ville.fr/external/external_app.php?action=GetQuestionDone&pinTeam="+pinEquipe.getText();
+                    JSONArray resultT = JSONParser.makeHttpRequest(getExistingPoint,"GET");
 
-                    Intent intent = new Intent(getContext(), InfoFoJoueurActivity.class);
-                    intent.putExtra("pinEquipe",pinEquipe.getText().toString());
-                    intent.putExtra("idPartie",(idPartie).toString());
-                    intent.putExtra("pointDepart",pointDepart);
-                    intent.putExtra("scoreEquipe",scoreEquipe);
-                    intent.putExtra("nomEquipe",nomEquipe);
 
-                if(resultT.length() == 0){
-                      getContext().startActivity(intent);
-                }else{
-                    ArrayList<String> listpointConcat = new ArrayList<>();
-                    for (int i = 0; i < resultT.length(); i++) {
-                        String concat = null;
-                        JSONObject PointFait = null;
-                        try {
-                            PointFait = resultT.getJSONObject(i);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        String rps_eqp_pnt_id = null;
-                        try {
-                            rps_eqp_pnt_id = PointFait.getString("rps_eqp_pnt_id");
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        String rps_eqp_statut = null;
-                        try {
-                            rps_eqp_statut = PointFait.getString("rps_eqp_statut");
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        concat = ""+ rps_eqp_pnt_id +"-" +rps_eqp_statut;
-                        listpointConcat.add(concat);
+                    if(resultT.length() == 0){
+                        Intent intent = new Intent(getContext(), InfoFoJoueurActivity.class);
+                        intent.putExtra("pinEquipe",pinEquipe.getText().toString());
+                        intent.putExtra("idPartie",(idPartie).toString());
+                        intent.putExtra("pointDepart",pointDepart);
+                        intent.putExtra("scoreEquipe",scoreEquipe);
+                        intent.putExtra("nomEquipe",nomEquipe);
+                        intent.putExtra("opt_visu_scor",opt_visu_scor);
+                        intent.putExtra("opt_visu_loc",opt_visu_loc);
+                        intent.putExtra("thereIsPoint","0");
+                        getContext().startActivity(intent);
+                    }else{
+                        ArrayList<String> listpointConcat = new ArrayList<>();
+                        for (int i = 0; i < resultT.length(); i++) {
+                            String concat = null;
+                            JSONObject PointFait = null;
+                            try {
+                                PointFait = resultT.getJSONObject(i);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            String rps_eqp_pnt_id = null;
+                            try {
+                                rps_eqp_pnt_id = PointFait.getString("rps_eqp_pnt_id");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            String rps_eqp_statut = null;
+                            try {
+                                rps_eqp_statut = PointFait.getString("rps_eqp_statut");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            concat = ""+ rps_eqp_pnt_id +"-" +rps_eqp_statut;
+                            listpointConcat.add(concat);
 
+                        }
+                        Intent intent = new Intent(getContext(), MapsFoJoueurActivity.class);
+                        intent.putExtra("pinEquipe",pinEquipe.getText().toString());
+                        intent.putExtra("idPartie",(idPartie).toString());
+                        intent.putExtra("pointDepart",pointDepart);
+                        intent.putExtra("scoreEquipe",scoreEquipe);
+                        intent.putExtra("nomEquipe",nomEquipe);
+                        intent.putExtra("opt_visu_scor",opt_visu_scor);
+                        intent.putExtra("opt_visu_loc",opt_visu_loc);
+                        intent.putExtra("lesPoints",listpointConcat);
+                        intent.putExtra("thereIsPoint","1");
+                        getContext().startActivity(intent);
                     }
 
-                     intent.putExtra("lesPoints",listpointConcat);
-                     getContext().startActivity(intent);
-                }
-                //Mettre les points
                 }
             }
         });

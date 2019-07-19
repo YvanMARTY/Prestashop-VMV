@@ -25,6 +25,9 @@ public class InfoFoJoueurActivity extends AppCompatActivity {
     private TextView pointDepartText;
     private String nompointDepart;
     private String pinEquipe;
+    private String thereIsPoint;
+    private String opt_visu_scor;
+    private String opt_visu_loc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,9 @@ public class InfoFoJoueurActivity extends AppCompatActivity {
        scoreEquipe = extras.getString("scoreEquipe");
        pointDepart = extras.getString("pointDepart");
        pinEquipe = extras.getString("pinEquipe");
+        thereIsPoint = extras.getString("thereIsPoint");
+        opt_visu_scor = extras.getString("opt_visu_scor");
+        opt_visu_loc = extras.getString("opt_visu_loc");
 
         StrictMode.ThreadPolicy policy = new StrictMode.
                 ThreadPolicy.Builder().permitAll().build();
@@ -77,6 +83,9 @@ public class InfoFoJoueurActivity extends AppCompatActivity {
                     intent.putExtra("idPartie",idPartie);
                     intent.putExtra("pointDepart",pointDepart);
                     intent.putExtra("scoreEquipe",scoreEquipe);
+                    intent.putExtra("opt_visu_scor",opt_visu_scor);
+                    intent.putExtra("opt_visu_loc",opt_visu_loc);
+                    intent.putExtra("thereIsPoint","0");
                     getApplicationContext().startActivity(intent);
                     finish();
                 }
