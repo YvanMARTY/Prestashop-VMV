@@ -21,12 +21,24 @@ class AdminListeController extends ModuleAdminController
         $this->context = Context::getContext();
         parent::__construct();
         $smarty = $this->context->smarty;
+       $this->context->controller->addJS(_PS_MODULE_DIR_ . 'moduleparcours/views/js/Chart.min.js');
+        $this->context->controller->addCSS(_PS_MODULE_DIR_ . 'moduleparcours/views/css/Chart.min.css');
+        /*Tools::addCSS($this->_path.'Chart.min.css', 'all');
+        Tools::addJS($this->_path.'Chart.min.js', 'all');*/
         if (isset($_GET["id"])) {
             $parcours = $this->getParcours($_GET["id"]);
             $smarty->assign('parcours', $parcours);
         } else {
             $parcoursarray = $this->getAllParcours();
             $smarty->assign('Array', $parcoursarray);
+            $parcoursName = array();
+            $achats = array();
+            foreach($parcoursarray as $arr){
+                array_push($parcoursName,$arr->nom);
+                array_push($achats,count($arr->achats));
+            }
+            $smarty->assign('parcoursname',$parcoursName);
+            $smarty->assign('achats',$achats);
         }
         $this->setTemplate('parcours.tpl');
     }
@@ -107,7 +119,7 @@ class AdminListeController extends ModuleAdminController
                 $parcoursToAdd->id = $row['prc_id'];
                 $parcoursToAdd->nom = $row['prc_nom'];
                 $parcoursToAdd->time = $row['prc_prix'];
-                $parcoursToAdd->active = $row['prc_tmp'];
+                $parcoursToAdd->active = $row['prc_active'];
                 $subquerypoints = "SELECT * from " . _DB_PREFIX_ . "point_parcours where pnt_parc_prc_id =" . $parcoursToAdd->id . ";";
                 $parcoursToAdd->achats = $this->getAchats($parcoursToAdd->id);
                 if ($subresults = $db->ExecuteS($subquerypoints)) {
