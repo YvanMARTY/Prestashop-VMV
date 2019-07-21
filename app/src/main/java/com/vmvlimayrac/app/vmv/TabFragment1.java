@@ -34,7 +34,7 @@ public class TabFragment1 extends Fragment {
 
         Button button = (Button) view.findViewById(R.id.btn_joueur_connexion);
         pinEquipe = (EditText) view.findViewById(R.id.editText4);
-        pinEquipe.setText("LLFEde");
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
