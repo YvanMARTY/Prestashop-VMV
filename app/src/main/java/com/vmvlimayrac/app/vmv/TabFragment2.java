@@ -30,8 +30,16 @@ public class TabFragment2 extends Fragment {
                 String password = name.getText().toString();
                 Intent intent = new Intent(getActivity(), OrgInfoPartieActivity.class);
                 if (checkAdminPassword(password, intent)) {
-                    // Si oui on accède à la vue correspondante
-                    ((MainActivity) getActivity()).startActivity(intent);
+                    if (!Boolean.valueOf(intent.getStringExtra("part_actives"))) {
+                        // la partie est inactive, on lance la vue de paramètres
+                        ((MainActivity) getActivity()).startActivity(intent);
+                    }
+                    else {
+                        // la partie est active, on lance directement la vue de gestion
+                        Intent mIntent = new Intent(getActivity(), OrgActivity.class);
+                        mIntent.putExtras(intent.getExtras());
+                        ((MainActivity) getActivity()).startActivity(mIntent);
+                    }
                 }
             }
         });
@@ -49,7 +57,7 @@ public class TabFragment2 extends Fragment {
         try {
             JSONArray result = JSONParser.makeHttpRequest(link, "GET");
             JSONObject jsonObject = result.getJSONObject(0);
-            if (jsonObject.getString("prc_id") != "null") {
+            if (jsonObject.getString("prc_id") != null) {
                 // On ajoute a l'intent les paramètre de la requêtes utiles pour la suite...
                 intent.putExtra("ach_id", jsonObject.getString("ach_id"));
                 intent.putExtra("part_id",jsonObject.getString("part_id"));
@@ -58,6 +66,8 @@ public class TabFragment2 extends Fragment {
                 intent.putExtra("part_active",jsonObject.getString("part_active"));
                 intent.putExtra("prc_grpMax",jsonObject.getString("prc_grpMax"));
                 intent.putExtra("nb_pts",jsonObject.getString("nb_pts"));
+                intent.putExtra("prc_tmp", jsonObject.getString("prc_tmp"));
+                intent.putExtra("typ_libelle", jsonObject.getString("typ_libelle"));
                 isOk = true;
             }
             else {

@@ -70,8 +70,8 @@ public class OrgInfoPartieActivity extends AppCompatActivity implements OnMapRea
         TextView nbrStep = (TextView) findViewById(R.id.nbrStep);
         TextView desc = (TextView) findViewById(R.id.desc);
         name.setText(myIntent.getStringExtra("prc_nom"));
-        type.setText("not implemented");
-        time.setText("not implemented");
+        type.setText(myIntent.getStringExtra("typ_libelle"));
+        time.setText(myIntent.getStringExtra("prc_tmp"));
         sizeMax.setText(myIntent.getStringExtra("prc_grpMax"));
         nbrStep.setText(myIntent.getStringExtra("nb_pts"));
         desc.setText("not implemented");
