@@ -14,7 +14,7 @@ public class Score {
 
     public Score(String name, String score) {
         mName = name;
-        mScore = score;
+        mScore = score ;
     }
 
     public String getName() {
@@ -60,11 +60,6 @@ public class Score {
             }
             scores.add(new Score("Equipe "+ eqp_nom, "Score " + eqp_score));
         }
-
-
-
-
-
         return scores;
     }
 

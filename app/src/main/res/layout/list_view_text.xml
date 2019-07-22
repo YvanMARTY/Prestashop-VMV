@@ -13,12 +13,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:textColor="@color/colorAccent"
     />
 
     <Button
             android:id="@+id/score_button"
-            android:layout_width="237dp"
-            android:layout_height="59dp"
-            android:textSize="10sp"
+            android:layout_width="135dp"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:color="#FFF"
+            android:textStyle="bold"
+            android:radius="50dp"
     />
+
+
 </LinearLayout>

@@ -78,15 +78,19 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
     private ArrayList<String> lesPoints;
     private String myCurrentLong;
     private String myCurrentLat;
-
+    private Intent loading;
     private boolean isEquipeAfficher = false;
 
     private ScheduledExecutorService scheduleTaskExecutor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //loading = new Intent(this, LoadingActivity.class);
+        //startActivity(loading);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps_fo_joueur);
+
         Bundle extras = getIntent().getExtras();
         idPartie =  extras.getString("idPartie");
         nomEquipe = extras.getString("nomEquipe");
@@ -421,7 +425,7 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
             }
         });
 
-        scheduleTaskExecutor = Executors.newScheduledThreadPool(3);
+        scheduleTaskExecutor = Executors.newScheduledThreadPool(5);
         scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
@@ -437,6 +441,8 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                 });
             }
         }, 0, 5, TimeUnit.MINUTES);
+
+
     }
 
     @Override
@@ -479,9 +485,6 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                 StrictMode.setThreadPolicy(policy);
                 String test = "https://visite-ma-ville.fr/external/external_app.php?action=InsertNewTeamScore&teamScore="+score +"&pinTeam="+ pinEquipe;
                 JSONArray result = JSONParser.makeHttpRequest(test,"POST");
-
-
-
             }
             else if (res.equals("nok")){
                 for(Marker m : listMarker){
@@ -506,8 +509,43 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
             }
         }
         else if (resultCode == 9999){
-            //a faire quand j'aurais les retours bdd
-            Toast.makeText(this,"Go to last Point ",Toast.LENGTH_SHORT);
+
+            String getExistingPoint = "https://visite-ma-ville.fr/external/external_app.php?action=GetParcPointByGameId&gameId="+idPartie;
+            JSONArray resultT = JSONParser.makeHttpRequest(getExistingPoint,"GET");
+            boolean isDone = false;
+
+            for (int i = 0; i < resultT.length(); i++) {
+
+                JSONObject listePointPartie = null;
+                try {
+                    listePointPartie = resultT.getJSONObject(i);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                String pts_nom = null;
+                try {
+                    pts_nom = listePointPartie.getString("pts_nom");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                String pnt_parc_typ_pnt_id = null;
+                try {
+                    pnt_parc_typ_pnt_id = listePointPartie.getString("pnt_parc_typ_pnt_id");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                for(Marker aMarker : listMarker) {
+
+                    if (pts_nom.equals(aMarker) && pnt_parc_typ_pnt_id.equals(3)) {
+                        aMarker.setIcon(BitmapDescriptorFactory
+                                .defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
+                    } else{
+                           aMarker.setVisible(false);
+                          }
+                }
+            }
+
         }
     }
 

@@ -144,7 +144,6 @@ public class TabFragment1 extends Fragment {
                 }
             }
         });
-
         return view;
     }
 }

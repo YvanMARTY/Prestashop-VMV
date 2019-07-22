@@ -15,21 +15,29 @@
           android:layout_height="match_parent"
           tools:context=".MapsFoJoueurActivity" />
     <Button
-            android:text="S"
+            android:text="score"
+
             android:background="@drawable/custom_button_violet_rond"
             android:layout_width="wrap_content"
+            android:paddingTop="5dp"
             android:textColor="#F8F8F8"
-            android:textSize="35dp"
+            android:textSize="10dp"
+            android:alpha="0.90"
+            android:drawableTop="@android:drawable/ic_dialog_info"
             android:textStyle="bold"
             android:layout_height="wrap_content" android:id="@+id/buttonGetScore" android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="8dp"/>
+
     <Button
-            android:text="E"
+            android:text="Equipes"
+            android:paddingTop="5dp"
             android:background="@drawable/custom_button_violet_rond"
             android:layout_width="wrap_content"
+            android:alpha="0.90"
             android:textColor="#F8F8F8"
-            android:textSize="35dp"
+            android:textSize="10dp"
+            android:drawableTop="@android:drawable/ic_dialog_map"
             android:textStyle="bold"
             android:layout_height="wrap_content" android:id="@+id/buttonPlayerPosition"
             android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="parent"
