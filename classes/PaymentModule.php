@@ -753,7 +753,7 @@ abstract class PaymentModuleCore extends Module
                     // Order is reloaded because the status just changed
                     $order = new Order((int)$order->id);
 
-                    $arr_mdp_parties = array();
+                    /* $arr_mdp_parties = array();
                     // Pour chaque produit de la commande
                     foreach ($product_list_vmv as $product) {
                         // Récupère le nom du produit
@@ -764,7 +764,9 @@ abstract class PaymentModuleCore extends Module
                     $message_partie = "";
                     foreach($arr_mdp_parties as $m){
                         $message_partie .= "<li>Nom du parcours : <b style='font:size:18px;'>{$m[0]}</b> | Mot de passe : <b style='font:size:18px;'>{$m[1]}</b></li>";
-                    }
+                    } */
+
+                    $message_partie = "";
 
                     // Send an e-mail to customer (one order = one email)
                     if ($id_order_state != Configuration::get('PS_OS_ERROR') && $id_order_state != Configuration::get('PS_OS_CANCELED') && $this->context->customer->id) {
@@ -855,23 +857,23 @@ abstract class PaymentModuleCore extends Module
                         // RECUP TOUS LES NOMS DES FICHIERS PDF
                             // Noms des valeurs à chercher dans un produit déclenchant l'envoi du PDF supplémentaires
                             $pdfNames_all = array();
+                            
                             // ON PREND QUE LES PDF DU DOSSIER CIBLE
-                            $files_pdf_parcours = scandir(_PS_ROOT_DIR_.'/upload/*.{pdf}');
-                            foreach($files_pdf_parcours as $nom_fichier_pdf) {
+                            if ($handle = opendir(_PS_ROOT_DIR_.'/upload/parcours')) {
+                            
+                                while (false !== ($fichier_pdf = readdir($handle))) {
+                                    $nomparcours = "";
 
-                                $nomparcours = "";
+                                    $nompfichierpdf_truncate = str_replace(".pdf", "", $fichier_pdf);
+                                    $nompfichierpdf_ok = str_replace("vmv_parcours", "", $nompfichierpdf_truncate);
 
-                                if($nom_fichier_pdf->isDot()) continue;
-
-                                $nompfichierpdf_truncate = str_replace(".pdf", "", $nom_fichier_pdf->getFilename());
-                                $nompfichierpdf_ok = str_replace("vmv_parcours", "", $nompfichierpdf_truncate);
-
-                                // RECUP EN BASE DE DONNEES - NOM PARCOURS
-                                $req_ref_parcours = "SELECT `reference` FROM `"._DB_PREFIX_."product` WHERE reference = LIKE%".$nompfichierpdf_ok."%";
-                                if($res__reqpdf_parcours = Db::getInstance()->execute($req_ref_parcours)) {
-                                    foreach ($res_reqpdf_parcours as $row_ref_parcours) {
-                                        // AJOUT DE LA REF A L'ARRAY DES NOMS PDF
-                                        $pdfNames_all[$row_ref_parcours['reference']] = $nom_fichier_pdf->getFilename();
+                                    // RECUP EN BASE DE DONNEES - NOM PARCOURS
+                                    $req_ref_parcours = "SELECT `reference` FROM `"._DB_PREFIX_."product`";
+                                    if($res_reqpdf_parcours = Db::getInstance()->executeS($req_ref_parcours)) {
+                                        foreach ($res_reqpdf_parcours as $row_ref_parcours) {
+                                            // AJOUT DE LA REF A L'ARRAY DES NOMS PDF
+                                            $pdfNames_all[$row_ref_parcours['reference']] = $fichier_pdf;
+                                        }
                                     }
                                 }
                             }
@@ -885,7 +887,7 @@ abstract class PaymentModuleCore extends Module
                                 // SI LA REFERENCE DU PARCOURS COURANT EST DANS LE TABLEAU DES PDF PARCOURS
                                 // && SI LE PDF N'EST PAS DANS LE TABLEAU DES PJ A AJOUTER
                                 if(stristr($product_ref, $key_nomparcours) && !in_array($nomfichier, $pdfInUse)) {
-                                    $pdfInUse[] = $pdfNames[$i];
+                                    $pdfInUse[] = $key_nomparcours;
                                     $pdf_attachment[$key_nomparcours]['content'] = file_get_contents(_PS_ROOT_DIR_."/upload/parcours/".$nomfichier);
                                     $pdf_attachment[$key_nomparcours]['name'] = $nomfichier;
                                     $pdf_attachment[$key_nomparcours]['mime'] = 'application/pdf';
