@@ -886,7 +886,7 @@ abstract class PaymentModuleCore extends Module
                                 // && SI LE PDF N'EST PAS DANS LE TABLEAU DES PJ A AJOUTER
                                 if(stristr($product_ref, $key_nomparcours) && !in_array($nomfichier, $pdfInUse)) {
                                     $pdfInUse[] = $pdfNames[$i];
-                                    $pdf_attachment[$key_nomparcours]['content'] = file_get_contents(_PS_ROOT_DIR_."/upload/".$nomfichier);
+                                    $pdf_attachment[$key_nomparcours]['content'] = file_get_contents(_PS_ROOT_DIR_."/upload/parcours/".$nomfichier);
                                     $pdf_attachment[$key_nomparcours]['name'] = $nomfichier;
                                     $pdf_attachment[$key_nomparcours]['mime'] = 'application/pdf';
                                 }
