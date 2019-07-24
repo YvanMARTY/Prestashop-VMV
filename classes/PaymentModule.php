@@ -848,6 +848,75 @@ abstract class PaymentModuleCore extends Module
 
                         $orderLanguage = new Language((int) $order->id_lang);
 
+                        /* 24/07/2019 - PDF PARCOURS EN PJ */
+                        $pdfInUse = array(); // Pdf qui ont déjà été ajoutés suite aux produits choisis
+                        $pdf_attachment = array(); // Infos de pdf joints
+
+                        // RECUP TOUS LES NOMS DES FICHIERS PDF
+                            // Noms des valeurs à chercher dans un produit déclenchant l'envoi du PDF supplémentaires
+                            $pdfNames_all = array();
+                            // ON PREND QUE LES PDF DU DOSSIER CIBLE
+                            $files_pdf_parcours = scandir(_PS_ROOT_DIR_.'/upload/*.{pdf}');
+                            foreach($files_pdf_parcours as $nom_fichier_pdf) {
+
+                                $nomparcours = "";
+
+                                if($nom_fichier_pdf->isDot()) continue;
+
+                                $nompfichierpdf_truncate = str_replace(".pdf", "", $nom_fichier_pdf->getFilename());
+                                $nompfichierpdf_ok = str_replace("vmv_parcours", "", $nompfichierpdf_truncate);
+
+                                // RECUP EN BASE DE DONNEES - NOM PARCOURS
+                                $req_ref_parcours = "SELECT `reference` FROM `"._DB_PREFIX_."product` WHERE reference = LIKE%".$nompfichierpdf_ok."%";
+                                if($res__reqpdf_parcours = Db::getInstance()->execute($req_ref_parcours)) {
+                                    foreach ($res_reqpdf_parcours as $row_ref_parcours) {
+                                        // AJOUT DE LA REF A L'ARRAY DES NOMS PDF
+                                        $pdfNames_all[$row_ref_parcours['reference']] = $nom_fichier_pdf->getFilename();
+                                    }
+                                }
+                            }
+
+                        // pdfNames[] => DYNAMIC SIZE
+                        foreach($this->context->cart->getProducts() as $cart_product) {
+
+                            $product_ref = $cart_product['reference'];
+
+                            foreach ($pdfNames_all as $key_nomparcours => $nomfichier) {
+                                // SI LA REFERENCE DU PARCOURS COURANT EST DANS LE TABLEAU DES PDF PARCOURS
+                                // && SI LE PDF N'EST PAS DANS LE TABLEAU DES PJ A AJOUTER
+                                if(stristr($product_ref, $key_nomparcours) && !in_array($nomfichier, $pdfInUse)) {
+                                    $pdfInUse[] = $pdfNames[$i];
+                                    $pdf_attachment[$key_nomparcours]['content'] = file_get_contents(_PS_ROOT_DIR_."/upload/".$nomfichier);
+                                    $pdf_attachment[$key_nomparcours]['name'] = $nomfichier;
+                                    $pdf_attachment[$key_nomparcours]['mime'] = 'application/pdf';
+                                }
+                            }
+
+                        }
+
+                        // On a des pdf à ajouter alors on les insère dans le file_attachment
+                        if ($pdfInUse) {
+                            // S'il y avait déjà une PJ, on l'enlève pour le replacer dans le tableau d'array
+                            if ($file_attachement) {
+                                $temp_file_attachement = $file_attachement;
+                                $file_attachement = array(); // Reset des PJ qui vont être déplacés
+                                $file_attachement[] = $temp_file_attachement;
+                                foreach ($pdf_attachment as $pdf) {
+                                    $file_attachement[] = $pdf;
+                                }
+                            }
+                            // Si aucune PJ à la base et que plusieurs PDF doivent être ajoutés
+                            else if (sizeof($pdfInUse) > 1) {
+                                foreach ($pdf_attachment as $pdf) {
+                                    $file_attachement[] = $pdf;
+                                }
+                            }
+                            // Si aucune PJ à la base et qu'un seul pdf doit être ajouté
+                            else {
+                                $file_attachement = $pdf_attachment[$pdfInUse[0]];
+                            }
+                        }
+
                         if (Validate::isEmail($this->context->customer->email)) {
                             Mail::Send(
                                 (int)$order->id_lang,
@@ -1130,7 +1199,7 @@ abstract class PaymentModuleCore extends Module
         }
 
         $id_parcours = 0;
-        /* ID OF PARCOURS */        
+        /* ID OF PARCOURS */
         $req_id_parcours = "SELECT `prc_id` FROM `"._DB_PREFIX_."mapping` WHERE `id_product` = ".$id_product;
 
         if ($results_id_parcours = Db::getInstance()->ExecuteS($req_id_parcours)) {
