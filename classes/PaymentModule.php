@@ -881,7 +881,6 @@ abstract class PaymentModuleCore extends Module
                                 }
                             }
 
-                        // pdfNames[] => DYNAMIC SIZE
                         foreach($this->context->cart->getProducts() as $cart_product) {
 
                             $product_ref = $cart_product['reference'];
