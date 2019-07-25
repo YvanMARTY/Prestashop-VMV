@@ -862,17 +862,20 @@ abstract class PaymentModuleCore extends Module
                             if ($handle = opendir(_PS_ROOT_DIR_.'/upload/parcours')) {
                             
                                 while (false !== ($fichier_pdf = readdir($handle))) {
-                                    $nomparcours = "";
 
-                                    $nompfichierpdf_truncate = str_replace(".pdf", "", $fichier_pdf);
-                                    $nompfichierpdf_ok = str_replace("vmv_parcours", "", $nompfichierpdf_truncate);
+                                    if($fichier_pdf != "." && $fichier_pdf != "..") {
+                                        $nomparcours = "";
 
-                                    // RECUP EN BASE DE DONNEES - NOM PARCOURS
-                                    $req_ref_parcours = "SELECT `reference` FROM `"._DB_PREFIX_."product`";
-                                    if($res_reqpdf_parcours = Db::getInstance()->executeS($req_ref_parcours)) {
-                                        foreach ($res_reqpdf_parcours as $row_ref_parcours) {
-                                            // AJOUT DE LA REF A L'ARRAY DES NOMS PDF
-                                            $pdfNames_all[$row_ref_parcours['reference']] = $fichier_pdf;
+                                        $nompfichierpdf_truncate = str_replace(".pdf", "", $fichier_pdf);
+                                        $nompfichierpdf_ok = str_replace("vmv_parcours", "", $nompfichierpdf_truncate);
+
+                                        // RECUP EN BASE DE DONNEES - NOM PARCOURS
+                                        $req_ref_parcours = "SELECT `reference` FROM `"._DB_PREFIX_."product`";
+                                        if($res_reqpdf_parcours = Db::getInstance()->executeS($req_ref_parcours)) {
+                                            foreach ($res_reqpdf_parcours as $row_ref_parcours) {
+                                                // AJOUT DE LA REF A L'ARRAY DES NOMS PDF
+                                                $pdfNames_all[$row_ref_parcours['reference']] = $fichier_pdf;
+                                            }
                                         }
                                     }
                                 }
@@ -887,10 +890,10 @@ abstract class PaymentModuleCore extends Module
                                 // SI LA REFERENCE DU PARCOURS COURANT EST DANS LE TABLEAU DES PDF PARCOURS
                                 // && SI LE PDF N'EST PAS DANS LE TABLEAU DES PJ A AJOUTER
                                 if(stristr($product_ref, $key_nomparcours) && !in_array($nomfichier, $pdfInUse)) {
-                                    $pdfInUse[] = $key_nomparcours;
-                                    $pdf_attachment[$key_nomparcours]['content'] = file_get_contents(_PS_ROOT_DIR_."/upload/parcours/".$nomfichier);
-                                    $pdf_attachment[$key_nomparcours]['name'] = $nomfichier;
-                                    $pdf_attachment[$key_nomparcours]['mime'] = 'application/pdf';
+                                    $pdfInUse[] = $key_nomparcours.".pdf";
+                                    $pdf_attachment[$key_nomparcours.".pdf"]['content'] = file_get_contents(_PS_ROOT_DIR_."/upload/parcours/".$nomfichier);
+                                    $pdf_attachment[$key_nomparcours.".pdf"]['name'] = $nomfichier;
+                                    $pdf_attachment[$key_nomparcours.".pdf"]['mime'] = 'application/pdf';
                                 }
                             }
 
