@@ -14,13 +14,28 @@
 .bootstrap .btn:focus{
   color : white !important;
 }
+
+.previous {
+    background-color: #f1f1f1;
+    color: black;
+  }
+  
+  .next {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
 </style>
 <!-- Block moduledevisgratuit TPL FRONT -->
 <div id="moduledevisgratuit_block_home" class="block">
-	<h1 style="text-align:center;"><b>Suivi des Parcours</b></h1>
+
   <div class="container">
   <div class="row">
    {if isset($parcours)}
+   <div class="col-lg-12">
+    <a href="?controller={$smarty.get.controller}&token={$smarty.get.token}" class="previous">&laquo; Précédent</a>
+    <h1 style="text-align:center;"><b>Suivi des Parcours</b></h1>
+   </div>
     <div class="col-lg-6">
       <table class="table table-responsive">
         <thead class="thead-dark">
@@ -56,40 +71,43 @@
       </table>
     </div>
     </div>
+     <h2>Parties jouées :</h2>
     <div class="row">
-      <h2>Parties jouées :</h2>
-      {foreach from=$parcours->achats item=achat}
-       <div class="col-lg-4">
-            <table class="table table-responsive">
-              <thead class="thead-dark">
-                <tr>
-                  <th scope="col">Donnée</th>
-                  <th scope="col">Valeur</th>
-               </tr>
-             </thead>
-             <tbody>
-              <tr><td>ID Achat</td><td>{$achat->id}</td></tr>
-              <tr><td>mot de passe</td><td>{$achat->mdp}</td></tr>
-              <tr><td>Actif</td><td>{$achat->active}</td></tr>
-              <tr>
-                <td>Parties ({count($achat->parties)})</td>
-                <td>
-                {foreach from=$achat->parties item=parties}
-                  <p>ID partie : {$parties->id}</p>
-                  <p>nombre d'equipe : {count($parties->equipe)}</p>
-                  <p>equipe gagnante :</p>
-                  <p>score des gagnants :</p>
-                  {if count($achat->parties) > 1}
-                    <hr/>
-                  {/if}
-                {/foreach}
-                </td>
-              </tr>
-              <tr><td>Date Expiration</td><td>{$achat->datefin}</td></tr>
-             </tbody>
-            </table>
-          </div>
+     <table class="table table-responsive">
+      <thead class="thead-dark">
+      <tr>
+            <th scope="col">ID Achat</th>
+            <th scope="col">mot de passe</th>
+             <th scope="col">Actif</th>
+             <th scope="col">Partie</th>
+             <th scope="col">Date expiration</th>
+             
+          </tr>
+      </thead>
+      <tbody>
+       {foreach from=$parcours->achats item=achat}
+        <tr>
+          <td>{$achat->id}</td>
+          <td>{$achat->mdp}</td>
+          <td>{$achat->active}</td>
+          <td>
+            {if count($achat->parties) == 0}
+              Pas de partie
+            {/if}
+            {foreach from=$achat->parties item=parties}
+                        <p>ID partie : {$parties->id}</p>
+                        <p>nombre d'equipe : {count($parties->equipe)}</p>
+                        <p>equipe gagnante :</p>
+                        <p>score des gagnants :</p>
+            {/foreach}
+          <p>
+          </td>
+          <td>{$achat->datefin}</td>
+        </tr>
       {/foreach}
+      </tbody>
+     </table>
+     
     </div>
   	{else}
     <div class="col-lg-6">
@@ -130,9 +148,6 @@
     <h4>Suivi des ventes :</h4>
         <div class="col-lg-6">
       <canvas id="myChart" width="400px" height="400px" style="width: 400px !important;height:400px !important;"></canvas>
-  
-        
-        
       <script>
       var dynamicColors = function() {
             var r = Math.floor(Math.random() * 255);
