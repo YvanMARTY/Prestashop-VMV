@@ -15,16 +15,6 @@
   color : white !important;
 }
 
-.previous {
-    background-color: #f1f1f1;
-    color: black;
-  }
-  
-  .next {
-    background-color: #4CAF50;
-    color: white;
-  }
-  
 </style>
 <!-- Block moduledevisgratuit TPL FRONT -->
 <div id="moduledevisgratuit_block_home" class="block">
@@ -48,10 +38,6 @@
           <tr>
             <td>ID</td>
             <td>{$parcours->id}</td>
-          </tr>
-          <tr>
-            <td>mot de passe</td>
-            <td></td>
           </tr>
           <tr>
             <td>Nom</td>
@@ -110,7 +96,7 @@
      
     </div>
   	{else}
-    <div class="col-lg-6">
+    <div class="col-lg-12">
     <h4>Gestion :</h4>
       <table class="table table-responsive">
         <thead class="thead-dark">
@@ -146,7 +132,7 @@
       </table>
     </div>
     <h4>Suivi des ventes :</h4>
-        <div class="col-lg-6">
+        <div class="col-lg-12">
       <canvas id="myChart" width="400px" height="400px" style="width: 400px !important;height:400px !important;"></canvas>
       <script>
       var dynamicColors = function() {

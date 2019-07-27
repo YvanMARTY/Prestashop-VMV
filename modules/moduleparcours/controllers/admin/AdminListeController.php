@@ -156,6 +156,9 @@ class AdminListeController extends ModuleAdminController
                 $parcoursToAdd->points = count($subresults);
             }
         }
+        else{
+            $parcoursToAdd->points = 0;
+        }
         $parcoursToAdd->achats = $this->getAchats($parcoursToAdd->id);
         return $parcoursToAdd;
     }
