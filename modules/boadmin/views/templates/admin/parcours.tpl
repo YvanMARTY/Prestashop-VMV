@@ -8,7 +8,7 @@
 	  </p>
 
 	  <cite>
-		Vous trouverez ci-dessous les statistiques des différents parcours proposés.
+		Vous trouverez ci-dessous des statistiques des différents parcours proposés.
 	  </cite>
 	</blockquote>
 	<br />
@@ -17,107 +17,85 @@
   <div class="row">
    {if isset($parcours)}
 
-	<a class="btn btn-primary" href="?controller={$smarty.get.controller}&token={$smarty.get.token}" class="previous">&laquo; Précédent</a>
-	
-	<div class="col-lg-12 spacer">
-		<div class="col-lg-6">
-			<div class="card">
-			<div class="card-header">
-				<b>Statistiques - {$parcours->nom}</b>
-			</div>
-			<div class="card-body">
-				<table class="table table-bordered table-striped mb-0">
-					<thead>
-					<tr class="table-active">
-						<th scope="col">Information</th>
-						<th scope="col">Description</th>
-					</tr>
-					</thead>
-					<tbody>
-					<tr>
-						<td><b>Nombre d'étapes</b></td>
-						<td>{$parcours->nbre_etapes}</td>
-					</tr>
-					<tr>
-						<td><b>Durée</b></td>
-						<td>{$parcours->time}</td>
-					</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
+	<a href="?controller={$smarty.get.controller}&token={$smarty.get.token}" class="previous">&laquo; Précédent</a>
+
 	<div class="col-lg-6">
-		<div id="mapid" style="height: 98%"></div>
-	</div>
+	  <table class="table table-responsive">
+		<thead class="thead-dark">
+		  <tr>
+			<th scope="col">Donnée</th>
+			<th scope="col">Valeur</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr>
+			<td>ID</td>
+			<td>{$parcours->id}</td>
+		  </tr>
+		  <tr>
+			<td>mot de passe</td>
+			<td></td>
+		  </tr>
+		  <tr>
+			<td>Nom</td>
+			<td>{$parcours->nom}</td>
+		  </tr>
+		  <tr>
+			<td>Nombre d'etape</td>
+			<td>{$parcours->points}</td>
+		  </tr>
+		  <tr>
+			<td>temps du parcours</td>
+			<td>{$parcours->time}</td>
+		  </tr>
+		
+		
+		</tbody>
+	  </table>
 	</div>
     </div>
     <div class="row">
-	<div class="col-lg-12">
-		<div class="card">
-		<div class="card-header">
-			<b>Parties</b>
-		</div>
-		<div class="card-body">
-			<table class="table table-bordered table-striped mb-0">
-				<thead>
-					<tr class="table-active">
-						<th scope="col">Mot de passe</th>
-						<th scope="col">Disponibilité</th>
-						<th scope="col">Parties</th>
-						<th scope="col">Date d'expiration</th>
+      <h2>Parties jouées :</h2>
+		<table class="table table-responsive">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">ID Achat</th>
+					<th scope="col">mot de passe</th>
+					<th scope="col">Actif</th>
+					<th scope="col">Partie</th>
+					<th scope="col">Date expiration</th>
 
-					</tr>
-				</thead>
-				<tbody>
-				{foreach from=$parcours->achats item=achat}
-					<tr>
-						<td>
-							<b>{$achat->mdp}</b>
-						</td>
-						<td>
-							{if $achat->active eq 1}
-								<font color="#4eb357">
-									<b>Disponible</b>
-								</font>
-							{else}
-								<font color="#d5676f">
-									<b>Indisponible</b>
-								</font>
-							{/if}
-						</td>
-						<td>
-							{if count($achat->parties) == 0}
-								<font color="#d5676f"><b>Pas de parties</b>
-							{/if}
-							{foreach from=$achat->parties item=parties}
-								<p>Nombre d'equipes : {count($parties->equipe)}</p>
-								<p>Equipe gagnante :</p>
-								<p>Score des gagnants :</p>
-							{/foreach}
-						<p>
-						</td>
-						<td>
-							{if count($achat->parties) == 0}
-								<p>/</b>
-							{else}
-								{$achat->datefin}
-							{/if}
-						</td>
-					</tr>
-				{/foreach}
-				</tbody>
+				</tr>
+			</thead>
+			<tbody>
+			{foreach from=$parcours->achats item=achat}
+				<tr>
+					<td>{$achat->id}</td>
+					<td>{$achat->mdp}</td>
+					<td>{$achat->active}</td>
+					<td>
+						{if count($achat->parties) == 0}
+							Pas de partie
+						{/if}
+						{foreach from=$achat->parties item=parties}
+							<p>ID partie : {$parties->id}</p>
+							<p>nombre d'equipe : {count($parties->equipe)}</p>
+							<p>equipe gagnante :</p>
+							<p>score des gagnants :</p>
+						{/foreach}
+					<p>
+					</td>
+					<td>{$achat->datefin}</td>
+				</tr>
+			{/foreach}
+			</tbody>
 			</table>
-    	</div>
-	</div>
-
-	<a class="btn btn-primary spacer" href="?controller={$smarty.get.controller}&token={$smarty.get.token}" class="previous">&laquo; Précédent</a>
-	
+    </div>
   	{else}
 	<div class="col-lg-12">
 		<div class="card">
 			<div class="card-header">
-				<b>Suivi des ventes</b>
+				Suivi des ventes
 			</div>
 			<div class="card-body">
 				<canvas id="myChart" width="400px" height="400px" style="width: 400px !important;height:400px !important;"></canvas>
@@ -130,26 +108,36 @@
     <div class="col-lg-12">
 		<div class="card">
 		<div class="card-header">
-			<b>Les parcours</b>
+			Les parcours
 		</div>
 		<div class="card-body">
 		  <table class="card-table table table_parcours_general_stats">
 			<thead>
 			  <tr class="table-active">
+				<!-- <th>#</th> -->
 				<th>Nom</th>
+				<th>Points</th>
 				<th>Status</th>
 				<th class="textaligncenter">Statistiques</th>
+				<th class="textaligncenter">Modification</th>
 				<th>Action</th>
 			  </tr>
 			</thead>
 			<tbody>
 			{foreach from=$Array item=parcours}
 			  <tr>
+				<!-- <td><b>{$parcours->id}</b></td> -->
 				<td><b>{$parcours->nom}</b></td>
+				<td>{$parcours->points}</td>
 				<td>{if $parcours->active}<font color="#4eb357"><b>Activé</b></font>{else}<font color="#d5676f"><b>Désactivé</b></font>{/if}</td>
 				<td class="textaligncenter">
 					<a href="?controller={$smarty.get.controller}&token={$smarty.get.token}&id={$parcours->id}" class="btn btn-primary">
 						<i class="fa fa-eye" aria-hidden="true"></i>
+					</a>
+				</td>
+				<td class="textaligncenter">
+					<a href="?controller={}&id={$parcours->id}" class="btn btn-secondary">
+						<i class="fa fa-pencil" aria-hidden="true"></i>
 					</a>
 				</td>
 				<td>

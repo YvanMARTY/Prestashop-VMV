@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <module>
-    <name>boadmin</name>
-    <displayName><![CDATA[BO Admin]]></displayName>
+    <name>moduleparcours</name>
+    <displayName><![CDATA[Module Parcours]]></displayName>
     <version><![CDATA[0.1]]></version>
-    <description><![CDATA[Module de gestion du back office du site VMV]]></description>
-    <author><![CDATA[VMV]]></author>
+    <description><![CDATA[Suivi et creation de parcours]]></description>
+    <author><![CDATA[LIMAYRAC]]></author>
     <tab><![CDATA[front_office_features]]></tab>
 	<confirmUninstall><![CDATA[Are you sure you want to uninstall?]]></confirmUninstall>
-    <is_configurable>0</is_configurable>
+    <is_configurable>1</is_configurable>
     <need_instance>0</need_instance>
 	<limited_countries></limited_countries>
 </module>

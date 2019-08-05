@@ -1,24 +1,26 @@
 $( document ).ready(function() {
     var mymap = L.map('mapid').setView([43.602, 1.444], 14);
 
-	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-		maxZoom: 18,
-		attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-			'<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-			'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-		id: 'mapbox.streets'
+    /* CLEF A MATTHIEU JUDE */
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+        maxZoom: 18,
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+            '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+            'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        id: 'mapbox.streets'
     }).addTo(mymap);
     
     // TEST MARKER LIMAYRAC
     var marker = L.marker([43.5939, 1.470640000000003]).addTo(mymap);
-    //INIT TAB POI
+    
+    // INIT TAB POI
     var listPOI = [];
-    //GET and PLACE POI
+    
+    // GET and PLACE POI
     getPOI(mymap);
 
-    //GET TYPES of Parcours
-    getPTypes();
-    
+    // GET TYPES of Parcours
+    getPTypes();   
 });
 
 
