@@ -3,8 +3,7 @@
 <div id="block_home" class="block">
 	<blockquote class="quote-card">
 	  <p>
-		Cliquez sur les points bleus disponibles sur la carte de les ajouter au parcours.
-            <br />Le 1er point selectionné sera le point de depart. Le dernier de la liste sera considéré comme l'arrivée.
+		Cliquez sur les points rouges disponibles sur la carte de les ajouter au parcours. <br />Le 1er point selectionné sera le point de depart. Le dernier de la liste sera considéré comme l'arrivée.
 	  </p>
 
 	  <cite>
@@ -20,7 +19,7 @@
     <div class="col-md-4" ><!-- style="background:blue" -->
         <form>
             <div class="form-group">
-                <label for="parcours_name">Nom du parcours : <font color="red">*</font></label>
+                <label for="parcours_name">Nom du parcours :<font color="red">*</font></label>
                 <input type="text" class="form-control" id="parcours_name">
             </div>
             <div class="form-group">
@@ -30,13 +29,8 @@
                 </select>
             </div>
         </form>
-
-        <br />
-        <hr/>
-
-        <!-- TABLEAU PARCOURS -->
-        <label>Les étapes</label>
-        
+        <hr/><!-- TABLEAU PARCOURS -->
+        <h3>Table des étapes</h3>
         <div style="display:block;overflow:scroll;height:250px;">
         <table class="table table-bordered table-striped mb-0" id="parcours_creation_table" >
             <thead>
@@ -63,11 +57,11 @@
 
 	<br />
     <!-- BOUTONS -->
-    <div class="container spacer">
+    <div class="container">
         <div class="row">
             <div class="col-md-4" ><button type="button" class="btn btn-lg btn-block btn-danger" style="float:right" onclick='supprList();'><i class="fa fa-eraser" aria-hidden="true"></i>
 &nbsp;&nbsp;Réinitialiser la liste</button></div>
-            <div class="col-md-4" ><button type="button" class="btn btn-primary btn-lg btn-block" style="float:right;text-transform:inherit !important;"><i class="fa fa-file-text-o" aria-hidden="true"></i>
+            <div class="col-md-4" ><button type="button" class="btn btn-primary btn-lg btn-block" style="float:right"><i class="fa fa-file-text-o" aria-hidden="true"></i>
 &nbsp;&nbsp;Récapitulatif</button></div>
             <div class="col-md-4" ><button type="button" class="btn btn-lg btn-block btn-success" style="float:right" onclick='enregistrerParc();'><i class="fa fa-check" aria-hidden="true"></i>
 &nbsp;&nbsp;Enregistrer</button></div>
