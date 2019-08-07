@@ -12,18 +12,3 @@ Le projet a été réalisé par l'ensemble de la classe.
 
 * [PRESTASHOP](https://www.prestashop.com/fr) - CMS
 * [PAYPAL](https://www.paypal.com/fr/home) - Module
-
-## Versioning
-
-Nous utilisons le système de [releases](https://github.com/YvanMARTY/Visite-ma-ville/releases) de GitHub pour le "versioning". 
-
-## Historique des releases
-
-* 1.0 | 08/07/2019
-    * Incoming ...
-* 0.9 | 01/07/2019
-    * Incoming ...
-* 0.9 | 03/06/2019
-    * Incoming ...
-* 0.8 | 20/05/2019
-    * Incoming ...
