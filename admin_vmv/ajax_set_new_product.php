@@ -57,13 +57,12 @@ if ($results_last_pdt = Db::getInstance()->ExecuteS($sql_get_last_pdt)) {
     foreach ($results_last_pdt as $row_last_pdt) {
         $product_id = $row_last_pdt['id_product'];
     }
-}
 
-if($product_id != 0) {
+    if($product_id != 0) {
 
-    $product = new Product( $product_id );
-
-    for ($i = 1; $i <= 3; $i++) {
+        /* AJOUT DE LA DECLINAISON - 1 A 3 EQUIPES */
+        $combinationAttributes[] = 26;
+        $product = new Product( $product_id );
         $weight = 0;
         $ecotax = 0;
         $unit_price_impact = "";
@@ -73,41 +72,17 @@ if($product_id != 0) {
         $ean13 = "";
         $default = false;
     
-        if($i == 1) {
-            $price = 0;
-        }
-        else if($i == 2) {
-            $price = 3;
-        }
-        else if($i == 3) {
-            $price = 6;
-        }
-
+        $price = 0;
+    
         $idProductAttribute = $product->addProductAttribute((float)$price, (float)$weight, $unit_price_impact, (float)$ecotax, (int)$quantity, "", strval($reference), strval($supplier_reference), strval($ean13), $default, NULL, NULL);
-        
-        if($i == 1) {
-            $product->addAttributeCombinaison($idProductAttribute, 26);
-        }
-        else if($i == 2) {
-            $product->addAttributeCombinaison($idProductAttribute, 27);
-        }
-        else if($i == 3) {
-            $product->addAttributeCombinaison($idProductAttribute, 28);
-        }
-    }
+        $product->addAttributeCombinaison($idProductAttribute, $combinationAttributes);
 
-        /* $weight = 0;
-        $ecotax = 0;
-        $unit_price_impact = "";
-        $quantity = 2000;
-        $reference = "";
-        $supplier_reference = "";
-        $ean13 = "";
-        $default = false;
-        $price = 0;        
-        $idProductAttribute = $product->addProductAttribute((float)$price, (float)$weight, $unit_price_impact, (float)$ecotax, (int)$quantity, "", strval($reference), strval($supplier_reference), strval($ean13), $default, NULL, NULL);
-        $product->addAttributeCombinaison($idProductAttribute, 26);
+        /* AJOUT DE LA DECLINAISON - 4 A 6 EQUIPES */
+        unset($combinationAttributes); // $combinationAttributes is gone
+        $combinationAttributes = array(); // $combinationAttributes is here again
 
+        $combinationAttributes[] = 27;
+        $product = new Product( $product_id );
         $weight = 0;
         $ecotax = 0;
         $unit_price_impact = "";
@@ -116,10 +91,18 @@ if($product_id != 0) {
         $supplier_reference = "";
         $ean13 = "";
         $default = false;
+    
         $price = 3;
+    
         $idProductAttribute = $product->addProductAttribute((float)$price, (float)$weight, $unit_price_impact, (float)$ecotax, (int)$quantity, "", strval($reference), strval($supplier_reference), strval($ean13), $default, NULL, NULL);
-        $product->addAttributeCombinaison($idProductAttribute, 27);
+        $product->addAttributeCombinaison($idProductAttribute, $combinationAttributes);
 
+        /* AJOUT DE LA DECLINAISON - 7 A 10 EQUIPES */
+        unset($combinationAttributes); // $combinationAttributes is gone
+        $combinationAttributes = array(); // $combinationAttributes is here again
+
+        $combinationAttributes[] = 28;
+        $product = new Product( $product_id );
         $weight = 0;
         $ecotax = 0;
         $unit_price_impact = "";
@@ -128,8 +111,14 @@ if($product_id != 0) {
         $supplier_reference = "";
         $ean13 = "";
         $default = false;
+    
         $price = 6;
+    
         $idProductAttribute = $product->addProductAttribute((float)$price, (float)$weight, $unit_price_impact, (float)$ecotax, (int)$quantity, "", strval($reference), strval($supplier_reference), strval($ean13), $default, NULL, NULL);
-        $product->addAttributeCombinaison($idProductAttribute, 28); */
+        $product->addAttributeCombinaison($idProductAttribute, $combinationAttributes);
+    }
 }
+
+echo 0;
+
 ?>
