@@ -31,7 +31,6 @@
             </div>
         </form>
 
-        <br />
         <hr/>
 
         <!-- TABLEAU PARCOURS -->
@@ -65,11 +64,9 @@
     <!-- BOUTONS -->
     <div class="container spacer">
         <div class="row">
-            <div class="col-md-4" ><button type="button" class="btn btn-lg btn-block btn-danger" style="float:right" onclick='supprList();'><i class="fa fa-eraser" aria-hidden="true"></i>
+            <div class="col-md-6" ><button type="button" class="btn btn-lg btn-block btn-danger" style="float:right" onclick='supprList();'><i class="fa fa-eraser" aria-hidden="true"></i>
 &nbsp;&nbsp;Réinitialiser la liste</button></div>
-            <div class="col-md-4" ><button type="button" class="btn btn-primary btn-lg btn-block" style="float:right;text-transform:inherit !important;"><i class="fa fa-file-text-o" aria-hidden="true"></i>
-&nbsp;&nbsp;Récapitulatif</button></div>
-            <div class="col-md-4" ><button type="button" class="btn btn-lg btn-block btn-success" style="float:right" onclick='enregistrerParc();'><i class="fa fa-check" aria-hidden="true"></i>
+            <div class="col-md-6" ><button type="button" class="btn btn-lg btn-block btn-success" style="float:right" onclick='enregistrerParc();'><i class="fa fa-check" aria-hidden="true"></i>
 &nbsp;&nbsp;Enregistrer</button></div>
         </div>
     </div>

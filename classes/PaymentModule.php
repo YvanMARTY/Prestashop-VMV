@@ -753,7 +753,7 @@ abstract class PaymentModuleCore extends Module
                     // Order is reloaded because the status just changed
                     $order = new Order((int)$order->id);
 
-                    /* $arr_mdp_parties = array();
+                    $arr_mdp_parties = array();
                     // Pour chaque produit de la commande
                     foreach ($product_list_vmv as $product) {
                         // Récupère le nom du produit
@@ -764,7 +764,7 @@ abstract class PaymentModuleCore extends Module
                     $message_partie = "";
                     foreach($arr_mdp_parties as $m){
                         $message_partie .= "<li>Nom du parcours : <b style='font:size:18px;'>{$m[0]}</b> | Mot de passe : <b style='font:size:18px;'>{$m[1]}</b></li>";
-                    } */
+                    }
 
                     $message_partie = "";
 
@@ -859,43 +859,123 @@ abstract class PaymentModuleCore extends Module
                             $pdfNames_all = array();
                             
                             // ON PREND QUE LES PDF DU DOSSIER CIBLE
-                            if ($handle = opendir(_PS_ROOT_DIR_.'/upload/parcours')) {
+                            if ($handle = opendir(_PS_ROOT_DIR_.'/upload/parcours_organisateur')) {
                             
                                 while (false !== ($fichier_pdf = readdir($handle))) {
 
                                     if($fichier_pdf != "." && $fichier_pdf != "..") {
                                         $nomparcours = "";
 
-                                        $nompfichierpdf_truncate = str_replace(".pdf", "", $fichier_pdf);
-                                        $nompfichierpdf_ok = str_replace("vmv_parcours", "", $nompfichierpdf_truncate);
-
                                         // RECUP EN BASE DE DONNEES - NOM PARCOURS
                                         $req_ref_parcours = "SELECT `reference` FROM `"._DB_PREFIX_."product`";
                                         if($res_reqpdf_parcours = Db::getInstance()->executeS($req_ref_parcours)) {
                                             foreach ($res_reqpdf_parcours as $row_ref_parcours) {
                                                 // AJOUT DE LA REF A L'ARRAY DES NOMS PDF
-                                                $pdfNames_all[$row_ref_parcours['reference']] = $fichier_pdf;
+                                                $pdfNames_all[$fichier_pdf] = $row_ref_parcours['reference'];
                                             }
                                         }
                                     }
                                 }
                             }
 
-                        foreach($this->context->cart->getProducts() as $cart_product) {
+                            // ON PREND QUE LES PDF DU DOSSIER CIBLE
+                            $pdfNames_all_participant = array();
+                            if ($handle = opendir(_PS_ROOT_DIR_.'/upload/parcours_participant')) {
+                            
+                                while (false !== ($fichier_pdf = readdir($handle))) {
 
-                            $product_ref = $cart_product['reference'];
+                                    if($fichier_pdf != "." && $fichier_pdf != "..") {
+                                        $nomparcours = "";
 
-                            foreach ($pdfNames_all as $key_nomparcours => $nomfichier) {
-                                // SI LA REFERENCE DU PARCOURS COURANT EST DANS LE TABLEAU DES PDF PARCOURS
-                                // && SI LE PDF N'EST PAS DANS LE TABLEAU DES PJ A AJOUTER
-                                if(stristr($product_ref, $key_nomparcours) && !in_array($nomfichier, $pdfInUse)) {
-                                    $pdfInUse[] = $key_nomparcours.".pdf";
-                                    $pdf_attachment[$key_nomparcours.".pdf"]['content'] = file_get_contents(_PS_ROOT_DIR_."/upload/parcours/".$nomfichier);
-                                    $pdf_attachment[$key_nomparcours.".pdf"]['name'] = $nomfichier;
-                                    $pdf_attachment[$key_nomparcours.".pdf"]['mime'] = 'application/pdf';
+                                        // RECUP EN BASE DE DONNEES - NOM PARCOURS
+                                        $req_ref_parcours = "SELECT `reference` FROM `"._DB_PREFIX_."product`";
+                                        if($res_reqpdf_parcours = Db::getInstance()->executeS($req_ref_parcours)) {
+                                            foreach ($res_reqpdf_parcours as $row_ref_parcours) {
+                                                // AJOUT DE LA REF A L'ARRAY DES NOMS PDF
+                                                $pdfNames_all_participant[$fichier_pdf] = $row_ref_parcours['reference'];
+                                            }
+                                        }
+                                    }
                                 }
                             }
 
+                        /* PARCOURS ACHETES */
+                        $parcours_achetes = array();
+
+                        foreach($this->context->cart->getProducts() as $cart_product) {
+
+                            /* PERMET DE CHOISIR LE PDF ORGANISATEUR */
+                            $nbre_equipe = "00";
+
+                            /* 06/08/2019 - RECUPERATION DU NOM DE L'ATTRIBUT */
+                            if($cart_product['id_product_attribute'] != 0) {
+                                $id_product_attribute_ordered = $cart_product['id_product_attribute'];
+
+                                $req_idattribute_parcoursordered = "SELECT `id_attribute` FROM `"._DB_PREFIX_."product_attribute_combination` WHERE `id_product_attribute` = ".$id_product_attribute_ordered;
+                                    if($req_idattribute_parcoursordered = Db::getInstance()->executeS($req_idattribute_parcoursordered)) {
+    
+                                        $id_attribut_ordered = 0;
+    
+                                        foreach ($req_idattribute_parcoursordered as $row_idattribute_parcoursordered) {
+                                            $id_attribut_ordered = $row_idattribute_parcoursordered['id_attribute'];
+                                        }
+                                        if(isset($id_attribut_ordered) && !empty($id_attribut_ordered)) {
+
+                                            $name_attribut_ordered = "";
+    
+                                            $req_nameattribute_parcoursordered = "SELECT `name` FROM `"._DB_PREFIX_."attribute_lang` WHERE `id_attribute` = ".$id_attribut_ordered;
+                                            if($req_nameattribute_parcoursordered = Db::getInstance()->executeS($req_nameattribute_parcoursordered)) {
+                                                foreach ($req_nameattribute_parcoursordered as $row_nameattribute_parcoursordered) {
+                                                    $name_attribut_ordered = $row_nameattribute_parcoursordered['name'];
+                                                }
+                                            }
+
+                                            /* 1 à 3 équipes */
+                                            if (strpos($name_attribut_ordered, '1 à 3') !== false) {
+                                                /* LE PDF DU PARCOURS ACHETES JUSQU'A 3 EQUIPES */
+                                                $nbre_equipe = "13";
+                                            }
+                                            /* 4 à 6 équipes */ /* 7 à 10 équipes */
+                                            else if (strpos($name_attribut_ordered, '4 à 6') !== false || strpos($name_attribut_ordered, '7 à 10') !== false) {
+                                                /* LE PDF DU PARCOURS ACHETES A PARTIR DE 5 EQUIPES */
+                                                $nbre_equipe = "410";
+                                            }
+
+                                            /* TABLEAU DES PARCOURS ACHETES */
+                                            $parcours_achetes[$cart_product['reference']] = $cart_product['reference'].'_'.$nbre_equipe;
+                                        }
+                                    }
+                            }
+                        }
+
+                        if($nbre_equipe != "00") {
+                            foreach ($pdfNames_all as $key_nomfichier => $refparcours) {
+                                foreach ($parcours_achetes as $key_refparcours => $refnbreequipe_nomfichier) {
+                                    // SI LA REFERENCE DU PARCOURS COURANT EST DANS LE TABLEAU DES PDF PARCOURS
+                                    // && SI LE PDF N'EST PAS DANS LE TABLEAU DES PJ A AJOUTER
+                                    if(stristr($key_nomfichier, $refnbreequipe_nomfichier) && !in_array($key_nomfichier, $pdfInUse)) {
+                                        $pdfInUse[] = $nomfichier;
+                                        $pdf_attachment[$key_nomfichier]['content'] = file_get_contents(_PS_ROOT_DIR_."/upload/parcours_organisateur/".$key_nomfichier);
+                                        $pdf_attachment[$key_nomfichier]['name'] = $key_nomfichier;
+                                        $pdf_attachment[$key_nomfichier]['mime'] = 'application/pdf';
+                                    }
+                                }
+                            }
+                        }
+
+                        /* FOREACH DES PRODUITS DU PANIER */
+                        foreach($this->context->cart->getProducts() as $cart_product) {
+                            /* AJOUT DU PDF JOUEUR */
+                            foreach ($pdfNames_all_participant as $key_nomfichier => $refparcours) {
+                                // SI LA REFERENCE DU PARCOURS COURANT EST DANS LE TABLEAU DES PDF PARCOURS
+                                // && SI LE PDF N'EST PAS DANS LE TABLEAU DES PJ A AJOUTER
+                                if(stristr($key_nomfichier, $cart_product['reference']) && !in_array($key_nomfichier, $pdfInUse)) {
+                                    $pdfInUse[] = $nomfichier;
+                                    $pdf_attachment[$key_nomfichier]['content'] = file_get_contents(_PS_ROOT_DIR_."/upload/parcours_participant/".$key_nomfichier);
+                                    $pdf_attachment[$key_nomfichier]['name'] = $key_nomfichier;
+                                    $pdf_attachment[$key_nomfichier]['mime'] = 'application/pdf';
+                                }
+                            }
                         }
 
                         // On a des pdf à ajouter alors on les insère dans le file_attachment
