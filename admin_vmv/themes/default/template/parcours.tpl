@@ -1,72 +1,55 @@
 {block name='page_content'}
 <!-- Block TPL FRONT -->
 <div id="block_home" class="block block_home_parcours_stats">
-
-	<blockquote class="quote-card">
-	  <p>
-		Suivi des Parcours
-	  </p>
-
-	  <cite>
-		Vous trouverez ci-dessous les statistiques des différents parcours proposés.
-	  </cite>
-	</blockquote>
-	<br />
-
   <div class="container">
   <div class="row">
    {if isset($parcours)}
-
-	<a class="btn btn-primary" href="?controller={$smarty.get.controller}&token={$smarty.get.token}" class="previous">&laquo; Précédent</a>
-	
-	<div class="col-lg-12 spacer">
-		<div class="col-lg-6">
-			<div class="card">
-			<div class="card-header">
-				<b>Statistiques - {$parcours->nom}</b>
-			</div>
-			<div class="card-body">
-				<table class="table table-bordered table-striped mb-0">
-					<thead>
-					<tr class="table-active">
-						<th scope="col">Information</th>
-						<th scope="col">Description</th>
-					</tr>
-					</thead>
-					<tbody>
-					<tr>
-						<td><b>Nombre d'étapes</b></td>
-						<td>{$parcours->nbre_etapes}</td>
-					</tr>
-					<tr>
-						<td><b>Durée</b></td>
-						<td>{$parcours->time}</td>
-					</tr>
-					</tbody>
-				</table>
-			</div>
+		<div class="col-lg-12">
+			<a class="btn btn-primary" href="?controller={$smarty.get.controller}&token={$smarty.get.token}" class="previous">&laquo; Précédent</a>
 		</div>
-	</div>
-	<div class="col-lg-6">
-		<div id="mapid" style="height: 98%"></div>
-	</div>
-	</div>
-    </div>
+		<div class="col-lg-12">
+			<h1 style="text-align:center;"><b>Statistiques - {$parcours->nom}</b></h1>
+		</div>
+	
+		<div class="col-lg-6" style="height:400px;">
+					<table class="table table-bordered table-striped mb-0">
+						<thead>
+						<tr class="table-active">
+							<th scope="col">Information</th>
+							<th scope="col">Description</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr>
+            <td>ID</td>
+            <td>{$parcours->id}</td>
+          </tr>
+						<tr>
+							<td><b>Nombre d'étapes</b></td>
+							<td>{$parcours->points}</td>
+						</tr>
+						<tr>
+							<td><b>Durée</b></td>
+							<td>{$parcours->time}</td>
+						</tr>
+						</tbody>
+					</table>
+		</div>
+		<div class="col-lg-6" style="height:400px;">
+			<div id="mapparcours" style="height: 98%"></div>
+		</div>
+	
+  </div>
     <div class="row">
 	<div class="col-lg-12">
-		<div class="card">
-		<div class="card-header">
-			<b>Parties</b>
-		</div>
-		<div class="card-body">
+			<h2>Parties</h2>
 			<table class="table table-bordered table-striped mb-0">
 				<thead>
 					<tr class="table-active">
 						<th scope="col">Mot de passe</th>
 						<th scope="col">Disponibilité</th>
-						<th scope="col">Parties</th>
+						<th scope="col">Résumé</th>
 						<th scope="col">Date d'expiration</th>
-
 					</tr>
 				</thead>
 				<tbody>
@@ -108,11 +91,6 @@
 				{/foreach}
 				</tbody>
 			</table>
-    	</div>
-	</div>
-
-	<a class="btn btn-primary spacer" href="?controller={$smarty.get.controller}&token={$smarty.get.token}" class="previous">&laquo; Précédent</a>
-	
   	{else}
 	<div class="col-lg-12">
 		<div class="card">
@@ -124,9 +102,7 @@
 			</div>
 		</div>
 	</div>
-
 	<div class="col-xs-12" style="height:50px;"></div>
-
     <div class="col-lg-12">
 		<div class="card">
 		<div class="card-header">
@@ -166,7 +142,6 @@
 		</div>
 		</div>
     </div>
-        
       <script>
       var dynamicColors = function() {
             var r = Math.floor(Math.random() * 255);
@@ -175,8 +150,6 @@
             return "rgb(" + r + "," + g + "," + b + ",0.8)";
          };
          var elements = {json_encode($parcoursname)};
-        
-         
       var colors = [
                       'rgba(255, 99, 132, 0.8)',
                       'rgba(54, 162, 235, 0.8)',

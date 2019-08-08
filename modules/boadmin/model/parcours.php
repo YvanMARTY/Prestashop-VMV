@@ -7,7 +7,7 @@
      public $points;
      public $prix;
      public $achats;
-     public $nbre_etapes;
+     
      function __construct(){
     }
  }

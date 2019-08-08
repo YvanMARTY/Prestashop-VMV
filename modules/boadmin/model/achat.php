@@ -6,6 +6,7 @@
      public $cod;
      public $active;
      public $datefin;
+     
      function __construct(){
       }
  }

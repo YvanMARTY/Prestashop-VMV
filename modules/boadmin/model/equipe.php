@@ -4,7 +4,9 @@
      public $nom;
      public $score;
      public $equipes;
+
+     function __construct(){
+    }
  }
- function __construct(){
- }
+
 ?>
