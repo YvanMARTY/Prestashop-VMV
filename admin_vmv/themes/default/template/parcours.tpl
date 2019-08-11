@@ -1,6 +1,6 @@
 {block name='page_content'}
 <!-- Block TPL FRONT -->
-<div id="block_home" class="block block_home_parcours_stats">
+<div id="block_home" class="block block_home_parcours_stats" >
   <div class="container">
   <div class="row">
    {if isset($parcours)}
@@ -26,7 +26,7 @@
           </tr>
 						<tr>
 							<td><b>Nombre d'étapes</b></td>
-							<td>{$parcours->points}</td>
+							<td>{count($parcours->points)}</td>
 						</tr>
 						<tr>
 							<td><b>Durée</b></td>
@@ -210,6 +210,31 @@
 		   }
 		});
 	}
+	
+	setTimeout(function(){
+    	var mymap = L.map('mapparcours').setView([43.602, 1.444], 14);
+
+    /* CLEF A MATTHIEU JUDE */
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+        maxZoom: 18,
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+            '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+            'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        id: 'mapbox.streets'
+    }).addTo(mymap);
+	{/literal}
+		var list = {json_encode($parcours->points)};
+		list.forEach(item => L.marker([item[0], item[1]]).addTo(mymap));
+		{literal}
+}, 5000);
+
+
+    
+    // TEST MARKER LIMAYRAC
+    
+	
+
+
 </script>
 {/literal}
 <!-- /Block TPL FRONT -->

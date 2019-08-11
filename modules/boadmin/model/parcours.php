@@ -4,7 +4,7 @@
      public $nom;
      public $time;
      public $active;
-     public $points;
+     public $points=array();
      public $prix;
      public $achats;
      

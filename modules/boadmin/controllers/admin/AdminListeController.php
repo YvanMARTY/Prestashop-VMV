@@ -50,7 +50,6 @@ class AdminListeController extends ModuleAdminController
         $this->context->controller->addCSS(_PS_MODULE_DIR_ . 'boadmin/views/css/boadmin.css');
 		$this->context->controller->addCSS('https://unpkg.com/leaflet@1.5.1/dist/leaflet.css');
 		$this->context->controller->addJS('https://unpkg.com/leaflet@1.5.1/dist/leaflet.js');
-		$this->context->controller->addJS(_PS_MODULE_DIR_ . 'boadmin/views/js/stats_parcours.js');
     }
 
     public function getAchats($idParcours)
@@ -167,20 +166,21 @@ class AdminListeController extends ModuleAdminController
         $parcoursToAdd->time = $result[0]['prc_tmp'];
         $parcoursToAdd->active = $result[0]['prc_active'];
         $parcoursToAdd->prix = $result[0]['prc_prix'];
-        $subquery = "SELECT * from " . _DB_PREFIX_ . "point_parcours where pnt_parc_prc_id =" . $parcoursToAdd->id.";";
-		
-        if ($subresults = $db->ExecuteS($subquery)) {
-            if (count($subresults) == 0 || $subresults == null) {
-                $parcoursToAdd->points = 0;
-            } else {
-                $parcoursToAdd->points = count($subresults);
-            }
-        }
-		else{
-			$parcoursToAdd->points = 0;
-		}
-        
+        $parcoursToAdd->points = $this->getPOI( $parcoursToAdd->id);	
         $parcoursToAdd->achats = $this->getAchats($parcoursToAdd->id);
         return $parcoursToAdd;
+    }
+
+    public function getPOI($idParcours){
+        $result = array();
+        $db = Db::getInstance();
+        $query = "select pts_lat,pts_long from  " . _DB_PREFIX_ . "points T1 inner join ps_point_parcours T2 ON T1.pts_id = T2.pnt_parc_pts_id inner join ps_parcours T3 ON T2.pnt_parc_prc_id = T3.prc_id where T3.prc_id =" . $idParcours;
+        if ($results = $db->ExecuteS($query)) {
+            foreach ($results as $row) {
+               
+                array_push($result, array($row['pts_lat'],$row['pts_long']));
+            }
+        }
+        return $result;
     }
 }
