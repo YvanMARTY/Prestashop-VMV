@@ -69,7 +69,7 @@ class AdminListeController extends ModuleAdminController
                     $achat->mdp = $row['ach_mdp'];
                     $achat->cod = $row['ach_cod'];
                     $achat->active = $row['ach_active'];
-                    //$achat->datefin = $row['ach_prc_fin'];
+                    $achat->datefin = $row['ach_prc_fin'];
                     $achat->parties = $this->getParties($achat->id);
                     
                     array_push($stackachat, $achat);

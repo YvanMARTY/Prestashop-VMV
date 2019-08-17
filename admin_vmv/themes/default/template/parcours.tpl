@@ -74,9 +74,15 @@
 								<font color="#d5676f"><b>Pas de parties</b>
 							{/if}
 							{foreach from=$achat->parties item=parties}
+							 {$gagnants= array("",0)}
+								{foreach from=$parties->equipe item=equipe}
+									{if $equipe->score > $gagnants[1]}
+									{$gagnants= array($equipe->nom,$equipe->score)}
+									{/if}
+								{/foreach}
 								<p>Nombre d'equipes : {count($parties->equipe)}</p>
-								<p>Equipe gagnante :</p>
-								<p>Score des gagnants :</p>
+								<p>Equipe gagnante : {$gagnants[0]}</p>
+								<p>Score des gagnants : {$gagnants[1]}</p>
 							{/foreach}
 						<p>
 						</td>
@@ -115,7 +121,6 @@
 				<th>Nom</th>
 				<th>Status</th>
 				<th class="textaligncenter">Statistiques</th>
-				<th>Action</th>
 			  </tr>
 			</thead>
 			<tbody>
@@ -127,13 +132,6 @@
 					<a href="?controller={$smarty.get.controller}&token={$smarty.get.token}&id={$parcours->id}" class="btn btn-primary">
 						<i class="fa fa-eye" aria-hidden="true"></i>
 					</a>
-				</td>
-				<td>
-				  {if $parcours->active == 1}
-				  <button onclick="updateparcours({$parcours->id},0);" class="btn btn-danger">DESACTIVER</button>
-				  {else}
-				  <button onclick="updateparcours({$parcours->id},1);" class="btn btn-success">ACTIVER</button>
-				  {/if}
 				</td>
 			  </tr>
 			{/foreach}
