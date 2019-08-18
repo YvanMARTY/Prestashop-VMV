@@ -11,9 +11,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -40,6 +38,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -57,6 +56,8 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
     private ArrayList<Marker> listMarker = new ArrayList<>();
     private ArrayList<Marker> listMarkerDo = new ArrayList<>();
     private ArrayList<Marker> listMarkerEquipe = new ArrayList<>();
+    private final List<String> listNomEquipe = new ArrayList<String>();
+
 
     private JSONArray AllMarker;
 
@@ -64,7 +65,7 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
 
     private int CountAllQuestion = 0 ;
     private int CountAllQuestionDone = 0;
-
+    private Spinner spinnerEquipe;
     private String pinEquipe;
     private String idPartie;
     private String nomEquipe;
@@ -78,10 +79,12 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
     private ArrayList<String> lesPoints;
     private String myCurrentLong;
     private String myCurrentLat;
+    private String insertNewPosition;
     private Intent loading;
     private boolean isEquipeAfficher = false;
 
     private ScheduledExecutorService scheduleTaskExecutor;
+    private JSONArray InsertPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +104,9 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
         opt_visu_scor = extras.getString("opt_visu_scor");
         opt_visu_loc = extras.getString("opt_visu_loc");
         lesPoints = extras.getStringArrayList("lesPoints");
-
+        listNomEquipe.add("Toutes les équipes");
+        spinnerEquipe = findViewById(R.id.spinnerNomEquipe);
+        spinnerEquipe.setVisibility(View.INVISIBLE);
         Button mButton = (Button) findViewById(R.id.buttonGetScore);
         if(opt_visu_scor.equals("0")){
             mButton.setVisibility(View.INVISIBLE);
@@ -128,7 +133,6 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                     String test = "https://visite-ma-ville.fr/external/external_app.php?action=GetAllPositionByGameId&gameId=" + idPartie;
                     JSONArray result = JSONParser.makeHttpRequest(test, "GET");
 
-
                     for (int i = 0; i < result.length(); i++) {
 
                         JSONObject PositionEquipe = null;
@@ -140,6 +144,7 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                         String eqp_nom = null;
                         try {
                             eqp_nom = PositionEquipe.getString("eqp_nom");
+                            listNomEquipe.add(eqp_nom);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -168,12 +173,44 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                     }
 
                     isEquipeAfficher = true;
+                    spinnerEquipe.setVisibility(View.VISIBLE);
+                    ArrayAdapter<String> adp2 = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_spinner_item,listNomEquipe);
+                    adp2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinnerEquipe.setAdapter(adp2);
+
+                    spinnerEquipe.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+                    {
+                        @Override
+                        public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
+                            // TODO Auto-generated method stub
+                            if(position == 0){
+                                for(Marker m : listMarkerEquipe){
+                                    m.setVisible(true);
+                                }
+                            }else{
+                                for(Marker m : listMarkerEquipe){
+                                    m.setVisible(false);
+                                    if(m.getTitle().equals(listNomEquipe.get(position))){
+                                        m.setVisible(true);
+                                    }
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> arg0) {
+                            // TODO Auto-generated method stub
+                        }
+                    });
+
+
                 }
                 else{
                     for(Marker m : listMarkerEquipe){
                         m.remove();
                     }
                     isEquipeAfficher = false;
+                    spinnerEquipe.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -183,6 +220,7 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
             ActivityCompat.requestPermissions(this, new String[] {android.Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST_CODE);
             return;
         }else{}
+
 
 
         fetchLastLocation();
@@ -294,6 +332,24 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                     aMarker.setVisible(false);
                 }
                 listMarker.add(aMarker);
+
+                scheduleTaskExecutor = Executors.newScheduledThreadPool(5);
+                scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
+                    @Override
+                    public void run() {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                myCurrentLong = Double.toString(currentLocation.getLongitude());
+                                myCurrentLat =  Double.toString(currentLocation.getLatitude());
+                                insertNewPosition =  "https://visite-ma-ville.fr/external/external_app.php?action=InsertNewPosition&latitude="+myCurrentLat +"&longitude="+myCurrentLong + "&pinTeam="+pinEquipe+"";
+                                InsertPosition = JSONParser.makeHttpRequest(insertNewPosition,"POST");
+                                Toast.makeText(getApplicationContext(),""+currentLocation.getLongitude()+"-"+currentLocation.getLatitude()+"",Toast.LENGTH_SHORT);
+
+                            }
+                        });
+                    }
+                },0, 30, TimeUnit.SECONDS);
             }
         }catch (Exception e){}
 
@@ -407,7 +463,11 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                             Intent consigne = new Intent(MapsFoJoueurActivity.this, ConsignePremierPointActivity.class);
                             startActivity(consigne);
                             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                        } else {
+                        }
+                        else if(marker.getZIndex() == 7){
+                            marker.getTitle();
+                        }
+                        else {
                             Intent myIntent = new Intent(MapsFoJoueurActivity.this, questionActivity.class);
                             int idquestion = Integer.parseInt(marker.getSnippet());
                             markerID = idquestion;
@@ -425,22 +485,7 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
             }
         });
 
-        scheduleTaskExecutor = Executors.newScheduledThreadPool(5);
-        scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
-            @Override
-            public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        myCurrentLong = Double.toString(currentLocation.getLongitude());
-                        myCurrentLat =  Double.toString(currentLocation.getLatitude());
-                        String insertNewPosition =  "https://visite-ma-ville.fr/external/external_app.php?action=InsertNewPosition&latitude="+myCurrentLat +"&longitude="+myCurrentLong + "&pinTeam="+pinEquipe+"";
-                        JSONArray InsertPosition = JSONParser.makeHttpRequest(insertNewPosition,"POST");
-                        Toast.makeText(getApplicationContext(),""+currentLocation.getLongitude()+"-"+currentLocation.getLatitude()+"",Toast.LENGTH_SHORT);
-                    }
-                });
-            }
-        }, 0, 5, TimeUnit.MINUTES);
+
 
 
     }
@@ -460,6 +505,13 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        myCurrentLong = Double.toString(currentLocation.getLongitude());
+        myCurrentLat =  Double.toString(currentLocation.getLatitude());
+        String insertNewPosition =  "https://visite-ma-ville.fr/external/external_app.php?action=InsertNewPosition&latitude="+myCurrentLat +"&longitude="+myCurrentLong + "&pinTeam="+pinEquipe+"";
+        JSONArray InsertPosition = JSONParser.makeHttpRequest(insertNewPosition,"POST");
+
+
         if(resultCode == 1){
             String res =  data.getStringExtra("result");
             if (res.equals("ok")){
@@ -487,6 +539,10 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                 JSONArray result = JSONParser.makeHttpRequest(test,"POST");
             }
             else if (res.equals("nok")){
+
+
+
+
                 for(Marker m : listMarker){
                     if(Integer.parseInt(m.getSnippet()) == markerID){
                         m.setIcon(BitmapDescriptorFactory
@@ -510,10 +566,12 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
         }
         else if (resultCode == 9999){
 
+
+
             String getExistingPoint = "https://visite-ma-ville.fr/external/external_app.php?action=GetParcPointByGameId&gameId="+idPartie;
             JSONArray resultT = JSONParser.makeHttpRequest(getExistingPoint,"GET");
             boolean isDone = false;
-
+            String currentEndName = "";
             for (int i = 0; i < resultT.length(); i++) {
 
                 JSONObject listePointPartie = null;
@@ -537,12 +595,14 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
 
                 for(Marker aMarker : listMarker) {
 
-                    if (pts_nom.equals(aMarker) && pnt_parc_typ_pnt_id.equals(3)) {
+                    if (pnt_parc_typ_pnt_id.equals("3") && aMarker.getTitle().equals(pts_nom)) {
                         aMarker.setIcon(BitmapDescriptorFactory
                                 .defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
+                        aMarker.setVisible(true);
+                        aMarker.setZIndex(2);
                     } else{
-                           aMarker.setVisible(false);
-                          }
+                        aMarker.setVisible(false);
+                    }
                 }
             }
 
