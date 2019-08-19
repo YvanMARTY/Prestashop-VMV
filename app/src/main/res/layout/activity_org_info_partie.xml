@@ -11,8 +11,11 @@
         android:layout_height="wrap_content">
         <Button
             android:id="@+id/back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:textSize="9dp"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:textColor="#FFF"
+            android:background="@drawable/custom_button_violet_rond"
             android:text="Back"
             android:layout_alignParentLeft="true" />
         <TextView
@@ -24,8 +27,11 @@
                 android:layout_marginTop="5dp" android:layout_marginStart="0dp" android:layout_alignStart="@+id/back"/>
         <Button
             android:id="@+id/next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:textSize="9dp"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:textColor="#FFF"
+            android:background="@drawable/custom_button_violet_rond"
             android:text="Next"
             android:layout_alignParentRight="true" />
     </RelativeLayout>

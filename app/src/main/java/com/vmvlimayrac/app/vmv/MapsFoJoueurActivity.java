@@ -128,7 +128,8 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
         buttonViewTeam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                listNomEquipe.clear();
+                listNomEquipe.add("Toutes les équipes");
                 if(isEquipeAfficher == false) {
                     String test = "https://visite-ma-ville.fr/external/external_app.php?action=GetAllPositionByGameId&gameId=" + idPartie;
                     JSONArray result = JSONParser.makeHttpRequest(test, "GET");
@@ -333,23 +334,20 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                 }
                 listMarker.add(aMarker);
 
-                scheduleTaskExecutor = Executors.newScheduledThreadPool(5);
-                scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
+                Runnable runnable = new Runnable() {
                     @Override
                     public void run() {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                myCurrentLong = Double.toString(currentLocation.getLongitude());
-                                myCurrentLat =  Double.toString(currentLocation.getLatitude());
-                                insertNewPosition =  "https://visite-ma-ville.fr/external/external_app.php?action=InsertNewPosition&latitude="+myCurrentLat +"&longitude="+myCurrentLong + "&pinTeam="+pinEquipe+"";
-                                InsertPosition = JSONParser.makeHttpRequest(insertNewPosition,"POST");
-                                Toast.makeText(getApplicationContext(),""+currentLocation.getLongitude()+"-"+currentLocation.getLatitude()+"",Toast.LENGTH_SHORT);
-
-                            }
-                        });
+                        myCurrentLong = Double.toString(currentLocation.getLongitude());
+                        myCurrentLat =  Double.toString(currentLocation.getLatitude());
+                        insertNewPosition =  "https://visite-ma-ville.fr/external/external_app.php?action=InsertNewPosition&latitude="+myCurrentLat +"&longitude="+myCurrentLong + "&pinTeam="+pinEquipe+"";
+                        InsertPosition = JSONParser.makeHttpRequest(insertNewPosition,"POST");
                     }
-                },0, 30, TimeUnit.SECONDS);
+                };
+
+                ScheduledExecutorService scheduler = Executors
+                        .newScheduledThreadPool(900);
+                scheduler.scheduleAtFixedRate(runnable, 0, 5, TimeUnit.MINUTES);
+
             }
         }catch (Exception e){}
 
@@ -477,6 +475,10 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
 
                             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                         }
+                    }
+
+                    if (z == 7) {
+                        marker.showInfoWindow();
                     }
                 }else{
                     Toast.makeText(getApplicationContext(),"Point deja validé! ",Toast.LENGTH_LONG);

@@ -12,10 +12,14 @@
         android:layout_height="wrap_content">
         <Button
             android:id="@+id/back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:textColor="#FFF"
+            android:background="@drawable/custom_button_violet_rond"
             android:text="Back"
-            android:layout_alignParentLeft="true" />
+            android:layout_alignParentLeft="true"
+
+        />
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -38,28 +42,40 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:text="Visualiser le parcours et les points"
-            android:layout_margin="20dp"/>
+            android:layout_margin="20dp"
+            android:textColor="#F8F8F8"
+            android:textSize="16sp"
+            android:background="@drawable/custom_button_violet_arrondi"/>
 
         <Button
             android:id="@+id/position"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:text="Visualiser la position des équipes"
-            android:layout_margin="20dp"/>
+            android:layout_margin="20dp"
+            android:textColor="#F8F8F8"
+            android:textSize="16sp"
+            android:background="@drawable/custom_button_violet_arrondi"/>
 
         <Button
             android:id="@+id/score"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:text="Visualiser le score des equipes"
-            android:layout_margin="20dp"/>
+            android:layout_margin="20dp"
+            android:textColor="#F8F8F8"
+            android:textSize="16sp"
+            android:background="@drawable/custom_button_violet_arrondi"/>
 
         <Button
             android:id="@+id/parametre"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:text="Paramètres"
-            android:layout_margin="20dp"/>
+            android:layout_margin="20dp"
+            android:textColor="#F8F8F8"
+            android:textSize="16sp"
+            android:background="@drawable/custom_button_violet_arrondi"/>
 
     </LinearLayout>
 

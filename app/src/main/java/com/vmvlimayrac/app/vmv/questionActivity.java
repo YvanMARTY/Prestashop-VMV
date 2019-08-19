@@ -35,6 +35,7 @@ public class questionActivity extends AppCompatActivity {
     String idPartie = "";
     ImageView imagePOI;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -159,6 +160,7 @@ public class questionActivity extends AppCompatActivity {
                     Intent myIntent = new Intent(questionActivity.this,MauvaiseReponseActivity.class);
                     myIntent.putExtra("result", result);
                         myIntent.putExtra("idPartie", idPartie);
+                        myIntent.putExtra("textBonReponse",textBonReponse);
                         startActivityForResult(myIntent,2);
 
                     }
