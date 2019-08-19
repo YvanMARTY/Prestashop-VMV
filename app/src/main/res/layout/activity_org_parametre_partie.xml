@@ -12,8 +12,11 @@
         android:layout_height="wrap_content">
         <Button
             android:id="@+id/back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:textSize="9dp"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:textColor="#FFF"
+            android:background="@drawable/custom_button_violet_rond"
             android:text="Back"
             android:layout_alignParentLeft="true" />
         <TextView
@@ -63,6 +66,9 @@
             android:id="@+id/buttonGO"
             android:layout_width="250dp"
             android:layout_height="75dp"
+            android:textColor="#F8F8F8"
+            android:textSize="16sp"
+            android:background="@drawable/custom_button_violet_arrondi"
             android:gravity="center"
             android:layout_centerHorizontal="true"
             android:text="Start" />

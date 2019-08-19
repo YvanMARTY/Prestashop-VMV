@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class MauvaiseReponseActivity extends AppCompatActivity {
     private RecyclerView listScore;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
-
+    private String laBonneReponse;
 
     ArrayList<Score> score;
 
@@ -28,18 +29,11 @@ public class MauvaiseReponseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mauvaise_reponse);
 
-
-        listScore = (RecyclerView) findViewById(R.id.recyclerViewScore);
+        TextView textViewBonneReponse = findViewById(R.id.textViewBonneReponse);
 
         Bundle b = getIntent().getExtras();
-        idPartie = b.getString("idPartie");
-
-
-        score = Score.createScoresList("2");
-        ScoreAdapter adapter = new ScoreAdapter(score);
-        listScore.setAdapter(adapter);
-        listScore.setLayoutManager(new LinearLayoutManager(this));
-
+        laBonneReponse = b.getString("textBonReponse");
+        textViewBonneReponse.setText(laBonneReponse);
         Button continuer = findViewById(R.id.buttonko);
         continuer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,9 +43,6 @@ public class MauvaiseReponseActivity extends AppCompatActivity {
                 setResult(2,returnIntent);
                 finish();
             }});
-
-
-
 
     }
 

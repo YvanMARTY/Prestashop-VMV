@@ -27,7 +27,6 @@
 
     <Button
             android:text="score"
-
             android:background="@drawable/custom_button_violet_rond"
             android:layout_width="wrap_content"
             android:paddingTop="5dp"
