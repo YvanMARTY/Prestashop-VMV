@@ -62,10 +62,11 @@ public class OrgParametreEquipeCommentaireActivity extends AppCompatActivity {
             @Override
             public void onClick(View vue) {
                 Intent intent = new Intent();
+                long idDep = depEquipe.getSelectedItemId() + 1;
                 // on met le data que le suer à écrit: nomEquipe, comEquipe et numEquipe
                 intent.putExtra("nomEquipe", nomEquipe.getText().toString());
                 intent.putExtra("comEquipe", comEquipe.getText().toString());
-                intent.putExtra("depEquipe", depEquipe.getSelectedItem().toString());
+                intent.putExtra("depEquipe", String.valueOf(idDep));
                 intent.putExtra("numEquipe", String.valueOf(b.getInt("key")));
                 setResult(1, intent);
                 finish();
