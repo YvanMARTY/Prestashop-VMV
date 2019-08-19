@@ -33,7 +33,7 @@ android:orientation="vertical">
             android:textAlignment="center"
             android:ems="10"
             android:inputType="textPassword"
-            android:text="0PPUXM"/>
+            android:text=""/>
 
         <Button
             android:id="@+id/btn_organisateur_connexion"

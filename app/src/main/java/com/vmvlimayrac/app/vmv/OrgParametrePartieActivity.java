@@ -21,6 +21,7 @@ public class OrgParametrePartieActivity extends AppCompatActivity {
         Intent myIntent = getIntent();
         String isGameClose = myIntent.getStringExtra("part_active");
         final String partId = myIntent.getStringExtra("part_id");
+        final String requestSetParam = myIntent.getStringExtra("requestSetParam");
 
         // On crée les variables
         Boolean isVisuScoreEnable = false;
@@ -63,6 +64,7 @@ public class OrgParametrePartieActivity extends AppCompatActivity {
         btn_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View vue) {
+                // Quand on clique sur le bouton start on créer les equipes et on set les paramètres de la partie, si les réponses aux requêtes sont Ok on set la partie comme commencée
                 // On récupère l'état des boutton qu'on converti en string pour la requête
                 String Switch_scoreString = "0";
                 String Switch_suivisString = "0";
@@ -77,11 +79,37 @@ public class OrgParametrePartieActivity extends AppCompatActivity {
                 try {
                     String resultString = JSONParser.makeHttpRequestString(link, "POST");
                     // On check si la requête s'est bien terminée
-                    if (resultString.equals("1")) {
+                    Intent intent = new Intent(OrgParametrePartieActivity.this, OrgActivity.class);
+                    intent.putExtra("part_id", partId);
+                    if (resultString.equals("1") || resultString != null) {
                         Toast.makeText(OrgParametrePartieActivity.this, "Paramètre enregistré !", Toast.LENGTH_LONG).show();
-                    }
-                    else if(resultString != null) {
-                        Toast.makeText(OrgParametrePartieActivity.this, "Les paramètres sont les même !", Toast.LENGTH_LONG).show();
+                        try {
+                            resultString = JSONParser.makeHttpRequestString(requestSetParam, "POST");
+                            if (resultString != null) {
+                                // On démarre la partie
+                                String request = "https://visite-ma-ville.fr/external/external_app.php?action=StartGame&gameId=" + partId;
+                                try {
+                                    resultString = JSONParser.makeHttpRequestString(request, "POST");
+                                    if (resultString.equals("1") || resultString != null) {
+                                        Toast.makeText(OrgParametrePartieActivity.this, "succes !", Toast.LENGTH_LONG).show();
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                    else {
+                                        Toast.makeText(OrgParametrePartieActivity.this, "Problème côté serveur !", Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                                catch (Exception e) {
+                                    Toast.makeText(OrgParametrePartieActivity.this, "ERROR: problème de connexion internet !", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                            else {
+                                Toast.makeText(OrgParametrePartieActivity.this, "Problème côté serveur !", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                        catch (Exception e) {
+                            Toast.makeText(OrgParametrePartieActivity.this, "ERROR: problème de connexion internet !", Toast.LENGTH_LONG).show();
+                        }
                     }
                     else {
                         Toast.makeText(OrgParametrePartieActivity.this, "Problème côté serveur !", Toast.LENGTH_LONG).show();
@@ -89,7 +117,6 @@ public class OrgParametrePartieActivity extends AppCompatActivity {
                 } catch(Exception e) {
                     Toast.makeText(OrgParametrePartieActivity.this, "ERROR: problème de connexion internet !", Toast.LENGTH_LONG).show();
                 }
-                startActivity(new Intent(OrgParametrePartieActivity.this, OrgActivity.class));
             }
         });
 

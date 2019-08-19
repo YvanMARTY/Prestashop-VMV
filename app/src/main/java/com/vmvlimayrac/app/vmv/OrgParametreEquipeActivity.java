@@ -16,7 +16,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-// ici c'est badasss : j'ai crée une implémentation via la classe fille pour faire des callbacks et echanger des infos entre deux vues
 public class OrgParametreEquipeActivity extends AppCompatActivity implements NumberPicker.OnValueChangeListener {
 
     Button btn_back = null;
