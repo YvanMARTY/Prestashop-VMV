@@ -27,6 +27,7 @@ public class TabFragment1 extends Fragment {
     private String pointDepart;
     private String opt_visu_loc;
     private String opt_visu_scor;
+    private String isScoreEquipe;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -141,6 +142,10 @@ public class TabFragment1 extends Fragment {
                         getContext().startActivity(intent);
                     }
 
+                }else {
+
+                    String msg = "Verifier le code pin.";
+                    Toast.makeText( getActivity().getApplicationContext(), msg, Toast.LENGTH_SHORT ).show();
                 }
             }
         });
