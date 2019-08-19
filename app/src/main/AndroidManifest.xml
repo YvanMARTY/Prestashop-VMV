@@ -111,6 +111,12 @@
                 android:configChanges="orientation"
                 android:label="Paramètre"
                 android:screenOrientation="portrait"/>
+
+        <activity
+                android:name=".OrgEquipesActivity"
+                android:configChanges="orientation"
+                android:label="Equipe"
+                android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

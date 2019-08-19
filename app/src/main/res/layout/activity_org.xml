@@ -61,6 +61,13 @@
             android:text="Paramètres"
             android:layout_margin="20dp"/>
 
+        <Button
+            android:id="@+id/equipes"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:text="Liste des pins"
+            android:layout_margin="20dp"/>
+
     </LinearLayout>
 
 

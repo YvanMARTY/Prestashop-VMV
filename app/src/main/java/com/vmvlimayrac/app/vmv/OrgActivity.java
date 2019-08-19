@@ -57,7 +57,16 @@ public class OrgActivity extends AppCompatActivity {
             }
         });
 
-
+        Button btn_list_equipes = (Button) findViewById(R.id.equipes);
+        btn_list_equipes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View vue) {
+                Toast.makeText(getBaseContext(), "afficher les pins", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), OrgEquipesActivity.class);
+                intent.putExtra("idPartie" , partId);
+                startActivity(intent);
+            }
+        });
 
         Button btn_back = (Button) findViewById(R.id.back);
         btn_back.setOnClickListener(new View.OnClickListener() {
