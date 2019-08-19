@@ -58,7 +58,7 @@ public class OrgEquipes {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            pin.add(new OrgEquipes("Equipe "+ eqp_nom, "Pin " + eqp_pin));
+            pin.add(new OrgEquipes("Equipe "+ eqp_nom, eqp_pin));
         }
         return pin;
     }

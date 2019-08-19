@@ -28,6 +28,7 @@
             android:background="@drawable/custom_button_violet_rond"
             android:textStyle="bold"
             android:radius="50dp"
+            android:textAllCaps="false"
     />
 
 

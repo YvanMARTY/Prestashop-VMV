@@ -60,6 +60,7 @@ public class OrgEquipesAdapter extends RecyclerView.Adapter<OrgEquipesAdapter.Vi
             TextView textView = viewHolder.nameTextView;
             textView.setText(contact.getName());
             Button button = viewHolder.messageButton;
+            button.setTransformationMethod(null);
             button.setText(contact.getPin());
 
         }
