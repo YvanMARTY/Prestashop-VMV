@@ -3,6 +3,7 @@ package com.vmvlimayrac.app.vmv;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import org.json.JSONArray;
@@ -93,7 +94,6 @@ public class OrgParametreEquipeCommentaireActivity extends AppCompatActivity {
                 Toast.makeText(this, "Mauvais game Id !", Toast.LENGTH_LONG).show();
             }
         } catch(Exception e) {
-            Toast.makeText(this, "ERROR: problème de connexion internet !", Toast.LENGTH_LONG).show();
         }
         return listPoints;
     }
