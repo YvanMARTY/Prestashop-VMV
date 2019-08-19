@@ -46,7 +46,7 @@ public class questionActivity extends AppCompatActivity {
         r3 = (RadioButton) findViewById(R.id.radioButton3);
         r4 = (RadioButton) findViewById(R.id.radioButton4);
         imagePOI = findViewById(R.id.imageViewPOI);
-        imagePOI.setImageBitmap(getBitmapFromURL("https://visite-ma-ville.fr/external/img/p1.png"));
+
         bValidation = (Button) findViewById(R.id.buttonValidationChoix);
 
         questionTextView = findViewById(R.id.textViewQuestion);
@@ -91,6 +91,12 @@ public class questionActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+            String urlImage = null;
+            try {
+                urlImage = Question.getString("pts_img");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
             QuestionReponse questionR = new QuestionReponse();
             questionR.setQuestion(qst_libelle);
@@ -98,6 +104,7 @@ public class questionActivity extends AppCompatActivity {
             questionR.setQcmVal(qcm_val);
             if (qcm_val == 1){
                 textBonReponse = rps_libelle;
+                imagePOI.setImageBitmap(getBitmapFromURL(urlImage));
             }
             listeQuestion.add(questionR);
 

@@ -35,12 +35,13 @@
         android:layout_below="@+id/title"
         android:layout_margin="20dp"
         android:orientation="vertical"
+        android:isScrollContainer="true"
         android:gravity="center">
 
         <Button
             android:id="@+id/parcours"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:text="Visualiser le parcours et les points"
             android:layout_margin="20dp"
             android:textColor="#F8F8F8"
@@ -50,7 +51,7 @@
         <Button
             android:id="@+id/position"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:text="Visualiser la position des équipes"
             android:layout_margin="20dp"
             android:textColor="#F8F8F8"
@@ -60,7 +61,7 @@
         <Button
             android:id="@+id/score"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:text="Visualiser le score des equipes"
             android:layout_margin="20dp"
             android:textColor="#F8F8F8"
@@ -70,7 +71,7 @@
         <Button
             android:id="@+id/parametre"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:text="Paramètres"
             android:layout_margin="20dp"
             android:textColor="#F8F8F8"
@@ -80,9 +81,12 @@
         <Button
             android:id="@+id/equipes"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:text="Liste des pins"
-            android:layout_margin="20dp"/>
+            android:layout_margin="20dp"
+            android:textColor="#F8F8F8"
+            android:textSize="16sp"
+            android:background="@drawable/custom_button_violet_arrondi"/>
 
     </LinearLayout>
 

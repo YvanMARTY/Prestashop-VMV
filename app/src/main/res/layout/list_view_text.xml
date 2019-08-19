@@ -20,10 +20,12 @@
 
     <Button
             android:id="@+id/score_button"
-            android:layout_width="135dp"
-            android:layout_height="wrap_content"
             android:textSize="15sp"
             android:color="#FFF"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:textColor="#FFF"
+            android:background="@drawable/custom_button_violet_rond"
             android:textStyle="bold"
             android:radius="50dp"
     />

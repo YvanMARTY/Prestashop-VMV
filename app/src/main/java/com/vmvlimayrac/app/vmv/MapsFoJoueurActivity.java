@@ -568,8 +568,6 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
         }
         else if (resultCode == 9999){
 
-
-
             String getExistingPoint = "https://visite-ma-ville.fr/external/external_app.php?action=GetParcPointByGameId&gameId="+idPartie;
             JSONArray resultT = JSONParser.makeHttpRequest(getExistingPoint,"GET");
             boolean isDone = false;
@@ -602,6 +600,7 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                                 .defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
                         aMarker.setVisible(true);
                         aMarker.setZIndex(2);
+
                     } else{
                         aMarker.setVisible(false);
                     }
