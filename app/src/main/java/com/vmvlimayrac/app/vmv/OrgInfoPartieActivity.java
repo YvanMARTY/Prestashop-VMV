@@ -74,7 +74,7 @@ public class OrgInfoPartieActivity extends AppCompatActivity implements OnMapRea
         time.setText(myIntent.getStringExtra("prc_tmp"));
         sizeMax.setText(myIntent.getStringExtra("prc_grpMax"));
         nbrStep.setText(myIntent.getStringExtra("nb_pts"));
-        desc.setText("not implemented");
+        desc.setText("no description");
         Toast.makeText(this, "Connecté avec succès !", Toast.LENGTH_LONG).show();
 
         //getSupportActionBar().hide();
@@ -99,62 +99,9 @@ public class OrgInfoPartieActivity extends AppCompatActivity implements OnMapRea
                 intent.putExtra("part_active", myIntent.getStringExtra("part_active"));
                 intent.putExtra("part_id", myIntent.getStringExtra("part_id"));
                 startActivity(intent);
+                finish();
             }
         });
-
-    }
-
-    public void downloadJSON(final String urlWebService, Context context, final GoogleMap map) {
-
-        class DownloadJSON extends AsyncTask<Void, Void, String> {
-            public String result;
-            public JSONArray objetJsonFinal;
-            private android.content.Context mContext;
-            private GetResultQuery mCallback;
-
-            public DownloadJSON(Context context) {
-                this.mContext = context;
-                this.mCallback = (GetResultQuery) context;
-            }
-
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-            }
-
-            @Override
-            protected void onPostExecute(String s) {
-                super.onPostExecute(s);
-                try {
-                    objetJsonFinal = loadJson(s);
-                    mCallback.onTaskComplete(objetJsonFinal, map);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-
-            @Override
-            protected String doInBackground(Void... voids) {
-                try {
-                    URL url = new URL(urlWebService);
-                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                    StringBuilder sb = new StringBuilder();
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                    String json;
-                    while ((json = bufferedReader.readLine()) != null) {
-                        sb.append(json + "\n");
-                    }
-                    return sb.toString().trim();
-                } catch (Exception e) {
-                    return null;
-                }
-            }
-        }
-
-        DownloadJSON getJSON = new DownloadJSON(context);
-        getJSON.execute();
 
     }
 

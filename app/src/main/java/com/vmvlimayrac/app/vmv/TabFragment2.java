@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +31,7 @@ public class TabFragment2 extends Fragment {
                 String password = name.getText().toString();
                 Intent intent = new Intent(getActivity(), OrgInfoPartieActivity.class);
                 if (checkAdminPassword(password, intent)) {
-                    if (!Boolean.valueOf(intent.getStringExtra("part_actives"))) {
+                    if (intent.getStringExtra("part_statut").equals("0")) {
                         // la partie est inactive, on lance la vue de paramètres
                         ((MainActivity) getActivity()).startActivity(intent);
                     }
@@ -41,6 +42,13 @@ public class TabFragment2 extends Fragment {
                         ((MainActivity) getActivity()).startActivity(mIntent);
                     }
                 }
+                else {
+                    // TODO : remove this ELSE, for test purpose only
+                    //Intent mIntent = new Intent(getActivity(), MapsFoJoueurActivity.class);
+                    //mIntent.putExtras(intent.getExtras());
+                    //((MainActivity) getActivity()).startActivity(mIntent);
+                    //((MainActivity) getActivity()).startActivity(intent);
+                }
             }
         });
         return view;
@@ -49,25 +57,24 @@ public class TabFragment2 extends Fragment {
     // Methode permetant d'authentifier l'admin
     public Boolean checkAdminPassword(String password, Intent intent) {
         // API instantiation
-        StrictMode.ThreadPolicy policy = new StrictMode.
-                ThreadPolicy.Builder().permitAll().build();
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         Boolean isOk = false;
         String link = "https://visite-ma-ville.fr/external/external_app.php?action=ConnectionAdmin&mdpAdmin=" + password;
         try {
             JSONArray result = JSONParser.makeHttpRequest(link, "GET");
             JSONObject jsonObject = result.getJSONObject(0);
-            if (jsonObject.getString("prc_id") != null) {
+            if (jsonObject.getString("prc_id") != "null") {
                 // On ajoute a l'intent les paramètre de la requêtes utiles pour la suite...
                 intent.putExtra("ach_id", jsonObject.getString("ach_id"));
                 intent.putExtra("part_id",jsonObject.getString("part_id"));
                 intent.putExtra("prc_id",jsonObject.getString("prc_id"));
                 intent.putExtra("prc_nom",jsonObject.getString("prc_nom"));
-                intent.putExtra("part_active",jsonObject.getString("part_active"));
                 intent.putExtra("prc_grpMax",jsonObject.getString("prc_grpMax"));
                 intent.putExtra("nb_pts",jsonObject.getString("nb_pts"));
                 intent.putExtra("prc_tmp", jsonObject.getString("prc_tmp"));
                 intent.putExtra("typ_libelle", jsonObject.getString("typ_libelle"));
+                intent.putExtra("part_statut", jsonObject.getString("part_statut"));
                 isOk = true;
             }
             else {

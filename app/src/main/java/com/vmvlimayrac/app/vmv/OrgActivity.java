@@ -13,6 +13,9 @@ public class OrgActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_org);
 
+        Intent myIntent = getIntent();
+        final String partId = myIntent.getStringExtra("part_id");
+
         //getSupportActionBar().hide();
 
         Button btn_parcours = (Button) findViewById(R.id.parcours);
@@ -40,8 +43,9 @@ public class OrgActivity extends AppCompatActivity {
             @Override
             public void onClick(View vue) {
                 Toast.makeText(getBaseContext(), "afficher les scores", Toast.LENGTH_SHORT).show();
-
-                // startActivity(new Intent(OrgActivity.this, OrgParametreActivity.class));
+                Intent intent = new Intent(getApplicationContext(), ScoreActivity.class);
+                intent.putExtra("idPartie" , partId);
+                startActivity(intent);
             }
         });
 
