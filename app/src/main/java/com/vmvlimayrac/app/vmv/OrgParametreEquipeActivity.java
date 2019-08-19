@@ -20,7 +20,9 @@ public class OrgParametreEquipeActivity extends AppCompatActivity implements Num
 
     Button btn_back = null;
     Button btn_next =  null;
-    List<View> listTextView = new ArrayList<View>();
+    List<View> listTextViewNe = new ArrayList<View>();
+    List<View> listTextViewCe = new ArrayList<View>();
+    List<View> listTextViewDe = new ArrayList<View>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +56,7 @@ public class OrgParametreEquipeActivity extends AppCompatActivity implements Num
                 intent.putExtra("part_id", myIntent.getStringExtra("part_id"));
                 // On formate la requête
                 String request = "https://visite-ma-ville.fr/external/external_app.php?action=AddTeam&nomTeams=";
-                request = formatTeam(listTextView, request);
+                request = formatTeam(listTextViewNe, listTextViewCe, listTextViewDe, request);
                 // On ajoute l'ID de la partie
                 request += "&gameId=" + partId;
                 intent.putExtra("requestSetParam", request);
@@ -146,14 +148,17 @@ public class OrgParametreEquipeActivity extends AppCompatActivity implements Num
                 Layout.addView(nomEquipe);
                 Layout.addView(comEquipe);
                 Layout.addView(depEquipe);
-                listTextView.add(nomEquipe);
-                listTextView.add(comEquipe);
-                listTextView.add(depEquipe);
+                listTextViewNe.add(nomEquipe);
+                listTextViewCe.add(comEquipe);
+                listTextViewDe.add(depEquipe);
                 Layout.addView(Edit);
 
                 LinearLayout.addView(Layout);
             } else {
                 LinearLayout.removeViewAt(childCount - 1);
+                listTextViewNe.remove(listTextViewNe.size() - 1);
+                listTextViewCe.remove(listTextViewCe.size() - 1);
+                listTextViewDe.remove(listTextViewDe.size() - 1);
             }
 
             childCount = LinearLayout.getChildCount();
@@ -181,16 +186,26 @@ public class OrgParametreEquipeActivity extends AppCompatActivity implements Num
             TextView nomEquipe = new TextView(this);
             TextView comEquipe = new TextView(this);
             TextView depEquipe = new TextView(this);
-            for (View view : listTextView) {
+            for (View view : listTextViewNe) {
                 if (view.getTag().equals(idStringNomEquip)) {
                     nomEquipe = (TextView) view;
                     nomEquipe.setText(dataIntent.getStringExtra("nomEquipe"));
                 }
-                else if (view.getTag().equals(idStringComEquip)) {
+                else {
+                    Log.e("ERROR:: ", "Pas de tag associe au textView : onActivityResult");
+                }
+            }
+            for (View view : listTextViewCe) {
+                if (view.getTag().equals(idStringComEquip)) {
                     comEquipe = (TextView) view;
                     comEquipe.setText(dataIntent.getStringExtra("comEquipe"));
                 }
-                else if (view.getTag().equals(idStringDepEquip)) {
+                else {
+                    Log.e("ERROR:: ", "Pas de tag associe au textView : onActivityResult");
+                }
+            }
+            for (View view : listTextViewDe) {
+                if (view.getTag().equals(idStringDepEquip)) {
                     depEquipe = (TextView) view;
                     depEquipe.setText(dataIntent.getStringExtra("depEquipe"));
                 }
@@ -202,40 +217,41 @@ public class OrgParametreEquipeActivity extends AppCompatActivity implements Num
     }
 
     // Méthode permettant de formater les equipes pour la requête de l'API
-    private String formatTeam(List<View> ListView, String request) {
+    private String formatTeam(List<View> ListViewNe, List<View> ListViewCe, List<View> ListViewDe, String request) {
         TextView tv = new TextView(this);
         Integer i = 0;
-        // ici gros calcul (MDR) je vais utiliser les modulos pour retrouver mes petits dans la liste car la liste est come ceci : nomEquipe1, comEquip1, nomEquip2, comEquip2...
-        for (View view : ListView) {
+        for (View view : ListViewNe) {
             i++;
             tv = (TextView) view;
-            if (ListView.size() == i && (((i-1) % 3)==0)) {
+            if (ListViewNe.size() == i) {
                 request += String.valueOf(tv.getText());
             }
-            else if (((i-1) % 3)==0) {
-                request += String.valueOf(tv.getText()) + ",";
-            }
-        }
-        for (View view : ListView) {
-            i++;
-            tv = (TextView) view;
-            if (ListView.size() == i && (((i+1) % 3)==0)) {
-                request += String.valueOf(tv.getText());
-            }
-            else if (((i+1) % 3)==0){
-                request += String.valueOf(tv.getText()) + ",";
-            }
-        }
-        for (View view : ListView) {
-            i++;
-            tv = (TextView) view;
-            if (ListView.size() == i && (i % 3)==0) {
-                request += String.valueOf(tv.getText());
-                listTextView.remove(i);
-            }
-            else if ((i % 3)==0) {
+            else {
                 request += String.valueOf(tv.getText() + ",");
-                listTextView.remove(i);
+            }
+        }
+        i = 0;
+        request += "&notes=";
+        for (View view : ListViewCe) {
+            i++;
+            tv = (TextView) view;
+            if (ListViewNe.size() == i) {
+                request += String.valueOf(tv.getText());
+            }
+            else {
+                request += String.valueOf(tv.getText() + ",");
+            }
+        }
+        i = 0;
+        request += "&pointDeparts=";
+        for (View view : ListViewDe) {
+            i++;
+            tv = (TextView) view;
+            if (ListViewNe.size() == i) {
+                request += String.valueOf(tv.getText());
+            }
+            else {
+                request += String.valueOf(tv.getText() + ",");
             }
         }
         return request;
