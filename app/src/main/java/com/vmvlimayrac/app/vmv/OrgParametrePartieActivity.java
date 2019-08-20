@@ -81,45 +81,51 @@ public class OrgParametrePartieActivity extends AppCompatActivity {
                 // On balance à la bdd l'état des bouttons
                 String link = "https://visite-ma-ville.fr/external/external_app.php?action=SetGameOptions&visuScore=" + Switch_scoreString + "&visuLocalisation=" + Switch_suivisString + "&gameId=" + partId;
                 try {
-                    String resultString = JSONParser.makeHttpRequestString(link, "POST");
-                    // On check si la requête s'est bien terminée
-                    Intent intent = new Intent(OrgParametrePartieActivity.this, OrgActivity.class);
-                    intent.putExtra("part_id", partId);
-                    intent.putExtra("part_active", isGameClose);
-                    if (resultString.equals("1") || resultString != null) {
-                        try {
-                            resultString = JSONParser.makeHttpRequestString(requestSetParam, "POST");
-                            if (resultString != null) {
-                                // On démarre la partie
-                                String request = "https://visite-ma-ville.fr/external/external_app.php?action=StartGame&gameId=" + partId;
-                                try {
-                                    resultString = JSONParser.makeHttpRequestString(request, "POST");
-                                    if (resultString.equals("1") || resultString != null) {
-                                        if (sizeMax == "1") {
-                                            Intent intentDirectPlay = new Intent(OrgParametrePartieActivity.this, OrgActivity.class);
+                    if (confirmDialog()){
+                        String resultString = JSONParser.makeHttpRequestString(link, "POST");
+                        // On check si la requête s'est bien terminée
+                        Intent intent = new Intent(OrgParametrePartieActivity.this, OrgActivity.class);
+                        intent.putExtra("part_id", partId);
+                        intent.putExtra("part_active", isGameClose);
+                        if (resultString.equals("1") || resultString != null) {
+                            try {
+                                resultString = JSONParser.makeHttpRequestString(requestSetParam, "POST");
+                                if (resultString != null) {
+                                    // On démarre la partie
+                                    String request = "https://visite-ma-ville.fr/external/external_app.php?action=StartGame&gameId=" + partId;
+                                    try {
+                                        resultString = JSONParser.makeHttpRequestString(request, "POST");
+                                        if (resultString.equals("1") || resultString != null) {
+                                            if (sizeMax == "1") {
+                                                Intent intentDirectPlay = new Intent(OrgParametrePartieActivity.this, OrgActivity.class);
+                                                startActivity(intentDirectPlay);
+                                                finish();
+                                            }
+                                            else {
+                                                Toast.makeText(OrgParametrePartieActivity.this, "succes !", Toast.LENGTH_LONG).show();
+                                                startActivity(intent);
+                                                finish();
+                                            }
                                         }
                                         else {
-                                            confirmDialog(intent);
+                                            Toast.makeText(OrgParametrePartieActivity.this, "Problème côté serveur !", Toast.LENGTH_LONG).show();
                                         }
                                     }
-                                    else {
-                                        Toast.makeText(OrgParametrePartieActivity.this, "Problème côté serveur !", Toast.LENGTH_LONG).show();
+                                    catch (Exception e) {
+                                        Toast.makeText(OrgParametrePartieActivity.this, "ERROR: problème de connexion internet !", Toast.LENGTH_LONG).show();
                                     }
                                 }
-                                catch (Exception e) {
-                                    Toast.makeText(OrgParametrePartieActivity.this, "ERROR: problème de connexion internet !", Toast.LENGTH_LONG).show();
+                                else {
+                                    Toast.makeText(OrgParametrePartieActivity.this, "Problème côté serveur !", Toast.LENGTH_LONG).show();
                                 }
                             }
-                            else {
-                                Toast.makeText(OrgParametrePartieActivity.this, "Problème côté serveur !", Toast.LENGTH_LONG).show();
+                            catch (Exception e) {
+                                Toast.makeText(OrgParametrePartieActivity.this, "ERROR: problème de connexion internet !", Toast.LENGTH_LONG).show();
                             }
                         }
-                        catch (Exception e) {
-                            Toast.makeText(OrgParametrePartieActivity.this, "ERROR: problème de connexion internet !", Toast.LENGTH_LONG).show();
+                        else {
+                            Toast.makeText(OrgParametrePartieActivity.this, "Problème côté serveur !", Toast.LENGTH_LONG).show();
                         }
-                    }
-                    else {
-                        Toast.makeText(OrgParametrePartieActivity.this, "Problème côté serveur !", Toast.LENGTH_LONG).show();
                     }
                 } catch(Exception e) {
                     Toast.makeText(OrgParametrePartieActivity.this, "ERROR: problème de connexion internet !", Toast.LENGTH_LONG).show();
@@ -136,18 +142,18 @@ public class OrgParametrePartieActivity extends AppCompatActivity {
         });
     }
 
-    void confirmDialog(final Intent intent) {
+    Boolean confirmDialog() {
+        final Boolean[] isOk = {false};
         new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Commencer une partie").setMessage("Êtes vous sûr de vouloir lancer la partie? Cette action est définitive.").setPositiveButton("Oui", new DialogInterface.OnClickListener()
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(OrgParametrePartieActivity.this, "succes !", Toast.LENGTH_LONG).show();
-                        startActivity(intent);
-                        finish();
+                        isOk[0] = true;
                     }
 
                 })
                 .setNegativeButton("Non", null)
                 .show();
+        return isOk[0];
     }
 }

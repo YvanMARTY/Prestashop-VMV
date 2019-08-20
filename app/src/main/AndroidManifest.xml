@@ -123,6 +123,11 @@
                 android:configChanges="orientation"
                 android:label="QuestionOrg"
                 android:screenOrientation="portrait"/>
+        <activity
+                android:name=".OrgMapActivity"
+                android:configChanges="orientation"
+                android:label="OrgMapActivity"
+                android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
