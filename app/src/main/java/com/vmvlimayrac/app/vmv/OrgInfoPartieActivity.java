@@ -26,11 +26,6 @@ import com.google.android.gms.tasks.Task;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 
 
@@ -41,10 +36,6 @@ public class OrgInfoPartieActivity extends AppCompatActivity implements OnMapRea
     private static final int LOCATION_REQUEST_CODE = 101;
     private MarkerOptions options = new MarkerOptions();
     private ArrayList<LatLng> latlngs = new ArrayList<>();
-    private GoogleMap googleMap;
-    private Marker previousMarker = null;
-
-    private JSONArray AllMarker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

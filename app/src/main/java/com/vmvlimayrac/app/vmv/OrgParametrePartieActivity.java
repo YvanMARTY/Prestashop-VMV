@@ -1,8 +1,10 @@
 package com.vmvlimayrac.app.vmv;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -20,10 +22,11 @@ public class OrgParametrePartieActivity extends AppCompatActivity {
 
         // On récupère les paramètres de la vue d'avant
         Intent myIntent = getIntent();
-        String isGameClose = myIntent.getStringExtra("part_active");
+        final String isGameClose = myIntent.getStringExtra("part_active");
         final String partId = myIntent.getStringExtra("part_id");
         final String requestSetParam = myIntent.getStringExtra("requestSetParam");
-
+        final String comment = myIntent.getStringExtra("");
+        final String sizeMax = myIntent.getStringExtra("prc_grpMax");
         // On crée les variables
         Boolean isVisuScoreEnable = false;
         Boolean isFollowEnable = false;
@@ -82,6 +85,7 @@ public class OrgParametrePartieActivity extends AppCompatActivity {
                     // On check si la requête s'est bien terminée
                     Intent intent = new Intent(OrgParametrePartieActivity.this, OrgActivity.class);
                     intent.putExtra("part_id", partId);
+                    intent.putExtra("part_active", isGameClose);
                     if (resultString.equals("1") || resultString != null) {
                         Toast.makeText(OrgParametrePartieActivity.this, "Paramètre enregistré !", Toast.LENGTH_LONG).show();
                         try {
@@ -92,9 +96,12 @@ public class OrgParametrePartieActivity extends AppCompatActivity {
                                 try {
                                     resultString = JSONParser.makeHttpRequestString(request, "POST");
                                     if (resultString.equals("1") || resultString != null) {
-                                        Toast.makeText(OrgParametrePartieActivity.this, "succes !", Toast.LENGTH_LONG).show();
-                                        startActivity(intent);
-                                        finish();
+                                        if (sizeMax == "1") {
+                                            Intent intentDirectPlay = new Intent(OrgParametrePartieActivity.this, OrgActivity.class);
+                                        }
+                                        else {
+                                            confirmDialog(intent);
+                                        }
                                     }
                                     else {
                                         Toast.makeText(OrgParametrePartieActivity.this, "Problème côté serveur !", Toast.LENGTH_LONG).show();
@@ -128,7 +135,20 @@ public class OrgParametrePartieActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
 
+    void confirmDialog(final Intent intent) {
+        new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Commencer une partie").setMessage("Êtes vous sûr de vouloir lancer la partie? Cette action est définitive.").setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(OrgParametrePartieActivity.this, "succes !", Toast.LENGTH_LONG).show();
+                        startActivity(intent);
+                        finish();
+                    }
 
+                })
+                .setNegativeButton("No", null)
+                .show();
     }
 }

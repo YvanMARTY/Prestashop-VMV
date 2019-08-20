@@ -31,8 +31,8 @@ public class OrgParametreEquipeActivity extends AppCompatActivity implements Num
 
         // On récupère les paramètres de la vue d'avant
         Intent myIntent = getIntent();
-        String sizeMax = myIntent.getStringExtra("prc_grpMax");
-        String isGameClose = myIntent.getStringExtra("part_active");
+        final String sizeMax = myIntent.getStringExtra("prc_grpMax");
+        final String isGameClose = myIntent.getStringExtra("part_active");
         final String partId = myIntent.getStringExtra("part_id");
 
         //getSupportActionBar().hide();
@@ -60,7 +60,10 @@ public class OrgParametreEquipeActivity extends AppCompatActivity implements Num
                 // On ajoute l'ID de la partie
                 request += "&gameId=" + partId;
                 intent.putExtra("requestSetParam", request);
+                intent.putExtra("part_active", isGameClose);
+                intent.putExtra("prc_grpMax", sizeMax);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -70,7 +73,7 @@ public class OrgParametreEquipeActivity extends AppCompatActivity implements Num
         numberPicker.setWrapSelectorWheel(true);
         numberPicker.setOnValueChangedListener(this);
         // Si la partie est close, on désactive certain bouttons
-        if (Boolean.valueOf(isGameClose)) {
+        if (isGameClose == "2") {
             numberPicker.setEnabled(false);
             numberPicker.setFocusable(false);
         }

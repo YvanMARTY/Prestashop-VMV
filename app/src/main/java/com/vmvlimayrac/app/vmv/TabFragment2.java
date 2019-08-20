@@ -31,7 +31,7 @@ public class TabFragment2 extends Fragment {
                 String password = name.getText().toString();
                 Intent intent = new Intent(getActivity(), OrgInfoPartieActivity.class);
                 if (checkAdminPassword(password, intent)) {
-                    if (intent.getStringExtra("part_statut").equals("0")) {
+                    if (intent.getStringExtra("part_active").equals("0")) {
                         // la partie est inactive, on lance la vue de paramètres
                         ((MainActivity) getActivity()).startActivity(intent);
                     }
@@ -41,13 +41,6 @@ public class TabFragment2 extends Fragment {
                         mIntent.putExtras(intent.getExtras());
                         ((MainActivity) getActivity()).startActivity(mIntent);
                     }
-                }
-                else {
-                    // TODO : remove this ELSE, for test purpose only
-                    //Intent mIntent = new Intent(getActivity(), MapsFoJoueurActivity.class);
-                    //mIntent.putExtras(intent.getExtras());
-                    //((MainActivity) getActivity()).startActivity(mIntent);
-                    //((MainActivity) getActivity()).startActivity(intent);
                 }
             }
         });
@@ -74,7 +67,7 @@ public class TabFragment2 extends Fragment {
                 intent.putExtra("nb_pts",jsonObject.getString("nb_pts"));
                 intent.putExtra("prc_tmp", jsonObject.getString("prc_tmp"));
                 intent.putExtra("typ_libelle", jsonObject.getString("typ_libelle"));
-                intent.putExtra("part_statut", jsonObject.getString("part_statut"));
+                intent.putExtra("part_active", jsonObject.getString("part_statut"));
                 isOk = true;
             }
             else {

@@ -3,6 +3,7 @@ package com.vmvlimayrac.app.vmv;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.*;
 
@@ -15,7 +16,7 @@ public class OrgActivity extends AppCompatActivity {
 
         Intent myIntent = getIntent();
         final String partId = myIntent.getStringExtra("part_id");
-
+        final String isGameClose = myIntent.getStringExtra("part_active");
         //getSupportActionBar().hide();
 
         Button btn_parcours = (Button) findViewById(R.id.parcours);
@@ -53,7 +54,10 @@ public class OrgActivity extends AppCompatActivity {
         btn_parametre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View vue) {
-                startActivity(new Intent(OrgActivity.this, OrgParametreActivity.class));
+                Intent intent = new Intent(OrgActivity.this, OrgParametreActivity.class);
+                intent.putExtra("part_id", partId);
+                intent.putExtra("part_active", isGameClose);
+                startActivity(intent);
             }
         });
 

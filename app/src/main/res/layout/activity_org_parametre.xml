@@ -13,8 +13,7 @@
         <Button
             android:id="@+id/close"
 
-            android:text="Close"
-            android:textSize="9dp"
+            android:text="Fermer"
             android:layout_width="80dp"
             android:layout_height="40dp"
             android:textColor="#FFF"
@@ -39,7 +38,7 @@
         android:orientation="vertical">
 
         <Switch
-            android:id="@+id/Switch_suivis"
+            android:id="@+id/Switch_suivis_param"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Suivis temps réel des équipes par les joueurs :"
@@ -48,7 +47,7 @@
             android:layout_marginTop="10dp"/>
 
         <Switch
-            android:id="@+id/Switch_score"
+            android:id="@+id/Switch_score_param"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Voir scores des équipes par les joueurs :"
@@ -59,9 +58,23 @@
         <TextView
                 android:id="@+id/commentaire"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        <RelativeLayout
+                android:id="@+id/hupperLayout"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="TEST"/>
-
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="25dp">
+            <Button
+                    android:id="@+id/sendParam"
+                    android:layout_width="250dp"
+                    android:layout_height="75dp"
+                    android:gravity="center"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="#F8FF8F"
+                    android:background="@drawable/custom_button_violet_arrondi"
+                    android:text="Envoyer" />
+        </RelativeLayout>
     </LinearLayout>
 
     <RelativeLayout
@@ -78,7 +91,7 @@
             android:layout_centerHorizontal="true"
             android:textColor="#F8FF8F"
             android:background="@drawable/custom_button_violet_arrondi"
-            android:text="Finish partie" />
+            android:text="Clore partie" />
     </RelativeLayout>
 
 </RelativeLayout>
