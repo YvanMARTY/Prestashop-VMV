@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.location.Location;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
@@ -51,6 +52,7 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
     private MarkerOptions options = new MarkerOptions();
     private GoogleMap googleMapGlobal;
     private Marker previousMarker = null;
+    private Handler handler = new Handler();
 
     private ArrayList<LatLng> latlngs = new ArrayList<>();
     private ArrayList<Marker> listMarker = new ArrayList<>();
@@ -284,6 +286,24 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
         return jsonArray;
     }
 
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            boolean done = false;
+            myCurrentLong = Double.toString(currentLocation.getLongitude());
+            myCurrentLat =  Double.toString(currentLocation.getLatitude());
+            insertNewPosition =  "https://visite-ma-ville.fr/external/external_app.php?action=InsertNewPosition&latitude="+myCurrentLat +"&longitude="+myCurrentLong + "&pinTeam="+pinEquipe+"";
+            InsertPosition = JSONParser.makeHttpRequest(insertNewPosition,"POST");
+            if(isPartieEnd() == true && done == false){
+                Intent myIntent = new Intent(MapsFoJoueurActivity.this, EndGameActivity.class);
+                startActivityForResult(myIntent, 9999);
+                done = true;
+            }
+            //60 seconds
+            handler.postDelayed(runnable, 60000);
+        }
+    };
+
     public void onTaskComplete(JSONArray result,final GoogleMap googleMap ){
         try {
 
@@ -334,20 +354,7 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                 }
                 listMarker.add(aMarker);
 
-                Runnable runnable = new Runnable() {
-                    @Override
-                    public void run() {
-                        myCurrentLong = Double.toString(currentLocation.getLongitude());
-                        myCurrentLat =  Double.toString(currentLocation.getLatitude());
-                        insertNewPosition =  "https://visite-ma-ville.fr/external/external_app.php?action=InsertNewPosition&latitude="+myCurrentLat +"&longitude="+myCurrentLong + "&pinTeam="+pinEquipe+"";
-                        InsertPosition = JSONParser.makeHttpRequest(insertNewPosition,"POST");
-                    }
-                };
-
-                ScheduledExecutorService scheduler = Executors
-                        .newScheduledThreadPool(900);
-                scheduler.scheduleAtFixedRate(runnable, 0, 5, TimeUnit.MINUTES);
-
+                handler.post(runnable);
             }
         }catch (Exception e){}
 
@@ -476,7 +483,6 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                         }
                     }
-
                     if (z == 7) {
                         marker.showInfoWindow();
                     }
@@ -505,6 +511,36 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
         }
     }
 
+    protected boolean isPartieEnd() {
+
+        String IsPartieEnd = "https://visite-ma-ville.fr/external/external_app.php?action=GetInfoByTeamPin&pinTeam=" + pinEquipe;
+        JSONArray resultT = JSONParser.makeHttpRequest(IsPartieEnd, "GET");
+        boolean isEnd = false;
+        String statutPartie = "";
+        for (int i = 0; i < resultT.length(); i++) {
+
+            JSONObject listeinfo = null;
+            try {
+                listeinfo = resultT.getJSONObject(i);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            String rps_eqp_statut = null;
+            try {
+                rps_eqp_statut = listeinfo.getString("part_statut");
+                statutPartie = rps_eqp_statut;
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if(statutPartie.equals("2")){
+            isEnd = true;
+        }
+
+        return isEnd;
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -512,6 +548,7 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
         myCurrentLat =  Double.toString(currentLocation.getLatitude());
         String insertNewPosition =  "https://visite-ma-ville.fr/external/external_app.php?action=InsertNewPosition&latitude="+myCurrentLat +"&longitude="+myCurrentLong + "&pinTeam="+pinEquipe+"";
         JSONArray InsertPosition = JSONParser.makeHttpRequest(insertNewPosition,"POST");
+
 
 
         if(resultCode == 1){
@@ -541,10 +578,6 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                 JSONArray result = JSONParser.makeHttpRequest(test,"POST");
             }
             else if (res.equals("nok")){
-
-
-
-
                 for(Marker m : listMarker){
                     if(Integer.parseInt(m.getSnippet()) == markerID){
                         m.setIcon(BitmapDescriptorFactory
@@ -566,6 +599,7 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                 startActivityForResult(myIntent, 9999);
             }
         }
+
         else if (resultCode == 9999){
 
             String getExistingPoint = "https://visite-ma-ville.fr/external/external_app.php?action=GetParcPointByGameId&gameId="+idPartie;
