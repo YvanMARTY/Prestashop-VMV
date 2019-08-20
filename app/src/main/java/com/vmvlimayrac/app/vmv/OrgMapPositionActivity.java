@@ -268,6 +268,50 @@ public class OrgMapPositionActivity extends FragmentActivity implements OnMapRea
                 startActivityForResult(myIntent, 9999);
                 done = true;
             }
+            if(isEquipeAfficher == true) {
+                String test = "https://visite-ma-ville.fr/external/external_app.php?action=GetAllPositionByGameId&gameId=" + idPartie;
+                JSONArray result = JSONParser.makeHttpRequest(test, "GET");
+
+                for (int i = 0; i < result.length(); i++) {
+
+                    JSONObject PositionEquipe = null;
+                    try {
+                        PositionEquipe = result.getJSONObject(i);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    String eqp_nom = null;
+                    try {
+                        eqp_nom = PositionEquipe.getString("eqp_nom");
+                        listNomEquipe.add(eqp_nom);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    String loc_lat = null;
+                    try {
+                        loc_lat = PositionEquipe.getString("loc_lat");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    String loc_long = null;
+                    try {
+                        loc_long = PositionEquipe.getString("loc_long");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    LatLng point = new LatLng(Double.parseDouble(loc_lat), Double.parseDouble(loc_long));
+                    options.title(eqp_nom);
+                    options.zIndex(7);
+                    options.position(point);
+                    options.icon(BitmapDescriptorFactory
+                            .defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+                    Marker marker = googleMapGlobal.addMarker(options);
+                    listMarkerEquipe.add(marker);
+
+                }
+            }
+
             //60 seconds
             handler.postDelayed(runnable, 60000);
         }
