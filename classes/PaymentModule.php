@@ -754,19 +754,18 @@ abstract class PaymentModuleCore extends Module
                     $order = new Order((int)$order->id);
 
                     $arr_mdp_parties = array();
+
                     // Pour chaque produit de la commande
                     foreach ($product_list_vmv as $product) {
                         // Récupère le nom du produit
-                        array_push($arr_mdp_parties, $this->generateMotDePasseBdd((int)6, (int)$product['id_product'], (int)$order->id));
+                        array_push($arr_mdp_parties, $this->generateMotDePasseBdd((int)6, (int)$product['id_product'], (int)$order->id, $product['name']));
                     }
 
                     // MESSAGE A PASSER AU TEMPLATE DU MAIL DE CONFIRMATION DE COMMANDE
                     $message_partie = "";
-                    foreach($arr_mdp_parties as $m){
+                    foreach($arr_mdp_parties as $m) {
                         $message_partie .= "<li>Nom du parcours : <b style='font:size:18px;'>{$m[0]}</b> | Mot de passe : <b style='font:size:18px;'>{$m[1]}</b></li>";
                     }
-
-                    $message_partie = "";
 
                     // Send an e-mail to customer (one order = one email)
                     if ($id_order_state != Configuration::get('PS_OS_ERROR') && $id_order_state != Configuration::get('PS_OS_CANCELED') && $this->context->customer->id) {
@@ -907,45 +906,19 @@ abstract class PaymentModuleCore extends Module
                             /* PERMET DE CHOISIR LE PDF ORGANISATEUR */
                             $nbre_equipe = "00";
 
-                            /* 06/08/2019 - RECUPERATION DU NOM DE L'ATTRIBUT */
-                            if($cart_product['id_product_attribute'] != 0) {
-                                $id_product_attribute_ordered = $cart_product['id_product_attribute'];
-
-                                $req_idattribute_parcoursordered = "SELECT `id_attribute` FROM `"._DB_PREFIX_."product_attribute_combination` WHERE `id_product_attribute` = ".$id_product_attribute_ordered;
-                                    if($req_idattribute_parcoursordered = Db::getInstance()->executeS($req_idattribute_parcoursordered)) {
-    
-                                        $id_attribut_ordered = 0;
-    
-                                        foreach ($req_idattribute_parcoursordered as $row_idattribute_parcoursordered) {
-                                            $id_attribut_ordered = $row_idattribute_parcoursordered['id_attribute'];
-                                        }
-                                        if(isset($id_attribut_ordered) && !empty($id_attribut_ordered)) {
-
-                                            $name_attribut_ordered = "";
-    
-                                            $req_nameattribute_parcoursordered = "SELECT `name` FROM `"._DB_PREFIX_."attribute_lang` WHERE `id_attribute` = ".$id_attribut_ordered;
-                                            if($req_nameattribute_parcoursordered = Db::getInstance()->executeS($req_nameattribute_parcoursordered)) {
-                                                foreach ($req_nameattribute_parcoursordered as $row_nameattribute_parcoursordered) {
-                                                    $name_attribut_ordered = $row_nameattribute_parcoursordered['name'];
-                                                }
-                                            }
-
-                                            /* 1 à 3 équipes */
-                                            if (strpos($name_attribut_ordered, '1 à 3') !== false) {
-                                                /* LE PDF DU PARCOURS ACHETES JUSQU'A 3 EQUIPES */
-                                                $nbre_equipe = "13";
-                                            }
-                                            /* 4 à 6 équipes */ /* 7 à 10 équipes */
-                                            else if (strpos($name_attribut_ordered, '4 à 6') !== false || strpos($name_attribut_ordered, '7 à 10') !== false) {
-                                                /* LE PDF DU PARCOURS ACHETES A PARTIR DE 5 EQUIPES */
-                                                $nbre_equipe = "410";
-                                            }
-
-                                            /* TABLEAU DES PARCOURS ACHETES */
-                                            $parcours_achetes[$cart_product['reference']] = $cart_product['reference'].'_'.$nbre_equipe;
-                                        }
-                                    }
+                            /* 1 équipe */
+                            if (strpos($cart_product['name'], '1 équipe max') !== false) {
+                                /* LE PDF DU PARCOURS ACHETES JUSQU'A 3 EQUIPES */
+                                $nbre_equipe = "13";
                             }
+                            /* 5 équipes */ /* 10 équipes */
+                            else if (strpos($cart_product['name'], '5 équipes max') !== false || strpos($cart_product['name'], '10 équipes max') !== false) {
+                                /* LE PDF DU PARCOURS ACHETES A PARTIR DE 5 EQUIPES */
+                                $nbre_equipe = "410";
+                            }
+
+                            /* TABLEAU DES PARCOURS ACHETES */
+                            $parcours_achetes[$cart_product['reference']] = $cart_product['reference'].'_'.$nbre_equipe;
                         }
 
                         if($nbre_equipe != "00") {
@@ -1264,22 +1237,13 @@ abstract class PaymentModuleCore extends Module
      *
      * @return boolean
      */
-    function generateMotDePasseBdd($length = 6, $id_product, $id_order) {
+    function generateMotDePasseBdd($length = 6, $id_product, $id_order, $nom_pdt) {
+
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
         $randomString = '';
         for ($i = 0; $i < $length; $i++) {
             $randomString .= $characters[rand(0, $charactersLength - 1)];
-        }
-
-        $nom_pdt = "";
-        /* NAME OF PRODUCT */
-        $req_nom_pdt = "SELECT `name` FROM `"._DB_PREFIX_."product_lang` WHERE `id_product` = ".$id_product;
-
-        if ($results_nom_pdt = Db::getInstance()->ExecuteS($req_nom_pdt)) {
-            foreach ($results_nom_pdt as $row_nom_pdt) {
-                $nom_pdt = $row_nom_pdt['name'];
-            }
         }
 
         $id_parcours = 0;
@@ -1291,20 +1255,42 @@ abstract class PaymentModuleCore extends Module
                 $id_parcours = $row_id_parcours['prc_id'];
             }
         }
-
         /* SAVE IT IN DATABASE */        
         if(Db::getInstance()->execute("
         INSERT INTO `"._DB_PREFIX_."achat` (`ach_id`, `ach_cod`, `ach_active`, `ach_prc_id`, `ach_prc_fin`, `ach_mdp`)
         VALUES (DEFAULT,'".$id_order."','1',".$id_parcours.",NULL,'".$randomString."')")) {
 
-            /* 06/07/2019 */
-            $id_achat_inserted = (int)Db::getInstance()->Insert_ID();
+            /* 06/07/2019 - 19/08/2019 */
+            $id_achat_inserted = 0;
+            $sql_get_last_a = 'SELECT * FROM '._DB_PREFIX_.'achat ORDER BY ach_id DESC LIMIT 1';
+            if ($results = Db::getInstance()->ExecuteS($sql_get_last_a)) {
+                foreach ($results as $row) {
+                    $id_achat_inserted = $row['ach_id'];
+                }
+            }
 
-            /* 13/07/2019 - UPD état par défaut - eqp_active */
+            /* 13/07/2019 - 19/08/2019 - ADD état par défaut - part_statut */
             if(Db::getInstance()->execute("
-            INSERT INTO `"._DB_PREFIX_."partie` (`part_id`, `part_ach_id`, `eqp_active`)
-            VALUES (DEFAULT,'".$id_achat_inserted."',1)")) {
-                return array($nom_pdt, $randomString);
+            INSERT INTO `"._DB_PREFIX_."partie` (`part_id`, `part_ach_id`, `part_statut`)
+            VALUES (DEFAULT,".$id_achat_inserted.",0)")) {
+
+                /* 19/08/2019 */
+                $id_partie_inserted = 0;
+                $sql_get_last_pa = 'SELECT * FROM '._DB_PREFIX_.'partie ORDER BY part_id DESC LIMIT 1';
+                if ($results = Db::getInstance()->ExecuteS($sql_get_last_pa)) {
+                    foreach ($results as $row) {
+                        $id_partie_inserted = $row['part_id'];
+                    }
+                }
+                
+                /* 19/08/2019 - ADD options de la partie */
+                if(Db::getInstance()->insert('options', array(
+                    'opt_visu_loc' => (int)0,
+                    'opt_visu_scor' => (int)0,
+                    'opt_part_id' => (int)$id_partie_inserted,
+                ))) {
+                    return array($nom_pdt, $randomString);
+                }
             }
         }
         else {
