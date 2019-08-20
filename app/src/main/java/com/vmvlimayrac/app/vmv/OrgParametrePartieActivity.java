@@ -97,6 +97,15 @@ public class OrgParametrePartieActivity extends AppCompatActivity {
                                         resultString = JSONParser.makeHttpRequestString(request, "POST");
                                         if (resultString.equals("1") || resultString != null) {
                                             if (sizeMax == "1") {
+
+
+
+
+
+
+
+
+
                                                 Intent intentDirectPlay = new Intent(OrgParametrePartieActivity.this, OrgActivity.class);
                                                 startActivity(intentDirectPlay);
                                                 finish();
