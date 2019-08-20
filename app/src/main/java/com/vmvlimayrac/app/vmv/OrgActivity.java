@@ -33,9 +33,9 @@ public class OrgActivity extends AppCompatActivity {
         btn_position.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View vue) {
-                Toast.makeText(getBaseContext(), "afficher la position de toute les équipes", Toast.LENGTH_SHORT).show();
-
-                // startActivity(new Intent(OrgActivity.this, OrgParametreActivity.class));
+                Intent intent = new Intent(OrgActivity.this, OrgMapPositionActivity.class);
+                intent.putExtra("idPartie", partId);
+                startActivity(intent);
             }
         });
 

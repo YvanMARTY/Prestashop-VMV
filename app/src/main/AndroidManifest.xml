@@ -124,9 +124,14 @@
                 android:label="QuestionOrg"
                 android:screenOrientation="portrait"/>
         <activity
-                android:name=".OrgMapActivity"
+            android:name=".OrgMapActivity"
+            android:configChanges="orientation"
+            android:label="OrgMapActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+                android:name=".OrgMapPositionActivity"
                 android:configChanges="orientation"
-                android:label="OrgMapActivity"
+                android:label="OrgMapPositionActivity"
                 android:screenOrientation="portrait"/>
     </application>
 
