@@ -84,7 +84,7 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
     private String insertNewPosition;
     private Intent loading;
     private boolean isEquipeAfficher = false;
-
+    boolean done = false;
     private ScheduledExecutorService scheduleTaskExecutor;
     private JSONArray InsertPosition;
 
@@ -289,7 +289,7 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            boolean done = false;
+
             myCurrentLong = Double.toString(currentLocation.getLongitude());
             myCurrentLat =  Double.toString(currentLocation.getLatitude());
             insertNewPosition =  "https://visite-ma-ville.fr/external/external_app.php?action=InsertNewPosition&latitude="+myCurrentLat +"&longitude="+myCurrentLong + "&pinTeam="+pinEquipe+"";
@@ -550,7 +550,6 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
         JSONArray InsertPosition = JSONParser.makeHttpRequest(insertNewPosition,"POST");
 
 
-
         if(resultCode == 1){
             String res =  data.getStringExtra("result");
             if (res.equals("ok")){
@@ -641,6 +640,53 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
                 }
             }
 
+        }
+        else if( resultCode == 897654){
+            String getExistingPoint = "https://visite-ma-ville.fr/external/external_app.php?action=GetParcPointByGameId&gameId="+idPartie;
+            JSONArray resultT = JSONParser.makeHttpRequest(getExistingPoint,"GET");
+            boolean isDone = false;
+            String currentEndName = "";
+            String pts_nom = null;
+            String pnt_parc_typ_pnt_id = null;
+            String larriver = "";
+            for (int i = 0; i < resultT.length(); i++) {
+
+                JSONObject listePointPartie = null;
+                try {
+                    listePointPartie = resultT.getJSONObject(i);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    pts_nom = listePointPartie.getString("pts_nom");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    pnt_parc_typ_pnt_id = listePointPartie.getString("pnt_parc_typ_pnt_id");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                if(pnt_parc_typ_pnt_id.equals("3")){
+                   larriver = pts_nom;
+                }
+
+            }
+
+            for(Marker aMarker : listMarker) {
+
+                if (aMarker.getTitle().equals(larriver)) {
+                    aMarker.setIcon(BitmapDescriptorFactory
+                            .defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
+                    aMarker.setVisible(true);
+                    aMarker.setZIndex(2);
+                    break;
+                } else{
+                    aMarker.setVisible(false);
+                }
+            }
         }
     }
 

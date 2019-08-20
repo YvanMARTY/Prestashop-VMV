@@ -20,7 +20,7 @@ public class EndGameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent returnIntent = new Intent();
-                setResult(9999,returnIntent);
+                setResult(897654,returnIntent);
                 finish();
         }});
     }
