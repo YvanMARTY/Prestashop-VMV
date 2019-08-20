@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import org.json.JSONArray;
@@ -21,7 +20,6 @@ public class OrgParametreActivity extends AppCompatActivity {
         Intent myIntent = getIntent();
         String isGameClose = myIntent.getStringExtra("part_active");
         final String partId = myIntent.getStringExtra("part_id");
-        Log.d("DEBUG: ", isGameClose);
 
         // On crée les variables
         Boolean isVisuScoreEnable = false;
@@ -85,7 +83,7 @@ public class OrgParametreActivity extends AppCompatActivity {
                 try {
                     String resultString = JSONParser.makeHttpRequestString(link, "POST");
                     // On check si la requête s'est bien terminée
-                    if (resultString.equals("1") || resultString != null) {
+                    if (resultString.equals("1") || resultString.equals("0")) {
                         Toast.makeText(OrgParametreActivity.this, "Paramètre enregistré !", Toast.LENGTH_LONG).show();
                     }
                     else {
