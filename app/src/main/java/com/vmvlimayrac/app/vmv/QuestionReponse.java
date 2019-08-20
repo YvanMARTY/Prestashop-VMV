@@ -25,7 +25,7 @@ public class QuestionReponse{
     }
 
     public void setQcmVal(int QcmVal) {
-        this.qcm_val = qcm_val;
+        this.qcm_val = QcmVal;
     }
 
     public int getQcmVal() {

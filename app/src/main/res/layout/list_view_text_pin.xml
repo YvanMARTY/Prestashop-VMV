@@ -5,8 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
-        android:paddingBottom="10dp"
->
+        android:paddingBottom="10dp">
 
     <TextView
             android:id="@+id/equipe_name"
@@ -17,7 +16,6 @@
             android:textSize="15dp"
             android:textColor="@color/colorAccent"
     />
-
     <Button
             android:id="@+id/pin_button"
             android:layout_width="160dp"
@@ -29,6 +27,4 @@
             android:textStyle="bold"
             android:radius="50dp"
     />
-
-
 </LinearLayout>
