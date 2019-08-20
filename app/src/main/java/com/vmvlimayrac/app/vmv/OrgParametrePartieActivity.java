@@ -87,7 +87,6 @@ public class OrgParametrePartieActivity extends AppCompatActivity {
                     intent.putExtra("part_id", partId);
                     intent.putExtra("part_active", isGameClose);
                     if (resultString.equals("1") || resultString != null) {
-                        Toast.makeText(OrgParametrePartieActivity.this, "Paramètre enregistré !", Toast.LENGTH_LONG).show();
                         try {
                             resultString = JSONParser.makeHttpRequestString(requestSetParam, "POST");
                             if (resultString != null) {
@@ -138,7 +137,7 @@ public class OrgParametrePartieActivity extends AppCompatActivity {
     }
 
     void confirmDialog(final Intent intent) {
-        new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Commencer une partie").setMessage("Êtes vous sûr de vouloir lancer la partie? Cette action est définitive.").setPositiveButton("Yes", new DialogInterface.OnClickListener()
+        new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Commencer une partie").setMessage("Êtes vous sûr de vouloir lancer la partie? Cette action est définitive.").setPositiveButton("Oui", new DialogInterface.OnClickListener()
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -148,7 +147,7 @@ public class OrgParametrePartieActivity extends AppCompatActivity {
                     }
 
                 })
-                .setNegativeButton("No", null)
+                .setNegativeButton("Non", null)
                 .show();
     }
 }
