@@ -6,12 +6,12 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
 import android.widget.Toast;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class OrgParametrePartieActivity extends AppCompatActivity {
@@ -97,15 +97,7 @@ public class OrgParametrePartieActivity extends AppCompatActivity {
                                         resultString = JSONParser.makeHttpRequestString(request, "POST");
                                         if (resultString.equals("1") || resultString != null) {
                                             if (sizeMax == "1") {
-
-
-
-
-
-
-
-
-
+                                                getPinFromOneTeam(partId);
                                                 Intent intentDirectPlay = new Intent(OrgParametrePartieActivity.this, OrgActivity.class);
                                                 startActivity(intentDirectPlay);
                                                 finish();
@@ -164,5 +156,26 @@ public class OrgParametrePartieActivity extends AppCompatActivity {
                 .setNegativeButton("Non", null)
                 .show();
         return isOk[0];
+    }
+
+    // Ici on cherche le pin d'une seule équipe car la partie n'a qu'une équipe
+    String getPinFromOneTeam(String partId) {
+        String pinToReturn = "";
+        // La requête ne doit renvoyer qu'une équipe (c'est impossible autrement)
+        String request = "https://visite-ma-ville.fr/external/external_app.php?action=GetAllTeamInfo&gameId=" + partId;
+        JSONArray result = JSONParser.makeHttpRequest(request,"GET");
+
+        JSONObject listPinEquipe = null;
+        try {
+            listPinEquipe = result.getJSONObject(0);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            pinToReturn = listPinEquipe.getString("eqp_pin");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return pinToReturn;
     }
 }
