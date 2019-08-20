@@ -134,6 +134,32 @@ public class OrgParametrePartieActivity extends AppCompatActivity {
                                 resultString = JSONParser.makeHttpRequestString(request, "POST");
                                 if (resultString.equals("1") || resultString != null) {
                                     if (sizeMax.equals("1")) {
+                                        Switch Switch_suivis = (Switch) findViewById(R.id.Switch_suivis);
+                                        Switch Switch_score = (Switch) findViewById(R.id.Switch_score);
+                                        String Switch_scoreString = "0";
+                                        String Switch_suivisString = "0";
+                                        if (Switch_score.isChecked()) {
+                                            Switch_scoreString = "1";
+                                        }
+                                        if (Switch_suivis.isChecked()) {
+                                            Switch_suivisString = "1";
+                                        }
+                                        // On balance à la bdd l'état des bouttons
+                                        String link = "https://visite-ma-ville.fr/external/external_app.php?action=SetGameOptions&visuScore=" + Switch_scoreString + "&visuLocalisation=" + Switch_suivisString + "&gameId=" + partId;
+                                        try {
+                                            String resultStrings = JSONParser.makeHttpRequestString(link, "POST");
+                                            // On check si la requête s'est bien terminée
+                                            if (resultStrings.equals("1") || resultStrings.equals("0")) {
+                                                Toast.makeText(OrgParametrePartieActivity.this, "Paramètre enregistré !", Toast.LENGTH_LONG).show();
+                                            }
+                                            else {
+                                                Toast.makeText(OrgParametrePartieActivity.this, "Problème côté serveur !", Toast.LENGTH_LONG).show();
+                                            }
+                                        } catch(Exception e) {
+                                            Toast.makeText(OrgParametrePartieActivity.this, "ERROR: problème de connexion internet !", Toast.LENGTH_LONG).show();
+                                        }
+
+
                                         String pinId = getPinFromOneTeam(partId);
 
                                         String getPartieInfo = "https://visite-ma-ville.fr/external/external_app.php?action=GetInfoByTeamPin&pinTeam="+pinId;

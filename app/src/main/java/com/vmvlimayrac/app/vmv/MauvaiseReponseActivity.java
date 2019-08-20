@@ -28,9 +28,7 @@ public class MauvaiseReponseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mauvaise_reponse);
-
         TextView textViewBonneReponse = findViewById(R.id.textViewBonneReponse);
-
         Bundle b = getIntent().getExtras();
         laBonneReponse = b.getString("textBonReponse");
         textViewBonneReponse.setText(laBonneReponse);
@@ -42,12 +40,11 @@ public class MauvaiseReponseActivity extends AppCompatActivity {
                 returnIntent.putExtra("result","nok");
                 setResult(2,returnIntent);
                 finish();
-            }});
-
+        }});
     }
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed(){
         // super.onBackPressed(); commented this line in order to disable back press
         //Write your code here
         Toast.makeText(getApplicationContext(), "Il faut accepter de ce tromper ...", Toast.LENGTH_SHORT).show();
