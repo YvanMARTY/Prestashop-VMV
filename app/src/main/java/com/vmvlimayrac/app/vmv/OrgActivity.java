@@ -23,9 +23,9 @@ public class OrgActivity extends AppCompatActivity {
         btn_parcours.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View vue) {
-                Toast.makeText(getBaseContext(), "afficher le parcours", Toast.LENGTH_SHORT).show();
-
-                // startActivity(new Intent(OrgActivity.this, OrgParametreActivity.class));
+                Intent intent = new Intent(OrgActivity.this, OrgMapActivity.class);
+                intent.putExtra("partId", partId);
+                startActivity(intent);
             }
         });
 
