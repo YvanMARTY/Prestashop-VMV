@@ -1,12 +1,10 @@
 package com.vmvlimayrac.app.vmv;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.location.Location;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -24,7 +22,6 @@ import com.google.android.gms.maps.model.*;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
 
@@ -94,13 +91,6 @@ public class OrgInfoPartieActivity extends AppCompatActivity implements OnMapRea
             }
         });
 
-    }
-
-    public JSONArray loadJson(String json) throws JSONException {
-        JSONArray jsonArray = new JSONArray(json);
-
-
-        return jsonArray;
     }
 
     public void onTaskComplete(JSONArray result, final GoogleMap googleMap) {
@@ -194,14 +184,11 @@ public class OrgInfoPartieActivity extends AppCompatActivity implements OnMapRea
 
             @Override
             public boolean onMarkerClick(Marker marker) {
-                Intent myIntent = new Intent(OrgInfoPartieActivity.this,questionActivity.class);
+                Intent myIntent = new Intent(OrgInfoPartieActivity.this, OrgQuestionActivity.class);
                 int idquestion = Integer.parseInt(marker.getSnippet());
                 myIntent.putExtra("Idquestion", idquestion);
                 startActivityForResult(myIntent,1);
-
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-
-
                 return true;
             }
         });
