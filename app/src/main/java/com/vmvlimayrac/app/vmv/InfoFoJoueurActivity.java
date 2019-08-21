@@ -86,6 +86,7 @@ public class InfoFoJoueurActivity extends AppCompatActivity {
                     intent.putExtra("opt_visu_scor",opt_visu_scor);
                     intent.putExtra("opt_visu_loc",opt_visu_loc);
                     intent.putExtra("thereIsPoint","0");
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     getApplicationContext().startActivity(intent);
                     finish();
                 }

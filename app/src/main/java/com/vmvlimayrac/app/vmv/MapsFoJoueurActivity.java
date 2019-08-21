@@ -119,6 +119,7 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ScoreActivity.class);
                 intent.putExtra("idPartie" , idPartie);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
         });
@@ -296,6 +297,7 @@ public class MapsFoJoueurActivity extends FragmentActivity implements OnMapReady
             InsertPosition = JSONParser.makeHttpRequest(insertNewPosition,"POST");
             if(isPartieEnd() == true && done == false){
                 Intent myIntent = new Intent(MapsFoJoueurActivity.this, EndGameActivity.class);
+                myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivityForResult(myIntent, 9999);
                 done = true;
             }

@@ -46,6 +46,7 @@ public class LauncherActivity extends AppCompatActivity {
                 if(testNetwork == true && testGPS == true){
                 SystemClock.sleep(1500);
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 finish();}
                 else{
